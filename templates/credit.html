@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Credit & Financial Protection{% endblock %}
+{% block header_title %}Credit & Financial Protection{% endblock %}
+{% block header_subtitle %}Freeze credit, prevent identity theft, and protect your finances{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-credit-card text-accent"></i> Credit & Financial Protection</h1>
+</div>
+
+<!-- Credit Freeze Cards -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-snowflake text-info"></i> Credit Freeze</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Freezing your credit at all major bureaus prevents unauthorized accounts from being opened. It's free by federal law.</p>
+
+  <div class="grid-3">
+    <a href="https://www.equifax.com/personal/credit-report-services/credit-freeze/" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(255,107,107,0.15); color:#ff6b6b;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>Equifax</h4>
+        <p>Freeze or manage your credit</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+
+    <a href="https://www.experian.com/freeze/center.html" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(78,205,196,0.15); color:#4ecdc4;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>Experian</h4>
+        <p>Freeze or manage your credit</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+
+    <a href="https://www.transunion.com/credit-freeze" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(0,212,170,0.15); color:#00d4aa;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>TransUnion</h4>
+        <p>Freeze or manage your credit</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+
+    <a href="https://www.innovis.com/personal/securityFreeze" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(255,217,61,0.15); color:#ffd93d;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>Innovis</h4>
+        <p>Lesser-known bureau — freeze this too</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+
+    <a href="https://www.chexsystems.com/web/chexsystems/consumerdebit/page/securityfreeze/placefreeze" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(155,89,182,0.15); color:#9b59b6;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>ChexSystems</h4>
+        <p>Banking fraud prevention</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+
+    <a href="https://www.nctue.com/Consumers" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(52,152,219,0.15); color:#3498db;">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <div class="action-info">
+        <h4>NCTUE</h4>
+        <p>Utility/telecom fraud prevention</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+  </div>
+</div>
+
+<!-- OptOutPrescreen -->
+<div class="card mb-3">
+  <a href="https://www.optoutprescreen.com/" target="_blank" class="action-card" style="border:none; padding:0;">
+    <div class="action-icon" style="background:rgba(0,212,170,0.15); color:#00d4aa;">
+      <i class="fa-solid fa-ban"></i>
+    </div>
+    <div class="action-info">
+      <h4>OptOutPrescreen.com</h4>
+      <p>Stop pre-approved credit card and insurance offers. Official opt-out from Equifax, Experian, Innovis & TransUnion.</p>
+    </div>
+    <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+  </a>
+</div>
+
+<!-- Identity Theft Checklist -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-list-check text-warning"></i> Identity Theft Prevention Checklist</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Complete these steps to maximize your protection against identity theft.</p>
+  <div class="checkbox-group">
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-1">
+      <span>Freeze credit at all 6 bureaus (Equifax, Experian, TransUnion, Innovis, ChexSystems, NCTUE)</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-2">
+      <span>Opt out of pre-approved offers at OptOutPrescreen.com</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-3">
+      <span>Set up fraud alerts with all credit bureaus</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-4">
+      <span>Review credit reports from AnnualCreditReport.com (free weekly)</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-5">
+      <span>Enable 2FA on all financial accounts</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-6">
+      <span>Set up transaction alerts on all bank/credit accounts</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-7">
+      <span>File an IRS Identity Protection PIN (IP PIN) request</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-8">
+      <span>Register for SSA.gov to prevent fraudulent Social Security claims</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-9">
+      <span>Set up USPS Informed Delivery to monitor your mail</span>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="checklist-10">
+      <span>Consider an identity monitoring service for real-time alerts</span>
+    </label>
+  </div>
+</div>
+
+<!-- Financial Monitoring Guide -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-chart-line text-accent"></i> Financial Monitoring Setup Guide</h3>
+  </div>
+  <div class="activity-feed">
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-1"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Check your free credit reports weekly</div>
+        <div class="activity-meta">Visit <a href="https://www.annualcreditreport.com" target="_blank">AnnualCreditReport.com</a> — the official site for free reports from all 3 bureaus.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-2"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Set up bank transaction alerts</div>
+        <div class="activity-meta">Enable instant notifications for any transaction above $0 on all checking, savings, and credit accounts.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-3"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Use a dedicated email for financial accounts</div>
+        <div class="activity-meta">Separate your financial email from your general-use email to reduce phishing exposure.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-4"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Enable SIM lock with your carrier</div>
+        <div class="activity-meta">Prevent SIM swapping by adding a PIN to your mobile carrier account (AT&T, Verizon, T-Mobile).</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-5"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Consider credit monitoring</div>
+        <div class="activity-meta">Free options: Credit Karma, Experian free monitoring. Many banks also offer free credit score tracking.</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

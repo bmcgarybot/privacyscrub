@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}Opt-Out Center{% endblock %}
+{% block header_title %}Opt-Out Center{% endblock %}
+{% block header_subtitle %}Track and manage data removal requests{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <h1><i class="fa-solid fa-paper-plane text-accent"></i> Opt-Out Center</h1>
+    <div class="btn-group">
+      <button class="btn btn-ghost" onclick="selectAllOptOuts()">
+        <i class="fa-solid fa-check-double"></i> Select All
+      </button>
+      <button class="btn btn-primary" id="batch-submit-btn" onclick="batchSubmitSelected()">
+        <i class="fa-solid fa-paper-plane"></i> Batch Submit
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Batch Actions Bar -->
+<div class="card mb-2" id="batch-actions" style="display:none; padding:14px 20px;">
+  <div style="display:flex; align-items:center; justify-content:space-between;">
+    <span><strong class="batch-count">0</strong> items selected</span>
+    <div class="btn-group">
+      <button class="btn btn-primary btn-sm" onclick="batchSubmitSelected()"><i class="fa-solid fa-paper-plane"></i> Submit Selected</button>
+      <button class="btn btn-ghost btn-sm" onclick="selectAllOptOuts()"><i class="fa-solid fa-xmark"></i> Deselect</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card warning">
+    <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+    <div class="stat-value">{{ pending|default(8) }}</div>
+    <div class="stat-label">Pending</div>
+  </div>
+  <div class="stat-card info">
+    <div class="stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+    <div class="stat-value">{{ submitted|default(12) }}</div>
+    <div class="stat-label">Submitted</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon"><i class="fa-solid fa-spinner"></i></div>
+    <div class="stat-value">{{ processing|default(5) }}</div>
+    <div class="stat-label">Processing</div>
+  </div>
+  <div class="stat-card success">
+    <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="stat-value">{{ confirmed|default(31) }}</div>
+    <div class="stat-label">Confirmed</div>
+  </div>
+</div>
+
+<!-- View Toggle -->
+<div class="mb-2" style="display:flex; gap:8px;">
+  <button class="btn btn-ghost btn-sm active" id="view-kanban-btn" onclick="toggleOptOutView('kanban')">
+    <i class="fa-solid fa-columns"></i> Kanban
+  </button>
+  <button class="btn btn-ghost btn-sm" id="view-table-btn" onclick="toggleOptOutView('table')">
+    <i class="fa-solid fa-table"></i> Table
+  </button>
+</div>
+
+<!-- Kanban View -->
+<div id="kanban-view">
+  <div class="kanban-board">
+    <!-- Pending Column -->
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <h4><i class="fa-solid fa-clock" style="color:var(--warning);"></i> Pending <span class="kanban-count">{{ pending|default(3) }}</span></h4>
+      </div>
+      <div class="kanban-cards">
+        {% for item in optouts_pending|default([]) %}
+        <div class="kanban-card" onclick="Modal.open('optout-detail-{{ item.id }}')">
+          <div class="kanban-card-title">{{ item.broker_name }}</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-layer-group"></i> {{ item.category }}</span>
+            <span><i class="fa-solid fa-calendar"></i> Added {{ item.created }}</span>
+          </div>
+        </div>
+        {% else %}
+        <div class="kanban-card">
+          <div class="kanban-card-title">Whitepages</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
+            <span><i class="fa-solid fa-calendar"></i> Added Jan 15</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">Radaris</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
+            <span><i class="fa-solid fa-calendar"></i> Added Jan 15</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">Intelius</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
+            <span><i class="fa-solid fa-calendar"></i> Added Jan 14</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Submitted Column -->
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <h4><i class="fa-solid fa-paper-plane" style="color:var(--info);"></i> Submitted <span class="kanban-count">{{ submitted_count|default(4) }}</span></h4>
+      </div>
+      <div class="kanban-cards">
+        <div class="kanban-card">
+          <div class="kanban-card-title">BeenVerified</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 13</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> Est. 7 days</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">FastPeopleSearch</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 12</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> Est. 3 days</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">ZoomInfo</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 10</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> Est. 14 days</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">Apollo.io</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 10</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> Est. 10 days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Processing Column -->
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <h4><i class="fa-solid fa-spinner" style="color:var(--accent);"></i> Processing <span class="kanban-count">{{ processing_count|default(2) }}</span></h4>
+      </div>
+      <div class="kanban-cards">
+        <div class="kanban-card">
+          <div class="kanban-card-title">Spokeo</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Started Jan 8</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> ~2 days remaining</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">Nuwber</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-calendar"></i> Started Jan 7</span>
+            <span><i class="fa-solid fa-hourglass-half"></i> ~5 days remaining</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmed Column -->
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <h4><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Confirmed <span class="kanban-count">{{ confirmed_count|default(5) }}</span></h4>
+      </div>
+      <div class="kanban-cards">
+        <div class="kanban-card">
+          <div class="kanban-card-title">MyLife</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 12</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">PeopleFinders</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 10</span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="kanban-card-title">TruePeopleSearch</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reappeared Column -->
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <h4><i class="fa-solid fa-rotate" style="color:var(--danger);"></i> Reappeared <span class="kanban-count">{{ reappeared_count|default(1) }}</span></h4>
+      </div>
+      <div class="kanban-cards">
+        <div class="kanban-card" style="border-left:3px solid var(--danger);">
+          <div class="kanban-card-title">USPhoneBook</div>
+          <div class="kanban-card-meta">
+            <span><i class="fa-solid fa-triangle-exclamation text-danger"></i> Reappeared Jan 14</span>
+            <span>Originally removed Dec 20</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Table View (hidden by default) -->
+<div id="table-view" style="display:none;">
+  <div class="card">
+    <div class="filter-bar">
+      <div class="search-input">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="form-control" placeholder="Search opt-outs..." data-table-search="optout-table">
+      </div>
+      <select class="form-control filter-select" data-table-filter="optout-table" data-filter-column="3">
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="submitted">Submitted</option>
+        <option value="processing">Processing</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="reappeared">Reappeared</option>
+      </select>
+    </div>
+    <div class="table-container">
+      <table id="optout-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" onchange="selectAllOptOuts()"></th>
+            <th>Broker</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Submitted</th>
+            <th>Expected</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" class="optout-checkbox" value="whitepages" onchange="updateBatchActions()"></td>
+            <td><strong>Whitepages</strong></td>
+            <td>People Search</td>
+            <td><span class="badge warning">Pending</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td><button class="btn btn-primary btn-sm" onclick="submitOptOut('whitepages')"><i class="fa-solid fa-paper-plane"></i></button></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="optout-checkbox" value="spokeo" onchange="updateBatchActions()"></td>
+            <td><strong>Spokeo</strong></td>
+            <td>People Search</td>
+            <td><span class="badge info">Processing</span></td>
+            <td>Jan 8, 2024</td>
+            <td>Jan 17, 2024</td>
+            <td><button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="optout-checkbox" value="mylife" onchange="updateBatchActions()"></td>
+            <td><strong>MyLife</strong></td>
+            <td>People Search</td>
+            <td><span class="badge success">Confirmed</span></td>
+            <td>Jan 2, 2024</td>
+            <td>Jan 12, 2024</td>
+            <td><button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="optout-checkbox" value="usphonebook" onchange="updateBatchActions()"></td>
+            <td><strong>USPhoneBook</strong></td>
+            <td>Phone / Telecom</td>
+            <td><span class="badge danger">Reappeared</span></td>
+            <td>Dec 10, 2023</td>
+            <td>—</td>
+            <td><button class="btn btn-danger btn-sm" onclick="submitOptOut('usphonebook')"><i class="fa-solid fa-redo"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Opt-Out Instructions (Expandable) -->
+<div class="card mt-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-list-check text-accent"></i> Opt-Out Instructions</h3>
+  </div>
+  <div class="expandable mb-1">
+    <div class="expandable-header">
+      <span><strong>Whitepages</strong> — Phone verification required</span>
+      <i class="fa-solid fa-chevron-down expand-icon"></i>
+    </div>
+    <div class="expandable-body">
+      <div class="expandable-content">
+        <ol>
+          <li>Go to <a href="https://www.whitepages.com/suppression-requests" target="_blank">whitepages.com/suppression-requests</a></li>
+          <li>Search for your listing</li>
+          <li>Copy the profile URL</li>
+          <li>Submit with your phone number</li>
+          <li>Answer automated verification call</li>
+          <li>Enter the 4-digit code provided</li>
+        </ol>
+        <p class="mt-1 text-muted">Estimated processing time: 2 days · May reappear after 4 months</p>
+      </div>
+    </div>
+  </div>
+  <div class="expandable mb-1">
+    <div class="expandable-header">
+      <span><strong>Spokeo</strong> — Email verification required</span>
+      <i class="fa-solid fa-chevron-down expand-icon"></i>
+    </div>
+    <div class="expandable-body">
+      <div class="expandable-content">
+        <ol>
+          <li>Go to <a href="https://www.spokeo.com/optout" target="_blank">spokeo.com/optout</a></li>
+          <li>Paste your Spokeo profile URL</li>
+          <li>Enter your email address</li>
+          <li>Check email for verification link</li>
+          <li>Click the confirmation link</li>
+        </ol>
+        <p class="mt-1 text-muted">Estimated processing time: 3 days · May reappear after 6 months</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleOptOutView(view) {
+  const kanban = document.getElementById('kanban-view');
+  const table = document.getElementById('table-view');
+  const kanbanBtn = document.getElementById('view-kanban-btn');
+  const tableBtn = document.getElementById('view-table-btn');
+
+  if (view === 'table') {
+    kanban.style.display = 'none';
+    table.style.display = 'block';
+    kanbanBtn.classList.remove('active');
+    tableBtn.classList.add('active');
+  } else {
+    kanban.style.display = 'block';
+    table.style.display = 'none';
+    kanbanBtn.classList.add('active');
+    tableBtn.classList.remove('active');
+  }
+}
+</script>
+{% endblock %}

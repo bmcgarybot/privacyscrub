@@ -1,0 +1,71 @@
+CONNECTICUT DATA PRIVACY ACT — REQUEST TO DELETE PERSONAL DATA
+================================================================
+
+To: {{COMPANY_NAME}}
+    Privacy Department
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Formal Request to Delete Personal Data — Connecticut Data Privacy Act (Conn. Gen. Stat. § 42-515 et seq.)
+
+Dear Privacy Officer,
+
+I am a Connecticut resident exercising my consumer rights under the Connecticut Data Privacy Act (CTDPA), effective July 1, 2023.
+
+Under Conn. Gen. Stat. § 42-520, as a Connecticut consumer, I have the right to:
+  (1) Confirm whether a controller is processing my personal data and access such data;
+  (2) Correct inaccuracies in my personal data;
+  (3) Delete personal data provided by or obtained about me;
+  (4) Obtain a copy of my personal data in a portable and readily usable format; and
+  (5) Opt out of the processing of my personal data for purposes of targeted advertising, the sale of personal data, or profiling in furtherance of solely automated decisions that produce legal or similarly significant effects.
+
+I am hereby exercising my RIGHT TO DELETE (item 3) and my RIGHT TO OPT OUT (item 5).
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address (Connecticut): {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+
+SCOPE OF DELETION REQUEST:
+I request the deletion of ALL personal data your organization has collected or obtained about me. "Personal data" under the CTDPA means any information that is linked or reasonably linkable to an identified or identifiable individual, excluding de-identified data or publicly available information.
+
+This includes but is not limited to:
+  - Identifiers and contact information
+  - Commercial and transactional records
+  - Internet and electronic network activity information
+  - Geolocation data
+  - Audio, electronic, visual, or similar information
+  - Inferences drawn to create a consumer profile
+  - Sensitive data (racial/ethnic origin, religious beliefs, mental or physical health condition or diagnosis, sex life, sexual orientation, citizenship or immigration status, genetic or biometric data uniquely identifying an individual, personal data of a known child, precise geolocation data)
+
+OPT-OUT REQUESTS:
+I additionally direct you to immediately cease:
+  (a) Selling my personal data to third parties;
+  (b) Processing my personal data for purposes of targeted advertising; and
+  (c) Profiling me in furtherance of solely automated decisions that produce legal or similarly significant effects.
+
+CONSENT FOR SENSITIVE DATA:
+Under Conn. Gen. Stat. § 42-522, processing of sensitive data requires my affirmative consent. I do not provide and have not provided such consent.
+
+RESPONSE TIMELINE:
+You must respond to this request within 45 calendar days of receipt. You may extend this period once by an additional 45 days where reasonably necessary, provided you inform me of the extension and the reason for the delay within the initial 45-day period.
+
+APPEALS:
+If you decline to take action, I have the right to appeal your decision. You must provide a mechanism for me to appeal, respond to my appeal within 60 days, and provide instructions for contacting the Connecticut Attorney General if the appeal is denied.
+
+ENFORCEMENT:
+The Connecticut Attorney General has exclusive authority to enforce the CTDPA. Violations are treated as unfair trade practices under the Connecticut Unfair Trade Practices Act (Conn. Gen. Stat. § 42-110a et seq.).
+
+Please confirm deletion of my personal data in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

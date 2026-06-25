@@ -1,0 +1,64 @@
+ARIZONA CONSUMER DATA PRIVACY ACT — REQUEST TO DELETE PERSONAL DATA
+=====================================================================
+
+To: {{COMPANY_NAME}}
+    Privacy Department
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Formal Request to Delete Personal Data — Arizona Consumer Data Privacy Act (A.R.S. § 18-571 et seq.)
+
+Dear Privacy Officer,
+
+I am an Arizona resident and I am exercising my right to request deletion of my personal data under the Arizona Consumer Data Privacy Act (ACDPA), effective September 30, 2026.
+
+Under A.R.S. § 18-573, as a consumer, I have the right to:
+  (1) Confirm whether a controller is processing my personal data;
+  (2) Access my personal data;
+  (3) Correct inaccuracies in my personal data;
+  (4) Delete personal data provided by or obtained about me; and
+  (5) Obtain a copy of my personal data in a portable and readily usable format.
+
+I am hereby exercising my RIGHT TO DELETE (item 4 above).
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address (Arizona): {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+
+SCOPE OF DELETION REQUEST:
+I request the deletion of ALL personal data your business has collected or obtained about me. "Personal data" under the ACDPA means any information that is linked or reasonably linkable to an identified or identifiable individual. This does not include de-identified data or publicly available information as defined in the statute.
+
+This includes but is not limited to:
+  - Identifiers and contact information
+  - Commercial and transaction data
+  - Internet and network activity data
+  - Geolocation data
+  - Inferences drawn to create a consumer profile
+  - Sensitive data (racial/ethnic origin, religious beliefs, health data, biometric data, precise geolocation, personal data of a known child)
+
+RESPONSE TIMELINE:
+Under the ACDPA, you must respond to this request within 45 calendar days. You may extend this period by an additional 45 days where reasonably necessary, provided you inform me of the extension and the reason for the delay.
+
+NON-DISCRIMINATION:
+Under the ACDPA, you may not process personal data in violation of state and federal anti-discrimination laws, and you may not discriminate against me for exercising my consumer rights.
+
+APPEALS:
+If you decline to take action on my request, I have the right to appeal your decision. If the appeal is denied, I may file a complaint with the Arizona Attorney General.
+
+ENFORCEMENT:
+The Arizona Attorney General has exclusive authority to enforce the ACDPA. Violations may result in civil penalties of up to $10,000 per violation.
+
+Please confirm deletion of my personal data in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

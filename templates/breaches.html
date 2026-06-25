@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Breach Monitor{% endblock %}
+{% block header_title %}Breach Monitor{% endblock %}
+{% block header_subtitle %}Monitor for data breaches and compromised passwords{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-user-secret text-accent"></i> Breach Monitor</h1>
+</div>
+
+<!-- Email Breach Check -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-envelope-open-text text-danger"></i> Email Breach Check</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Check if your email has been exposed in known data breaches. Powered by Have I Been Pwned.</p>
+  <div class="form-inline">
+    <div class="form-group">
+      <input type="email" class="form-control" id="breach-email-input" placeholder="Enter your email address...">
+    </div>
+    <button class="btn btn-primary" id="check-breach-btn" onclick="checkBreaches(document.getElementById('breach-email-input').value)">
+      <i class="fa-solid fa-magnifying-glass"></i> Check Breaches
+    </button>
+  </div>
+</div>
+
+<!-- Breach Results -->
+<div class="card mb-3" id="breach-results-card">
+  <div class="card-header">
+    <h3>Breach Results</h3>
+  </div>
+  <div id="breach-results">
+    <div class="empty-state">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h3>Enter an email to check</h3>
+      <p>Results will appear here after checking</p>
+    </div>
+  </div>
+</div>
+
+<!-- Stats & Timeline -->
+<div class="grid-2 mb-3">
+  <!-- Breach Stats -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Breach Summary</h3>
+    </div>
+    <div class="stats-grid" style="margin-bottom:0;">
+      <div class="stat-card danger">
+        <div class="stat-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+        <div class="stat-value">{{ breach_count|default(3) }}</div>
+        <div class="stat-label">Total Breaches</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+        <div class="stat-value">{{ total_records|default('921M') }}</div>
+        <div class="stat-label">Records Exposed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breach Timeline -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Breach Timeline</h3>
+    </div>
+    <div style="height: 200px;">
+      <canvas id="breach-timeline-chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Password Check -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-key text-warning"></i> Password Audit</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Check if a password has appeared in known breaches. Uses k-anonymity — your full password is <strong>never</strong> sent over the network.</p>
+  <div class="form-inline">
+    <div class="form-group">
+      <input type="password" class="form-control" id="password-check-input" placeholder="Enter a password to check...">
+    </div>
+    <button class="btn btn-warning" onclick="checkPassword()">
+      <i class="fa-solid fa-key"></i> Check Password
+    </button>
+  </div>
+  <div id="password-result" class="mt-2"></div>
+  <div class="form-hint mt-1">
+    <i class="fa-solid fa-shield-halved"></i> Your password is hashed locally using SHA-1. Only the first 5 characters of the hash are sent to the HIBP API (k-anonymity).
+  </div>
+</div>
+
+<!-- Recommendations -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-lightbulb text-accent"></i> Recommendations</h3>
+  </div>
+  <div class="activity-feed">
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(255,107,107,0.15); color:var(--danger);">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Change passwords for breached services</div>
+        <div class="activity-meta">Use unique passwords for each service. Consider a password manager.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(0,212,170,0.15); color:var(--accent);">
+        <i class="fa-solid fa-shield-check"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Enable two-factor authentication (2FA)</div>
+        <div class="activity-meta">Add 2FA to all accounts, especially email, banking, and social media.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(255,217,61,0.15); color:var(--warning);">
+        <i class="fa-solid fa-credit-card"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Monitor your credit reports</div>
+        <div class="activity-meta">Check for unauthorized accounts or inquiries. Consider a credit freeze.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(78,205,196,0.15); color:var(--info);">
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Use email aliases for signups</div>
+        <div class="activity-meta">Services like SimpleLogin or Apple's Hide My Email reduce exposure.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(155,89,182,0.15); color:#9b59b6;">
+        <i class="fa-solid fa-eye"></i>
+      </div>
+      <div class="activity-content">
+        <div class="activity-title">Set up breach notifications</div>
+        <div class="activity-meta">Register at haveibeenpwned.com/NotifyMe for future breach alerts.</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

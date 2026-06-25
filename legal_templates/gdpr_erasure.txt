@@ -1,0 +1,64 @@
+GDPR ARTICLE 17 — RIGHT TO ERASURE REQUEST
+============================================
+
+To: {{COMPANY_NAME}}
+    Data Protection Officer / Privacy Department
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Formal Request for Erasure of Personal Data — GDPR Article 17
+
+Dear Data Protection Officer,
+
+I am writing to exercise my right to erasure ("right to be forgotten") as provided under Article 17 of the General Data Protection Regulation (EU) 2016/679 (GDPR).
+
+I request that you erase all personal data you hold about me without undue delay. Under Article 17(1), you are obligated to erase personal data where:
+
+  (a) The personal data are no longer necessary for the purpose for which they were collected;
+  (b) I withdraw my consent on which the processing was based (Article 6(1)(a) or Article 9(2)(a));
+  (c) I object to the processing pursuant to Article 21(1) and there are no overriding legitimate grounds;
+  (d) The personal data have been unlawfully processed;
+  (e) The personal data must be erased in compliance with a legal obligation;
+  (f) The personal data were collected in relation to the offer of information society services (Article 8(1)).
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address: {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+  Other Identifiers: {{OTHER_IDENTIFIERS}}
+
+SCOPE OF REQUEST:
+I request that you erase ALL personal data relating to me that your organization holds, processes, or controls. This includes, but is not limited to:
+  - Contact information (name, address, phone, email)
+  - Biometric or identification data
+  - Location data and IP addresses
+  - Browsing and usage histories
+  - Purchase and transaction records
+  - Profiling data and inferred information
+  - Any data shared with or obtained from third parties
+  - Backup and archived copies
+
+THIRD-PARTY NOTIFICATION:
+Under Article 17(2), where you have made the personal data public, I request that you take reasonable steps to inform other controllers processing the data that I have requested erasure of any links to, copies of, or replications of that personal data.
+
+Under Article 19, I request that you notify each recipient to whom personal data have been disclosed of this erasure request, unless this proves impossible or involves disproportionate effort. Please inform me of those recipients.
+
+RESPONSE TIMELINE:
+Under Article 12(3), you are required to respond to this request without undue delay and in any event within one (1) month of receipt. This period may be extended by two further months where necessary, taking into account the complexity and number of requests, but you must inform me of any such extension within one month of receipt of the request, together with the reasons for the delay.
+
+CONSEQUENCES OF NON-COMPLIANCE:
+Failure to comply with this request may result in a complaint to my national Data Protection Authority, and you may be subject to administrative fines of up to €20 million or 4% of your annual worldwide turnover, whichever is greater (Article 83(5)).
+
+Please confirm completion of this erasure request in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

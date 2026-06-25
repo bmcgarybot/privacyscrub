@@ -1,0 +1,111 @@
+CALIFORNIA CONSUMER PRIVACY ACT / CALIFORNIA PRIVACY RIGHTS ACT — ENHANCED DELETION REQUEST
+==============================================================================================
+
+To: {{COMPANY_NAME}}
+    Privacy Department / Data Protection Officer
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Verified Consumer Request to Delete Personal Information — Cal. Civ. Code § 1798.105 (CCPA/CPRA)
+
+Dear Privacy Officer,
+
+I am a California resident exercising my rights under the California Consumer Privacy Act (CCPA), as amended and expanded by the California Privacy Rights Act (CPRA), Cal. Civ. Code § 1798.100 et seq., effective January 1, 2023, with enforcement beginning July 1, 2023.
+
+This is a VERIFIED CONSUMER REQUEST TO DELETE all personal information and sensitive personal information your business has collected, purchased, or otherwise obtained about me.
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address (California): {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+
+RIGHTS EXERCISED:
+
+1. RIGHT TO DELETE (§ 1798.105):
+   I request deletion of ALL personal information collected from me and about me.
+
+2. RIGHT TO KNOW/ACCESS (§ 1798.100 & § 1798.110):
+   Prior to deletion, I request that you disclose:
+   (a) The categories of personal information collected about me;
+   (b) The categories of sources from which my personal information was collected;
+   (c) The business or commercial purpose for collecting or selling my personal information;
+   (d) The categories of third parties with whom you share my personal information;
+   (e) The specific pieces of personal information you have collected about me.
+
+3. RIGHT TO KNOW ABOUT SELLING/SHARING (§ 1798.115):
+   I request disclosure of:
+   (a) The categories of personal information sold or shared about me in the preceding 12 months;
+   (b) The categories of third parties to whom my personal information was sold or shared;
+   (c) The categories of personal information disclosed for a business purpose.
+
+4. RIGHT TO OPT-OUT OF SALE/SHARING (§ 1798.120):
+   I direct you to STOP selling and sharing my personal information immediately.
+
+5. RIGHT TO LIMIT USE OF SENSITIVE PERSONAL INFORMATION (§ 1798.121):
+   I direct you to limit the use and disclosure of my sensitive personal information to that which is necessary to perform the services or provide the goods reasonably expected by an average consumer.
+
+SCOPE — PERSONAL INFORMATION INCLUDES (§ 1798.140(v)):
+  (A) Identifiers
+  (B) Customer records information (Cal. Civ. Code § 1798.80(e))
+  (C) Characteristics of protected classifications
+  (D) Commercial information
+  (E) Biometric information
+  (F) Internet or electronic network activity information
+  (G) Geolocation data
+  (H) Sensory data
+  (I) Professional or employment-related information
+  (J) Non-public education information
+  (K) Inferences drawn to create a profile
+  (L) Sensitive personal information (CPRA addition)
+
+SCOPE — SENSITIVE PERSONAL INFORMATION INCLUDES (§ 1798.140(ae)):
+  - SSN, driver's license, state ID, or passport number
+  - Account log-in credentials (username + password/security question)
+  - Precise geolocation
+  - Racial or ethnic origin
+  - Religious or philosophical beliefs
+  - Union membership
+  - Genetic data
+  - Biometric data for identification
+  - Health information
+  - Sex life or sexual orientation
+
+SERVICE PROVIDERS, CONTRACTORS, AND THIRD PARTIES:
+Pursuant to § 1798.105(c), you must:
+  (1) Delete my personal information from your records;
+  (2) Notify all service providers and contractors to delete my personal information;
+  (3) Notify all third parties to whom you have sold or shared my personal information to delete my personal information.
+
+DATA BROKER REGISTRATION (§ 1798.99.80 et seq.):
+If your business is a data broker as defined under California law, I note that you are required to register with the California Privacy Protection Agency and that failure to do so constitutes a violation subject to administrative fines of $200 per day.
+
+RESPONSE TIMELINE:
+  - Confirm receipt within 10 business days
+  - Respond substantively within 45 calendar days
+  - Extension of up to 45 additional days permitted with written notice
+
+VERIFICATION:
+I am prepared to verify my identity using two or more data points as required by regulation. Contact me at the above email or phone number.
+
+NON-DISCRIMINATION (§ 1798.125):
+You may not discriminate against me for exercising my CCPA/CPRA rights.
+
+ENFORCEMENT:
+The California Privacy Protection Agency (CPPA) and the California Attorney General enforce the CCPA/CPRA. Civil penalties may reach $2,500 per unintentional violation and $7,500 per intentional violation (§ 1798.155). Consumers have a private right of action for data breaches of unencrypted personal information (§ 1798.150), with statutory damages of $100 to $750 per consumer per incident.
+
+AUTHORIZED AGENT:
+{{AUTHORIZED_AGENT_INFO_IF_APPLICABLE}}
+
+Please confirm completion of all requests in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

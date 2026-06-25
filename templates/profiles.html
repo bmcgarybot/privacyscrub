@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Family Profiles{% endblock %}
+{% block header_title %}Family Profiles{% endblock %}
+{% block header_subtitle %}Manage family members and their privacy data{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <h1><i class="fa-solid fa-users text-accent"></i> Family Profiles</h1>
+    <button class="btn btn-primary" onclick="Modal.open('add-profile-modal')">
+      <i class="fa-solid fa-plus"></i> Add Family Member
+    </button>
+  </div>
+</div>
+
+<!-- Profile Cards -->
+<div class="grid-3 mb-3">
+  {% for profile in profiles|default([]) %}
+  <div class="card" style="cursor:pointer;" onclick="location.href='/profiles/{{ profile.id }}'">
+    <div class="card-header">
+      <h3>{{ profile.name }}</h3>
+      <div class="score-mini-circle" style="border-color:{% if profile.score >= 70 %}var(--accent){% elif profile.score >= 40 %}var(--warning){% else %}var(--danger){% endif %}; color:{% if profile.score >= 70 %}var(--accent){% elif profile.score >= 40 %}var(--warning){% else %}var(--danger){% endif %};">
+        {{ profile.score }}
+      </div>
+    </div>
+    <div style="font-size:0.8rem; color:var(--text-secondary);">
+      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> {{ profile.emails|length }} emails</p>
+      <p><i class="fa-solid fa-phone" style="width:16px;"></i> {{ profile.phones|length }} phone numbers</p>
+      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> {{ profile.addresses|length }} addresses</p>
+    </div>
+    <div class="mt-2">
+      <span class="badge {% if profile.exposures > 20 %}danger{% elif profile.exposures > 5 %}warning{% else %}success{% endif %}">
+        {{ profile.exposures }} exposures
+      </span>
+    </div>
+  </div>
+  {% else %}
+  <!-- Demo profiles when no data -->
+  <div class="card">
+    <div class="card-header">
+      <h3>John Doe</h3>
+      <div class="score-mini-circle" style="border-color:var(--accent); color:var(--accent);">72</div>
+    </div>
+    <div style="font-size:0.8rem; color:var(--text-secondary);">
+      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> 2 emails</p>
+      <p><i class="fa-solid fa-phone" style="width:16px;"></i> 1 phone number</p>
+      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> 2 addresses</p>
+    </div>
+    <div class="mt-2">
+      <span class="badge warning">23 exposures</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h3>Jane Doe</h3>
+      <div class="score-mini-circle" style="border-color:var(--warning); color:var(--warning);">58</div>
+    </div>
+    <div style="font-size:0.8rem; color:var(--text-secondary);">
+      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> 3 emails</p>
+      <p><i class="fa-solid fa-phone" style="width:16px;"></i> 2 phone numbers</p>
+      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> 1 address</p>
+    </div>
+    <div class="mt-2">
+      <span class="badge danger">38 exposures</span>
+    </div>
+  </div>
+  <div class="card" style="border-style:dashed; display:flex; align-items:center; justify-content:center; min-height:180px; cursor:pointer;" onclick="Modal.open('add-profile-modal')">
+    <div class="empty-state" style="padding:20px;">
+      <i class="fa-solid fa-user-plus"></i>
+      <h3>Add Family Member</h3>
+      <p>Protect another person's privacy</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- All Profiles Table -->
+<div class="card">
+  <div class="card-header">
+    <h3>All Family Members</h3>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Privacy Score</th>
+          <th>Exposures</th>
+          <th>Last Scanned</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for profile in profiles|default([]) %}
+        <tr>
+          <td><strong>{{ profile.name }}</strong></td>
+          <td>
+            <span class="badge {% if profile.score >= 70 %}success{% elif profile.score >= 40 %}warning{% else %}danger{% endif %}">
+              {{ profile.score }}/100
+            </span>
+          </td>
+          <td>{{ profile.exposures }}</td>
+          <td>{{ profile.last_scanned|default('Never') }}</td>
+          <td><span class="badge success">Active</span></td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm" onclick="editProfile('{{ profile.id }}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost btn-sm" onclick="location.href='/scanner?profile={{ profile.id }}'"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td><strong>John Doe</strong></td>
+          <td><span class="badge success">72/100</span></td>
+          <td>23</td>
+          <td>2024-01-15</td>
+          <td><span class="badge success">Active</span></td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Jane Doe</strong></td>
+          <td><span class="badge warning">58/100</span></td>
+          <td>38</td>
+          <td>2024-01-15</td>
+          <td><span class="badge success">Active</span></td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add/Edit Profile Modal -->
+<div class="modal-overlay" id="add-profile-modal">
+  <div class="modal" style="max-width:680px;">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-user-plus text-accent"></i> Add Family Member</h3>
+      <button class="modal-close" onclick="Modal.close('add-profile-modal')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="profile-form" data-ajax data-url="/api/profiles" data-on-success="reload">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" name="dob">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Known Aliases</label>
+          <input type="text" class="form-control" name="aliases" placeholder="Maiden name, nicknames (comma separated)">
+          <div class="form-hint">Names that may appear on data broker sites</div>
+        </div>
+
+        <!-- Email Addresses -->
+        <div class="form-group">
+          <label>Email Addresses</label>
+          <div id="email-fields">
+            <div class="form-inline mb-1">
+              <div class="form-group">
+                <input type="email" class="form-control" name="emails[]" placeholder="primary@email.com">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addDynamicField('email-fields', 'another@email.com')">
+            <i class="fa-solid fa-plus"></i> Add Email
+          </button>
+        </div>
+
+        <!-- Phone Numbers -->
+        <div class="form-group">
+          <label>Phone Numbers</label>
+          <div id="phone-fields">
+            <div class="form-inline mb-1">
+              <div class="form-group">
+                <input type="tel" class="form-control" name="phones[]" placeholder="(555) 123-4567">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addDynamicField('phone-fields', '(555) 000-0000')">
+            <i class="fa-solid fa-plus"></i> Add Phone
+          </button>
+        </div>
+
+        <!-- Addresses -->
+        <div class="form-group">
+          <label>Addresses</label>
+          <div id="address-fields">
+            <div class="form-inline mb-1">
+              <div class="form-group">
+                <input type="text" class="form-control" name="addresses[]" placeholder="123 Main St, City, State ZIP">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addDynamicField('address-fields', '456 Oak Ave, City, State ZIP')">
+            <i class="fa-solid fa-plus"></i> Add Address
+          </button>
+        </div>
+
+        <!-- SSN (optional) -->
+        <div class="form-group">
+          <label>SSN (Optional — Encrypted)</label>
+          <input type="password" class="form-control" name="ssn" placeholder="•••-••-••••" maxlength="11">
+          <div class="form-hint">
+            <i class="fa-solid fa-lock"></i> Stored encrypted. Used only for identity theft monitoring.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="Modal.close('add-profile-modal')">Cancel</button>
+      <button class="btn btn-primary" type="submit" form="profile-form">
+        <i class="fa-solid fa-plus"></i> Add Profile
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

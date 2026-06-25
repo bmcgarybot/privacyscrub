@@ -1,0 +1,79 @@
+CEASE AND DESIST — UNAUTHORIZED COLLECTION AND DISTRIBUTION OF PERSONAL DATA
+===============================================================================
+
+VIA {{DELIVERY_METHOD}} — {{CERTIFIED_MAIL_NUMBER}}
+
+To: {{COMPANY_NAME}}
+    {{COMPANY_CONTACT_NAME}}
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Re: CEASE AND DESIST — Unauthorized Collection, Processing, and Public Distribution of Personal Information of {{FULL_NAME}}
+
+Dear {{COMPANY_CONTACT_NAME}},
+
+This letter constitutes a formal demand that {{COMPANY_NAME}} ("Company") immediately CEASE AND DESIST the following activities with respect to my personal information:
+
+  1. The unauthorized collection of my personal data;
+  2. The public display, sale, or distribution of my personal information;
+  3. The creation or maintenance of any profile, dossier, or record about me; and
+  4. The sharing, licensing, or transfer of my data to any third party.
+
+FACTUAL BACKGROUND:
+I have become aware that your company is publicly displaying, selling, or otherwise distributing the following personal information about me without my knowledge, consent, or authorization:
+
+  Full Name: {{FULL_NAME}}
+  URL(s) where my data appears: {{PROFILE_URLS}}
+  Data exposed: {{DATA_EXPOSED}}
+
+I have never provided this information to your company, nor have I consented to its collection, processing, storage, or distribution. I have never created an account with your service, entered into any agreement with your company, or otherwise authorized the use of my personal data.
+
+LEGAL BASIS FOR THIS DEMAND:
+
+Federal Law:
+  - The Fair Credit Reporting Act (15 U.S.C. § 1681 et seq.) imposes obligations on consumer reporting agencies and users of consumer reports, including accuracy and dispute resolution requirements.
+  - The Federal Trade Commission Act (15 U.S.C. § 45) prohibits unfair or deceptive acts or practices in commerce.
+
+State Privacy Laws (as applicable):
+  - California Consumer Privacy Act (CCPA) / California Privacy Rights Act (CPRA) — Cal. Civ. Code § 1798.100 et seq.
+  - {{STATE_LAW_REFERENCE}}
+
+Common Law:
+  - Public disclosure of private facts
+  - Intrusion upon seclusion
+  - Misappropriation of name or likeness
+  - Negligent or intentional infliction of emotional distress
+
+DEMANDS:
+I hereby demand that {{COMPANY_NAME}} immediately and permanently:
+
+  1. REMOVE all personal information about me from all databases, websites, platforms, applications, caches, backups, and archives controlled by or accessible to your company;
+  2. CEASE all collection, aggregation, processing, and storage of my personal information;
+  3. CEASE all sale, licensing, sharing, or distribution of my personal information to any third party;
+  4. NOTIFY all third parties to whom you have sold, licensed, shared, or disclosed my personal information of this demand, and direct them to delete my information;
+  5. CONFIRM IN WRITING within {{RESPONSE_DAYS}} calendar days that all of the above actions have been completed;
+  6. PROVIDE a detailed list of all third parties to whom my personal information has been sold, licensed, shared, or disclosed in the past 12 months.
+
+CONSEQUENCES OF NON-COMPLIANCE:
+If you fail to comply with these demands within {{RESPONSE_DAYS}} calendar days, I will pursue all available legal remedies, which may include but are not limited to:
+
+  - Filing a complaint with the Federal Trade Commission (FTC);
+  - Filing a complaint with the applicable state Attorney General;
+  - Filing a complaint with the relevant Data Protection Authority (if applicable);
+  - Initiating civil litigation seeking injunctive relief, actual damages, statutory damages, punitive damages, and attorney's fees;
+  - Reporting your company to the Consumer Financial Protection Bureau (CFPB) if applicable.
+
+This letter is written without prejudice to any rights or remedies I may have, all of which are expressly reserved.
+
+I expect your written response within {{RESPONSE_DAYS}} calendar days of receipt of this letter.
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}
+
+cc: {{CC_RECIPIENTS}}

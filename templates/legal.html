@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Legal Center{% endblock %}
+{% block header_title %}Legal Center{% endblock %}
+{% block header_subtitle %}Generate privacy law requests and legal letters{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-scale-balanced text-accent"></i> Legal Request Center</h1>
+  <p>Generate legally-compliant data deletion requests under GDPR, CCPA, state laws, or formal cease & desist letters.</p>
+</div>
+
+<!-- Profile Selector -->
+<div class="card mb-3" style="padding:16px 24px;">
+  <div class="form-inline">
+    <div class="form-group">
+      <label>Sending As</label>
+      <select class="form-control" id="legal-profile-select">
+        {% for profile in profiles|default([]) %}
+        <option value="{{ profile.id }}">{{ profile.name }}</option>
+        {% else %}
+        <option value="1">John Doe</option>
+        <option value="2">Jane Doe</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs" data-tab-group="legal">
+  <button class="tab active" data-tab="gdpr"><i class="fa-solid fa-globe-europe"></i> GDPR Erasure</button>
+  <button class="tab" data-tab="ccpa"><i class="fa-solid fa-flag-usa"></i> CCPA Delete</button>
+  <button class="tab" data-tab="state"><i class="fa-solid fa-landmark"></i> State Laws</button>
+  <button class="tab" data-tab="cease"><i class="fa-solid fa-gavel"></i> Cease & Desist</button>
+</div>
+
+<!-- GDPR Tab -->
+<div class="tab-content active" id="tab-legal-gdpr" data-tab-content="legal">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h3>GDPR Article 17 — Right to Erasure</h3>
+      </div>
+      <p class="text-muted mb-2" style="font-size:0.85rem;">Generate a formal GDPR data erasure request. Applies to any company processing EU residents' data.</p>
+      <form>
+        <div class="form-group">
+          <label>Target Broker(s)</label>
+          <select class="form-control" id="gdpr-broker-select" multiple style="min-height:120px;">
+            <option value="acxiom">Acxiom</option>
+            <option value="criteo">Criteo</option>
+            <option value="epsilon">Epsilon</option>
+            <option value="liveramp">LiveRamp</option>
+            <option value="lotame">Lotame</option>
+            <option value="oracle">Oracle Data Cloud</option>
+            <option value="quantcast">Quantcast</option>
+            <option value="rtb_house">RTB House</option>
+            <option value="tapad">Tapad</option>
+            <option value="the_trade_desk">The Trade Desk</option>
+          </select>
+          <div class="form-hint">Hold Ctrl/Cmd to select multiple</div>
+        </div>
+        <div class="form-group">
+          <label>Additional Details (Optional)</label>
+          <textarea class="form-control" placeholder="Any additional information you want to include..."></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="LegalGenerator.generate('gdpr')">
+          <i class="fa-solid fa-file-lines"></i> Generate Letter
+        </button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Preview</h3>
+        <button class="btn btn-ghost btn-sm" onclick="copyToClipboard(document.getElementById('gdpr-preview').innerText, this)">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <div class="letter-preview" id="gdpr-preview">
+        <p style="color:#999; text-align:center; padding:40px;">Select a broker and click "Generate Letter" to preview your GDPR erasure request.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CCPA Tab -->
+<div class="tab-content" id="tab-legal-ccpa" data-tab-content="legal">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h3>CCPA § 1798.105 — Right to Delete</h3>
+      </div>
+      <p class="text-muted mb-2" style="font-size:0.85rem;">Request deletion under the California Consumer Privacy Act. Valid for California residents.</p>
+      <form>
+        <div class="form-group">
+          <label>Target Broker(s)</label>
+          <select class="form-control" id="ccpa-broker-select" multiple style="min-height:120px;">
+            <option value="whitepages">Whitepages</option>
+            <option value="spokeo">Spokeo</option>
+            <option value="beenverified">BeenVerified</option>
+            <option value="intelius">Intelius</option>
+            <option value="peoplefinders">PeopleFinders</option>
+            <option value="mylife">MyLife</option>
+            <option value="radaris">Radaris</option>
+            <option value="truthfinder">TruthFinder</option>
+            <option value="zoominfo">ZoomInfo</option>
+            <option value="apollo">Apollo.io</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Additional Details (Optional)</label>
+          <textarea class="form-control" placeholder="Any additional context..."></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="LegalGenerator.generate('ccpa')">
+          <i class="fa-solid fa-file-lines"></i> Generate Letter
+        </button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Preview</h3>
+        <button class="btn btn-ghost btn-sm" onclick="copyToClipboard(document.getElementById('ccpa-preview').innerText, this)">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <div class="letter-preview" id="ccpa-preview">
+        <p style="color:#999; text-align:center; padding:40px;">Select a broker and click "Generate Letter" to preview your CCPA deletion request.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- State Laws Tab -->
+<div class="tab-content" id="tab-legal-state" data-tab-content="legal">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h3>State Privacy Law Request</h3>
+      </div>
+      <p class="text-muted mb-2" style="font-size:0.85rem;">Generate requests based on your state's privacy laws. Multiple states now have comprehensive privacy legislation.</p>
+      <form>
+        <div class="form-group">
+          <label>Your State</label>
+          <select class="form-control">
+            <option value="az">Arizona (ACDPA)</option>
+            <option value="ca">California (CCPA/CPRA)</option>
+            <option value="co">Colorado (CPA)</option>
+            <option value="ct">Connecticut (CTDPA)</option>
+            <option value="de">Delaware (DPDPA)</option>
+            <option value="fl">Florida (FDBR)</option>
+            <option value="in">Indiana (ICDPA)</option>
+            <option value="ia">Iowa (ICDPA)</option>
+            <option value="mt">Montana (MCDPA)</option>
+            <option value="or">Oregon (OCPA)</option>
+            <option value="tn">Tennessee (TIPA)</option>
+            <option value="tx">Texas (TDPSA)</option>
+            <option value="ut">Utah (UCPA)</option>
+            <option value="va">Virginia (VCDPA)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Target Broker(s)</label>
+          <select class="form-control" id="state-broker-select" multiple style="min-height:100px;">
+            <option value="whitepages">Whitepages</option>
+            <option value="spokeo">Spokeo</option>
+            <option value="beenverified">BeenVerified</option>
+            <option value="acxiom">Acxiom</option>
+            <option value="epsilon">Epsilon</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="LegalGenerator.generate('state')">
+          <i class="fa-solid fa-file-lines"></i> Generate Letter
+        </button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Preview</h3>
+        <button class="btn btn-ghost btn-sm" onclick="copyToClipboard(document.getElementById('state-preview').innerText, this)">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <div class="letter-preview" id="state-preview">
+        <p style="color:#999; text-align:center; padding:40px;">Select your state and broker(s), then click "Generate Letter".</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cease & Desist Tab -->
+<div class="tab-content" id="tab-legal-cease" data-tab-content="legal">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h3>Formal Cease & Desist</h3>
+      </div>
+      <p class="text-muted mb-2" style="font-size:0.85rem;">Send a formal legal notice demanding immediate removal and cessation of data publication. Stronger than standard opt-out requests.</p>
+      <form>
+        <div class="form-group">
+          <label>Target Broker</label>
+          <select class="form-control" id="cease-broker-select">
+            <option value="">Select a broker...</option>
+            <option value="whitepages">Whitepages</option>
+            <option value="spokeo">Spokeo</option>
+            <option value="radaris">Radaris</option>
+            <option value="beenverified">BeenVerified</option>
+            <option value="intelius">Intelius</option>
+            <option value="mylife">MyLife</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Reason for Urgency</label>
+          <select class="form-control">
+            <option value="general">General privacy concern</option>
+            <option value="safety">Personal safety / stalking</option>
+            <option value="dv">Domestic violence</option>
+            <option value="identity">Identity theft</option>
+            <option value="harassment">Harassment / doxing</option>
+            <option value="minor">Minor's information published</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Additional Context</label>
+          <textarea class="form-control" placeholder="Describe the situation if needed..."></textarea>
+        </div>
+        <button type="button" class="btn btn-danger" onclick="LegalGenerator.generate('cease')">
+          <i class="fa-solid fa-gavel"></i> Generate Cease & Desist
+        </button>
+      </form>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Preview</h3>
+        <button class="btn btn-ghost btn-sm" onclick="copyToClipboard(document.getElementById('cease-preview').innerText, this)">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <div class="letter-preview" id="cease-preview">
+        <p style="color:#999; text-align:center; padding:40px;">Select a broker and click "Generate Cease & Desist" to preview.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

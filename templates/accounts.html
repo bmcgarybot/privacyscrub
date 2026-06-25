@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Account Cleanup{% endblock %}
+{% block header_title %}Account Cleanup{% endblock %}
+{% block header_subtitle %}Find and delete old accounts to reduce your digital footprint{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-broom text-accent"></i> Account Cleanup</h1>
+</div>
+
+<!-- Email Search -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-magnifying-glass text-accent"></i> Find Old Accounts</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Search your email for signup confirmations to discover forgotten accounts. Check your inbox for "welcome", "verify", or "confirm" emails.</p>
+  <div class="form-group">
+    <label>Search Terms</label>
+    <input type="text" class="form-control" placeholder="Search your email for: welcome, verify account, confirm registration...">
+    <div class="form-hint">Tip: Search your email provider for phrases like "welcome to", "verify your email", "account created" to find old signups.</div>
+  </div>
+</div>
+
+<!-- Delete Email Generator -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-envelope text-warning"></i> Account Deletion Email Generator</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Select a service to generate a professional account deletion request email.</p>
+  <div class="form-inline mb-2">
+    <div class="form-group">
+      <select class="form-control" id="service-select" onchange="generateDeleteEmail(this.options[this.selectedIndex].text, this.value)">
+        <option value="">Select a service...</option>
+        <option value="support@adobe.com">Adobe</option>
+        <option value="support@amazon.com">Amazon</option>
+        <option value="support@apple.com">Apple</option>
+        <option value="support@dropbox.com">Dropbox</option>
+        <option value="support@ebay.com">eBay</option>
+        <option value="support@evernote.com">Evernote</option>
+        <option value="support@grammarly.com">Grammarly</option>
+        <option value="support@hulu.com">Hulu</option>
+        <option value="support@linkedin.com">LinkedIn</option>
+        <option value="support@netflix.com">Netflix</option>
+        <option value="support@paypal.com">PayPal</option>
+        <option value="support@pinterest.com">Pinterest</option>
+        <option value="support@quora.com">Quora</option>
+        <option value="support@reddit.com">Reddit</option>
+        <option value="support@skype.com">Skype</option>
+        <option value="support@slack.com">Slack</option>
+        <option value="support@snapchat.com">Snapchat</option>
+        <option value="support@spotify.com">Spotify</option>
+        <option value="support@tumblr.com">Tumblr</option>
+        <option value="support@uber.com">Uber</option>
+        <option value="support@wish.com">Wish</option>
+        <option value="support@yelp.com">Yelp</option>
+        <option value="support@zoom.us">Zoom</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="generateDeleteEmail(document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex].text, document.getElementById('service-select').value)">
+      <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Email
+    </button>
+  </div>
+  <div class="card" style="display:none; background:var(--bg-primary);">
+    <div class="card-header">
+      <h3>Generated Email</h3>
+      <button class="btn btn-ghost btn-sm" onclick="copyToClipboard(document.getElementById('delete-email-preview').textContent, this)">
+        <i class="fa-solid fa-copy"></i> Copy
+      </button>
+    </div>
+    <pre id="delete-email-preview" class="code-block" style="white-space:pre-wrap;"></pre>
+  </div>
+</div>
+
+<!-- Direct Deletion Links -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-link text-accent"></i> Direct Account Deletion Links</h3>
+    <div class="search-input" style="max-width:250px;">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" class="form-control" placeholder="Search services..." oninput="searchServices(this.value)">
+    </div>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Direct links to delete your accounts on popular services.</p>
+  <div class="grid-3" id="services-list">
+    {% set services = [
+      ('Adobe', 'https://account.adobe.com/privacy/data-deletion', 'fa-brands fa-adobe'),
+      ('Amazon', 'https://www.amazon.com/privacy/data-deletion', 'fa-brands fa-amazon'),
+      ('Apple', 'https://privacy.apple.com/', 'fa-brands fa-apple'),
+      ('Discord', 'https://support.discord.com/hc/en-us/articles/212500837', 'fa-brands fa-discord'),
+      ('Dropbox', 'https://www.dropbox.com/account/delete', 'fa-brands fa-dropbox'),
+      ('eBay', 'https://www.ebay.com/help/account/deactivating-account', 'fa-solid fa-gavel'),
+      ('Facebook', 'https://www.facebook.com/deactivate', 'fa-brands fa-facebook'),
+      ('GitHub', 'https://github.com/settings/admin', 'fa-brands fa-github'),
+      ('Google', 'https://myaccount.google.com/deleteaccount', 'fa-brands fa-google'),
+      ('Grammarly', 'https://account.grammarly.com/deleteaccount', 'fa-solid fa-spell-check'),
+      ('Instagram', 'https://www.instagram.com/accounts/remove/request/permanent/', 'fa-brands fa-instagram'),
+      ('LinkedIn', 'https://www.linkedin.com/psettings/member-data', 'fa-brands fa-linkedin'),
+      ('Medium', 'https://medium.com/me/settings', 'fa-brands fa-medium'),
+      ('Microsoft', 'https://account.live.com/closeaccount.aspx', 'fa-brands fa-microsoft'),
+      ('Netflix', 'https://www.netflix.com/cancelplan', 'fa-solid fa-film'),
+      ('PayPal', 'https://www.paypal.com/myaccount/settings/close', 'fa-brands fa-paypal'),
+      ('Pinterest', 'https://www.pinterest.com/settings/#deactivate', 'fa-brands fa-pinterest'),
+      ('Reddit', 'https://www.reddit.com/settings/privacy', 'fa-brands fa-reddit'),
+      ('Slack', 'https://slack.com/help/articles/204681834', 'fa-brands fa-slack'),
+      ('Snapchat', 'https://accounts.snapchat.com/accounts/delete_account', 'fa-brands fa-snapchat'),
+      ('Spotify', 'https://www.spotify.com/account/privacy/', 'fa-brands fa-spotify'),
+      ('TikTok', 'https://www.tiktok.com/setting/account', 'fa-brands fa-tiktok'),
+      ('Tumblr', 'https://www.tumblr.com/settings/account', 'fa-brands fa-tumblr'),
+      ('Twitter/X', 'https://twitter.com/settings/deactivate', 'fa-brands fa-x-twitter'),
+      ('Uber', 'https://help.uber.com/riders/article/delete-my-uber-account', 'fa-brands fa-uber'),
+      ('WhatsApp', 'https://faq.whatsapp.com/general/account-and-profile/how-to-delete-your-account', 'fa-brands fa-whatsapp'),
+      ('Yahoo', 'https://login.yahoo.com/account/delete-user', 'fa-brands fa-yahoo'),
+      ('Yelp', 'https://www.yelp.com/profile_delete', 'fa-brands fa-yelp'),
+      ('YouTube', 'https://www.youtube.com/account_advanced', 'fa-brands fa-youtube'),
+      ('Zoom', 'https://zoom.us/account', 'fa-solid fa-video')
+    ] %}
+
+    {% for name, url, icon in services %}
+    <a href="{{ url }}" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(0,212,170,0.1); color:var(--accent);">
+        <i class="{{ icon }}"></i>
+      </div>
+      <div class="action-info">
+        <h4>{{ name }}</h4>
+        <p>Delete account</p>
+      </div>
+      <div class="action-arrow"><i class="fa-solid fa-external-link"></i></div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

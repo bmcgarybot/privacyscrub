@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Scanner{% endblock %}
+{% block header_title %}Data Broker Scanner{% endblock %}
+{% block header_subtitle %}Scan 800+ data brokers for your personal information{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <h1><i class="fa-solid fa-radar text-accent"></i> Scanner</h1>
+    <div class="btn-group">
+      <select class="form-control" id="scan-profile-select" style="width:auto;">
+        <option value="all">All Profiles</option>
+        {% for profile in profiles|default([]) %}
+        <option value="{{ profile.id }}">{{ profile.name }}</option>
+        {% endfor %}
+      </select>
+      <button class="btn btn-primary btn-lg" id="start-scan-btn" onclick="startScan(document.getElementById('scan-profile-select').value)">
+        <i class="fa-solid fa-magnifying-glass"></i> Run Full Scan
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Scan Progress -->
+<div class="card mb-3" id="scan-progress-container" style="display:none;">
+  <div class="card-header">
+    <h3><span class="spinner"></span> Scan in Progress</h3>
+    <span id="scan-status-text" class="text-muted">Initializing...</span>
+  </div>
+  <div class="progress-bar" style="height:12px;">
+    <div class="progress-fill animated" id="scan-progress-fill" style="width:0%"></div>
+  </div>
+  <div class="mt-2" style="display:flex; gap:24px; font-size:0.85rem;">
+    <span><i class="fa-solid fa-database text-muted"></i> Checked: <strong id="scan-broker-count">0</strong></span>
+    <span><i class="fa-solid fa-eye text-danger"></i> Found: <strong id="scan-found-count">0</strong></span>
+  </div>
+</div>
+
+<!-- Scan Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+    <div class="stat-value">{{ total_brokers|default(812) }}</div>
+    <div class="stat-label">Total Brokers in DB</div>
+  </div>
+  <div class="stat-card danger">
+    <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+    <div class="stat-value">{{ found_on|default(47) }}</div>
+    <div class="stat-label">Currently Found On</div>
+  </div>
+  <div class="stat-card success">
+    <div class="stat-icon"><i class="fa-solid fa-eye-slash"></i></div>
+    <div class="stat-value">{{ not_found|default(752) }}</div>
+    <div class="stat-label">Not Found</div>
+  </div>
+  <div class="stat-card warning">
+    <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <div class="stat-value">{{ errors|default(13) }}</div>
+    <div class="stat-label">Errors / Unreachable</div>
+  </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="search-input">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" class="form-control" placeholder="Search brokers..." data-table-search="scan-results-table">
+  </div>
+  <select class="form-control filter-select" data-table-filter="scan-results-table" data-filter-column="1">
+    <option value="">All Categories</option>
+    <option value="people search">People Search</option>
+    <option value="background check">Background Check</option>
+    <option value="b2b">B2B / Lead Gen</option>
+    <option value="marketing">Marketing / AdTech</option>
+    <option value="financial">Financial / Credit</option>
+    <option value="real estate">Real Estate</option>
+    <option value="social">Social / Platform</option>
+    <option value="telecom">Phone / Telecom</option>
+    <option value="aggregator">Data Aggregator</option>
+  </select>
+  <select class="form-control filter-select" data-table-filter="scan-results-table" data-filter-column="4">
+    <option value="">All Statuses</option>
+    <option value="found">Found</option>
+    <option value="not found">Not Found</option>
+    <option value="error">Error</option>
+  </select>
+  <select class="form-control filter-select" data-table-filter="scan-results-table" data-filter-column="2">
+    <option value="">All Tiers</option>
+    <option value="tier 1">Tier 1 (Critical)</option>
+    <option value="tier 2">Tier 2 (High)</option>
+    <option value="tier 3">Tier 3 (Medium)</option>
+  </select>
+</div>
+
+<!-- Results Table -->
+<div class="card">
+  <div class="card-header">
+    <h3>Scan Results</h3>
+    <span class="text-muted" style="font-size:0.8rem;">Last scan: {{ last_scan_date|default('2024-01-15 14:30') }}</span>
+  </div>
+  <div class="table-container">
+    <table id="scan-results-table">
+      <thead>
+        <tr>
+          <th>Broker</th>
+          <th>Category</th>
+          <th>Tier</th>
+          <th>Data Found</th>
+          <th>Status</th>
+          <th>Last Checked</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in scan_results|default([]) %}
+        <tr>
+          <td><strong>{{ result.broker_name }}</strong></td>
+          <td>{{ result.category }}</td>
+          <td><span class="badge tier-{{ result.tier }}">Tier {{ result.tier }}</span></td>
+          <td>{{ result.data_types|join(', ') }}</td>
+          <td>
+            <span class="badge {% if result.status == 'found' %}danger{% elif result.status == 'not_found' %}success{% else %}warning{% endif %}">
+              {{ result.status|replace('_', ' ')|title }}
+            </span>
+          </td>
+          <td>{{ result.last_checked }}</td>
+          <td>
+            <div class="btn-group">
+              {% if result.status == 'found' %}
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ result.broker_id }}')">
+                <i class="fa-solid fa-paper-plane"></i> Opt-Out
+              </button>
+              {% endif %}
+              <button class="btn btn-ghost btn-sm" onclick="Modal.open('broker-detail-{{ result.broker_id }}')">
+                <i class="fa-solid fa-info-circle"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <!-- Demo data -->
+        <tr>
+          <td><strong>Whitepages</strong></td>
+          <td>People Search</td>
+          <td><span class="badge tier-1">Tier 1</span></td>
+          <td>Name, Address, Phone, Relatives</td>
+          <td><span class="badge danger">Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('whitepages')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Spokeo</strong></td>
+          <td>People Search</td>
+          <td><span class="badge tier-1">Tier 1</span></td>
+          <td>Name, Address, Phone, Email</td>
+          <td><span class="badge danger">Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('spokeo')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>BeenVerified</strong></td>
+          <td>People Search</td>
+          <td><span class="badge tier-1">Tier 1</span></td>
+          <td>Name, Address, Phone, Age, Relatives</td>
+          <td><span class="badge danger">Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('beenverified')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>ZoomInfo</strong></td>
+          <td>B2B / Lead Gen</td>
+          <td><span class="badge tier-2">Tier 2</span></td>
+          <td>Name, Email, Employment</td>
+          <td><span class="badge danger">Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('zoominfo')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Acxiom</strong></td>
+          <td>Marketing / AdTech</td>
+          <td><span class="badge tier-2">Tier 2</span></td>
+          <td>Name, Address, Demographics</td>
+          <td><span class="badge danger">Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('acxiom')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>TruePeopleSearch</strong></td>
+          <td>People Search</td>
+          <td><span class="badge tier-1">Tier 1</span></td>
+          <td>Name, Address, Phone</td>
+          <td><span class="badge success">Not Found</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Equifax</strong></td>
+          <td>Financial / Credit</td>
+          <td><span class="badge tier-1">Tier 1</span></td>
+          <td>—</td>
+          <td><span class="badge warning">Error</span></td>
+          <td>2024-01-15</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Activity Log{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-history"></i> Activity Log</h1>
+    <p class="subtitle">Complete audit trail of all PrivacyScrub actions</p>
+</div>
+
+<div class="filter-bar">
+    <button class="btn filter-btn active" data-filter="all" onclick="filterActivity('all', this)">
+        <i class="fas fa-list"></i> All
+    </button>
+    <button class="btn filter-btn" data-filter="scan" onclick="filterActivity('scan', this)">
+        <i class="fas fa-search"></i> Scans
+    </button>
+    <button class="btn filter-btn" data-filter="optout" onclick="filterActivity('optout', this)">
+        <i class="fas fa-shield-alt"></i> Opt-outs
+    </button>
+    <button class="btn filter-btn" data-filter="breach" onclick="filterActivity('breach', this)">
+        <i class="fas fa-exclamation-triangle"></i> Breaches
+    </button>
+    <button class="btn filter-btn" data-filter="legal" onclick="filterActivity('legal', this)">
+        <i class="fas fa-gavel"></i> Legal
+    </button>
+    <button class="btn filter-btn" data-filter="system" onclick="filterActivity('system', this)">
+        <i class="fas fa-cogs"></i> System
+    </button>
+</div>
+
+<div class="card">
+    <table class="data-table" id="activity-table">
+        <thead>
+            <tr>
+                <th>Date / Time</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Target</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if activities %}
+                {% for entry in activities %}
+                <tr data-type="{{ entry.type }}">
+                    <td class="timestamp">{{ entry.timestamp }}</td>
+                    <td>
+                        {% if entry.type == 'scan' %}
+                            <span class="badge badge-info"><i class="fas fa-search"></i> Scan</span>
+                        {% elif entry.type == 'optout' %}
+                            <span class="badge badge-success"><i class="fas fa-shield-alt"></i> Opt-out</span>
+                        {% elif entry.type == 'breach' %}
+                            <span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Breach</span>
+                        {% elif entry.type == 'legal' %}
+                            <span class="badge badge-warning"><i class="fas fa-gavel"></i> Legal</span>
+                        {% else %}
+                            <span class="badge"><i class="fas fa-cogs"></i> System</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ entry.description }}</td>
+                    <td>{{ entry.target or '—' }}</td>
+                    <td>
+                        {% if entry.status == 'success' %}
+                            <span class="status-dot status-success"></span> Success
+                        {% elif entry.status == 'pending' %}
+                            <span class="status-dot status-pending"></span> Pending
+                        {% elif entry.status == 'error' %}
+                            <span class="status-dot status-error"></span> Error
+                        {% else %}
+                            <span class="status-dot"></span> {{ entry.status }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="empty-state">
+                        <i class="fas fa-inbox" style="font-size: 2em; opacity: 0.3;"></i>
+                        <p>No activity yet. Run your first scan to get started.</p>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% if total_pages and total_pages > 1 %}
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="/activity?page={{ page - 1 }}" class="btn btn-sm">&laquo; Previous</a>
+    {% endif %}
+    <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+    {% if page < total_pages %}
+        <a href="/activity?page={{ page + 1 }}" class="btn btn-sm">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<script>
+function filterActivity(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#activity-table tbody tr').forEach(row => {
+        if (type === 'all' || row.dataset.type === type) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+</script>
+{% endblock %}

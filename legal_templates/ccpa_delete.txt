@@ -1,0 +1,65 @@
+CALIFORNIA CONSUMER PRIVACY ACT (CCPA) — REQUEST TO DELETE PERSONAL INFORMATION
+==================================================================================
+
+To: {{COMPANY_NAME}}
+    Privacy Department
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Formal Request to Delete Personal Information — California Civil Code § 1798.105
+
+Dear Privacy Officer,
+
+I am a California resident and I am exercising my right to request deletion of my personal information under the California Consumer Privacy Act (CCPA), California Civil Code § 1798.100 et seq., as amended by the California Privacy Rights Act (CPRA).
+
+Under Section 1798.105, I have the right to request that a business delete any personal information about me which the business has collected from me. Upon receiving a verifiable consumer request, your business is obligated to delete the consumer's personal information from your records and direct any service providers and contractors to delete the consumer's personal information from their records.
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address: {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+
+SCOPE OF DELETION REQUEST:
+I request the deletion of ALL personal information your business has collected about me, including but not limited to:
+
+  (A) Identifiers — name, alias, postal address, unique personal identifier, online identifier, IP address, email address, account name, Social Security number, driver's license number, passport number, or other similar identifiers.
+  (B) Personal information described in Cal. Civ. Code § 1798.80(e) — name, signature, SSN, physical characteristics, address, telephone number, education, employment, employment history, bank account number, credit/debit card number, financial information, medical information, or health insurance information.
+  (C) Characteristics of protected classifications under California or federal law.
+  (D) Commercial information — records of personal property, products or services purchased, obtained, or considered, or other purchasing or consuming histories or tendencies.
+  (E) Biometric information.
+  (F) Internet or other electronic network activity — browsing history, search history, information regarding interaction with a website, application, or advertisement.
+  (G) Geolocation data.
+  (H) Audio, electronic, visual, thermal, olfactory, or similar information.
+  (I) Professional or employment-related information.
+  (J) Education information.
+  (K) Inferences drawn from any of the above to create a profile about a consumer.
+  (L) Sensitive personal information as defined under CPRA § 1798.140(ae).
+
+SERVICE PROVIDERS AND CONTRACTORS:
+Pursuant to § 1798.105(c), I request that you notify all service providers and contractors that process my data to also delete my personal information, unless an exception applies.
+
+RESPONSE TIMELINE:
+Under § 1798.105 and § 1798.145, you must confirm receipt of this request within 10 business days and respond to this request within 45 calendar days. If reasonably necessary, you may extend the response period by an additional 45 calendar days, provided you notify me of the extension within the first 45-day period.
+
+VERIFICATION:
+I am prepared to verify my identity as needed to process this request. Please contact me at the email or phone above if additional verification is required.
+
+NON-DISCRIMINATION:
+Under § 1798.125, you may not discriminate against me for exercising my privacy rights, including by denying goods or services, charging different prices, providing a different level of quality, or suggesting I will receive different treatment.
+
+CONSEQUENCES OF NON-COMPLIANCE:
+The California Attorney General may bring an action for violations of the CCPA. Businesses are subject to civil penalties of up to $2,500 per unintentional violation and $7,500 per intentional violation (§ 1798.155). Consumers also have a private right of action for data breaches involving unencrypted or non-redacted personal information (§ 1798.150).
+
+Please confirm deletion of my personal information in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

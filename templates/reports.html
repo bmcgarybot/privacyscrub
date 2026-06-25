@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Reports{% endblock %}
+{% block header_title %}Reports{% endblock %}
+{% block header_subtitle %}Generate privacy audit reports and export data{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-file-lines text-accent"></i> Reports</h1>
+</div>
+
+<!-- Report Types -->
+<div class="grid-2 mb-3">
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-file-shield text-accent"></i> Full Audit Report</h3>
+    </div>
+    <p class="text-muted mb-2" style="font-size:0.85rem;">Comprehensive privacy audit including all scan results, opt-out status, breach history, and recommendations.</p>
+    <button class="btn btn-primary" data-original-text="<i class='fa-solid fa-file-export'></i> Generate Full Report" onclick="generateReport('full')">
+      <i class="fa-solid fa-file-export"></i> Generate Full Report
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-file-lines text-info"></i> Summary Report</h3>
+    </div>
+    <p class="text-muted mb-2" style="font-size:0.85rem;">High-level overview of your privacy status — perfect for a quick check-in.</p>
+    <button class="btn btn-primary" data-original-text="<i class='fa-solid fa-file-export'></i> Generate Summary" onclick="generateReport('summary')">
+      <i class="fa-solid fa-file-export"></i> Generate Summary
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-users text-warning"></i> Family Report</h3>
+    </div>
+    <p class="text-muted mb-2" style="font-size:0.85rem;">Privacy scores and exposure data for all family members in one report.</p>
+    <button class="btn btn-primary" data-original-text="<i class='fa-solid fa-file-export'></i> Generate Family Report" onclick="generateReport('family')">
+      <i class="fa-solid fa-file-export"></i> Generate Family Report
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-layer-group text-danger"></i> Broker Category Report</h3>
+    </div>
+    <p class="text-muted mb-2" style="font-size:0.85rem;">Detailed breakdown by broker category — people search, B2B, marketing, financial, etc.</p>
+    <button class="btn btn-primary" data-original-text="<i class='fa-solid fa-file-export'></i> Generate Category Report" onclick="generateReport('category')">
+      <i class="fa-solid fa-file-export"></i> Generate Category Report
+    </button>
+  </div>
+</div>
+
+<!-- Report Options -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-sliders text-accent"></i> Report Options</h3>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Date Range — From</label>
+      <input type="date" class="form-control" id="report-date-from">
+    </div>
+    <div class="form-group">
+      <label>Date Range — To</label>
+      <input type="date" class="form-control" id="report-date-to">
+    </div>
+    <div class="form-group">
+      <label>Format</label>
+      <select class="form-control" id="report-format">
+        <option value="pdf">PDF</option>
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Profile</label>
+      <select class="form-control" id="report-profile">
+        <option value="all">All Profiles</option>
+        {% for profile in profiles|default([]) %}
+        <option value="{{ profile.id }}">{{ profile.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Report Preview -->
+<div class="card mb-3" id="report-preview-card" style="display:none;">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-eye text-accent"></i> Report Preview</h3>
+    <div class="btn-group">
+      <button class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</button>
+      <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-print"></i> Print</button>
+    </div>
+  </div>
+  <div id="report-preview-content" style="padding:20px; background:var(--bg-primary); border-radius:var(--radius-sm); min-height:200px;">
+    <!-- Preview renders here -->
+  </div>
+</div>
+
+<!-- Report History -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-clock-rotate-left text-muted"></i> Report History</h3>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Report</th>
+          <th>Type</th>
+          <th>Format</th>
+          <th>Generated</th>
+          <th>Size</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for report in reports|default([]) %}
+        <tr>
+          <td><strong>{{ report.name }}</strong></td>
+          <td><span class="badge neutral">{{ report.type }}</span></td>
+          <td>{{ report.format|upper }}</td>
+          <td>{{ report.created }}</td>
+          <td>{{ report.size }}</td>
+          <td>
+            <div class="btn-group">
+              <a href="{{ report.download_url }}" class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i></a>
+              <button class="btn btn-ghost btn-sm" onclick="Modal.confirm('Delete Report', 'Are you sure?', () => {})"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td><strong>Full Privacy Audit — January 2024</strong></td>
+          <td><span class="badge neutral">Full Audit</span></td>
+          <td>PDF</td>
+          <td>Jan 15, 2024</td>
+          <td>2.4 MB</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i></button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Summary Report — December 2023</strong></td>
+          <td><span class="badge neutral">Summary</span></td>
+          <td>PDF</td>
+          <td>Dec 31, 2023</td>
+          <td>1.1 MB</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i></button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Broker Export — November 2023</strong></td>
+          <td><span class="badge neutral">Category</span></td>
+          <td>CSV</td>
+          <td>Nov 30, 2023</td>
+          <td>456 KB</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-download"></i></button>
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation{% endblock %}
+{% block header_title %}API Documentation{% endblock %}
+{% block header_subtitle %}REST API reference for PrivacyScrub{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-code text-accent"></i> API Documentation</h1>
+  <p>All endpoints return JSON. Base URL: <code style="background:var(--bg-tertiary); padding:2px 8px; border-radius:4px;">http://localhost:5000/api</code></p>
+</div>
+
+<!-- API Overview -->
+<div class="card mb-3">
+  <div class="card-header">
+    <h3>Authentication</h3>
+  </div>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">
+    No API key required for local use. For remote access, set <code>API_KEY</code> in your configuration and pass it as a header:
+  </p>
+  <div class="code-block">
+    <span class="code-lang">Header</span>
+    <button class="copy-btn" onclick="copyToClipboard('Authorization: Bearer YOUR_API_KEY')">Copy</button>
+    <pre style="margin-top:12px;"><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+  </div>
+</div>
+
+<!-- Endpoints -->
+<h2 class="mb-2" style="font-size:1.1rem; font-weight:600;">Privacy Score</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-score')">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/api/score</span>
+    <span class="endpoint-desc">Get privacy DNA score</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-score" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <p class="text-muted mb-2" style="font-size:0.85rem;">Returns the current privacy DNA score and breakdown.</p>
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Response</h4>
+    <div class="code-block">
+      <span class="code-lang">JSON</span>
+      <pre><code>{
+  "score": 72,
+  "breakdown": {
+    "broker_exposure": 35,
+    "data_depth": 15,
+    "breach_impact": 12,
+    "social_exposure": 10
+  },
+  "grade": "B",
+  "last_updated": "2024-01-15T14:30:00Z"
+}</code></pre>
+    </div>
+
+    <h4 style="font-size:0.8rem; margin:16px 0 8px;">Code Examples</h4>
+
+    <div class="tabs" data-tab-group="score-examples" style="margin-bottom:12px;">
+      <button class="tab active" data-tab="curl">cURL</button>
+      <button class="tab" data-tab="python">Python</button>
+      <button class="tab" data-tab="js">JavaScript</button>
+    </div>
+
+    <div class="tab-content active" id="tab-score-examples-curl" data-tab-content="score-examples">
+      <div class="code-block">
+        <pre><code>curl http://localhost:5000/api/score</code></pre>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-score-examples-python" data-tab-content="score-examples">
+      <div class="code-block">
+        <pre><code>import requests
+
+response = requests.get("http://localhost:5000/api/score")
+data = response.json()
+print(f"Privacy Score: {data['score']}/100")</code></pre>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-score-examples-js" data-tab-content="score-examples">
+      <div class="code-block">
+        <pre><code>const response = await fetch('http://localhost:5000/api/score');
+const data = await response.json();
+console.log(`Privacy Score: ${data.score}/100`);</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Scanning</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-scan-start')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/scan/start</span>
+    <span class="endpoint-desc">Start a new scan</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-scan-start" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Parameters</h4>
+    <div class="table-container mb-2">
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>profile_id</code></td><td>string</td><td>No</td><td>Profile to scan. Default: "all"</td></tr>
+          <tr><td><code>categories</code></td><td>array</td><td>No</td><td>Broker categories to scan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Response</h4>
+    <div class="code-block">
+      <pre><code>{
+  "scan_id": "scan_abc123",
+  "status": "started",
+  "total_brokers": 812
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-scan-status')">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/api/scan/{scan_id}/status</span>
+    <span class="endpoint-desc">Get scan progress</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-scan-status" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Response</h4>
+    <div class="code-block">
+      <pre><code>{
+  "scan_id": "scan_abc123",
+  "status": "running",
+  "progress": 45,
+  "brokers_checked": 365,
+  "found": 12,
+  "status_text": "Scanning B2B brokers..."
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Brokers</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-brokers')">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/api/brokers</span>
+    <span class="endpoint-desc">List all brokers</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-brokers" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Query Parameters</h4>
+    <div class="table-container mb-2">
+      <table>
+        <thead><tr><th>Param</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>category</code></td><td>string</td><td>Filter by category</td></tr>
+          <tr><td><code>tier</code></td><td>int</td><td>Filter by tier (1-3)</td></tr>
+          <tr><td><code>search</code></td><td>string</td><td>Search by name</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Opt-Outs</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-optout-submit')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/optout/{broker_id}/submit</span>
+    <span class="endpoint-desc">Submit an opt-out request</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-optout-submit" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Response</h4>
+    <div class="code-block">
+      <pre><code>{
+  "optout_id": "opt_xyz789",
+  "broker_id": "whitepages",
+  "broker_name": "Whitepages",
+  "status": "submitted",
+  "estimated_days": 2
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-optout-batch')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/optout/batch</span>
+    <span class="endpoint-desc">Batch submit opt-outs</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-optout-batch" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Body</h4>
+    <div class="code-block">
+      <pre><code>{ "broker_ids": ["whitepages", "spokeo", "beenverified"] }</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Breaches</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-breach-check')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/breaches/check</span>
+    <span class="endpoint-desc">Check email for breaches</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-breach-check" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Body</h4>
+    <div class="code-block">
+      <pre><code>{ "email": "user@example.com" }</code></pre>
+    </div>
+    <h4 style="font-size:0.8rem; margin:16px 0 8px;">Response</h4>
+    <div class="code-block">
+      <pre><code>{
+  "email": "user@example.com",
+  "breach_count": 3,
+  "breaches": [
+    {
+      "name": "LinkedIn",
+      "date": "2021-06-22",
+      "records": "700M",
+      "severity": "high",
+      "data_types": ["Email", "Name", "Phone"]
+    }
+  ]
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Displacement Mode</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-displacement-activate')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/displacement/activate</span>
+    <span class="endpoint-desc">Activate emergency lockdown</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-displacement-activate" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <p class="text-muted" style="font-size:0.85rem;">Activates displacement mode — accelerates all removals, sends credit freeze reminders.</p>
+  </div>
+</div>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-displacement-deactivate')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/displacement/deactivate</span>
+    <span class="endpoint-desc">Deactivate emergency lockdown</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-displacement-deactivate" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <p class="text-muted" style="font-size:0.85rem;">Deactivates displacement mode and returns to normal protection levels.</p>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Reports & Data</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-report-gen')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/reports/generate</span>
+    <span class="endpoint-desc">Generate a report</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-report-gen" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Body</h4>
+    <div class="code-block">
+      <pre><code>{
+  "type": "full",          // full | summary | family | category
+  "format": "pdf",         // pdf | csv | json
+  "date_from": "2024-01-01",
+  "date_to": "2024-01-31"
+}</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-data-export')">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/api/data/export</span>
+    <span class="endpoint-desc">Export all user data</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-data-export" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <p class="text-muted" style="font-size:0.85rem;">Downloads a complete JSON export of all profiles, scan results, and opt-out history.</p>
+  </div>
+</div>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-data-delete')">
+    <span class="method-badge delete">DELETE</span>
+    <span class="endpoint-path">/api/data/all</span>
+    <span class="endpoint-desc">Delete all data</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-data-delete" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <p class="text-danger" style="font-size:0.85rem;">⚠️ Permanently deletes all data. This action cannot be undone.</p>
+  </div>
+</div>
+
+<h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Webhooks</h2>
+
+<div class="endpoint-card">
+  <div class="endpoint-header" onclick="toggleEndpoint('endpoint-webhook')">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/api/webhooks</span>
+    <span class="endpoint-desc">Configure webhook notifications</span>
+    <i class="fa-solid fa-chevron-down" style="margin-left:auto; color:var(--text-muted);"></i>
+  </div>
+  <div id="endpoint-webhook" style="display:none; padding:20px; border-top:1px solid var(--border-color);">
+    <h4 style="font-size:0.8rem; margin-bottom:8px;">Body</h4>
+    <div class="code-block">
+      <pre><code>{
+  "url": "https://your-server.com/webhook",
+  "events": ["scan.complete", "optout.confirmed", "breach.found"],
+  "active": true
+}</code></pre>
+    </div>
+    <h4 style="font-size:0.8rem; margin:16px 0 8px;">Webhook Payload</h4>
+    <div class="code-block">
+      <pre><code>{
+  "event": "scan.complete",
+  "timestamp": "2024-01-15T14:30:00Z",
+  "data": {
+    "scan_id": "scan_abc123",
+    "found": 47,
+    "new_exposures": 3
+  }
+}</code></pre>
+    </div>
+  </div>
+</div>
+{% endblock %}

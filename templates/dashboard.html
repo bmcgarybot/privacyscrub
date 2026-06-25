@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block header_title %}Dashboard{% endblock %}
+{% block header_subtitle %}Your privacy at a glance{% endblock %}
+
+{% block content %}
+<!-- Displacement Banner (if active) -->
+{% if displacement_active %}
+<div class="displacement-banner" id="displacement-banner">
+  <div class="banner-icon"><i class="fa-solid fa-shield-virus"></i></div>
+  <div class="banner-text">
+    <h3>Emergency Lockdown Active</h3>
+    <p>All privacy protections are at maximum. Removals accelerated. <a href="/displacement">Manage lockdown →</a></p>
+  </div>
+</div>
+{% endif %}
+
+<!-- Privacy DNA Score -->
+<div class="grid-2 mb-3">
+  <div class="card">
+    <div class="score-gauge-container">
+      <div class="score-gauge" id="score-gauge" data-score="{{ privacy_score|default(72) }}">
+        <svg viewBox="0 0 220 220">
+          <circle class="gauge-bg" cx="110" cy="110" r="100" />
+          <circle class="gauge-fill" cx="110" cy="110" r="100" />
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-value">0</div>
+          <div class="gauge-label">Privacy Score</div>
+          <div class="gauge-sublabel">out of 100</div>
+        </div>
+      </div>
+      <p class="score-description">
+        {% if privacy_score|default(72) >= 80 %}
+          Excellent! Your privacy is well protected.
+        {% elif privacy_score|default(72) >= 60 %}
+          Good, but there's room for improvement.
+        {% elif privacy_score|default(72) >= 40 %}
+          Fair. Several exposures need attention.
+        {% else %}
+          Critical! Immediate action recommended.
+        {% endif %}
+      </p>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Actions</h3>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <a href="/scanner" class="action-card" onclick="startScan(); return false;">
+        <div class="action-icon" style="background:rgba(0,212,170,0.15); color:#00d4aa;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="action-info">
+          <h4>Run Full Scan</h4>
+          <p>Scan 800+ data brokers for your information</p>
+        </div>
+        <div class="action-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      </a>
+      <a href="/breaches" class="action-card">
+        <div class="action-icon" style="background:rgba(255,107,107,0.15); color:#ff6b6b;">
+          <i class="fa-solid fa-user-secret"></i>
+        </div>
+        <div class="action-info">
+          <h4>Check Breaches</h4>
+          <p>Monitor for data breaches and dark web exposure</p>
+        </div>
+        <div class="action-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      </a>
+      <a href="/reports" class="action-card">
+        <div class="action-icon" style="background:rgba(255,217,61,0.15); color:#ffd93d;">
+          <i class="fa-solid fa-file-lines"></i>
+        </div>
+        <div class="action-info">
+          <h4>Generate Report</h4>
+          <p>Create a full privacy audit report</p>
+        </div>
+        <div class="action-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Exposure Summary Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+    <div class="stat-value">{{ brokers_checked|default(812) }}</div>
+    <div class="stat-label">Brokers Checked</div>
+    <div class="stat-change down"><i class="fa-solid fa-arrow-up"></i> +15 new brokers added</div>
+  </div>
+  <div class="stat-card danger">
+    <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+    <div class="stat-value">{{ exposures_found|default(47) }}</div>
+    <div class="stat-label">Found On</div>
+    <div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -8 from last scan</div>
+  </div>
+  <div class="stat-card success">
+    <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="stat-value">{{ removed_count|default(31) }}</div>
+    <div class="stat-label">Removed From</div>
+    <div class="stat-change down"><i class="fa-solid fa-arrow-up"></i> +5 this month</div>
+  </div>
+  <div class="stat-card warning">
+    <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+    <div class="stat-value">{{ pending_count|default(16) }}</div>
+    <div class="stat-label">Pending Removal</div>
+    <div class="stat-change"><i class="fa-solid fa-clock"></i> Avg 12 days remaining</div>
+  </div>
+</div>
+
+<!-- Charts Row -->
+<div class="grid-2 mb-3">
+  <!-- Threat Timeline -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Threat Timeline</h3>
+      <div class="card-icon accent"><i class="fa-solid fa-chart-line"></i></div>
+    </div>
+    <div style="height: 280px;">
+      <canvas id="threat-timeline-chart"></canvas>
+    </div>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Exposure by Category</h3>
+      <div class="card-icon warning"><i class="fa-solid fa-chart-pie"></i></div>
+    </div>
+    <div style="height: 280px;">
+      <canvas id="category-breakdown-chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Activity & Family Comparison -->
+<div class="grid-2">
+  <!-- Recent Activity -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Recent Activity</h3>
+      <a href="/activity" class="btn btn-ghost btn-sm">View All</a>
+    </div>
+    <div class="activity-feed">
+      {% for item in recent_activity|default([]) %}
+      <div class="activity-item">
+        <div class="activity-icon {{ item.type }}">
+          <i class="fa-solid {{ item.icon }}"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">{{ item.title }}</div>
+          <div class="activity-meta">{{ item.time }}</div>
+        </div>
+      </div>
+      {% else %}
+      <div class="activity-item">
+        <div class="activity-icon scan"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="activity-content">
+          <div class="activity-title">Full scan completed — 47 exposures found</div>
+          <div class="activity-meta">2 hours ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon optout"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="activity-content">
+          <div class="activity-title">Opt-out confirmed by Spokeo</div>
+          <div class="activity-meta">5 hours ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon breach"><i class="fa-solid fa-skull-crossbones"></i></div>
+        <div class="activity-content">
+          <div class="activity-title">New breach detected: LinkedIn (2024)</div>
+          <div class="activity-meta">1 day ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon optout"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="activity-content">
+          <div class="activity-title">Removal request sent to BeenVerified</div>
+          <div class="activity-meta">1 day ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon report"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="activity-content">
+          <div class="activity-title">Monthly privacy report generated</div>
+          <div class="activity-meta">3 days ago</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Family Comparison -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Family Privacy Scores</h3>
+      <div class="card-icon info"><i class="fa-solid fa-users"></i></div>
+    </div>
+    <div style="height: 280px;">
+      <canvas id="family-comparison-chart"></canvas>
+    </div>
+  </div>
+</div>
+{% endblock %}

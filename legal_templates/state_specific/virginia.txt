@@ -1,0 +1,77 @@
+VIRGINIA CONSUMER DATA PROTECTION ACT — REQUEST TO DELETE PERSONAL DATA
+=========================================================================
+
+To: {{COMPANY_NAME}}
+    Privacy Department
+    {{COMPANY_ADDRESS}}
+    {{COMPANY_EMAIL}}
+
+Date: {{DATE}}
+
+Subject: Formal Request to Delete Personal Data — Virginia Consumer Data Protection Act (Va. Code § 59.1-575 et seq.)
+
+Dear Privacy Officer,
+
+I am a Virginia resident exercising my consumer rights under the Virginia Consumer Data Protection Act (VCDPA), effective January 1, 2023.
+
+Under Va. Code § 59.1-577, as a Virginia consumer, I have the right to:
+  (1) Confirm whether a controller is processing my personal data and access such data;
+  (2) Correct inaccuracies in my personal data;
+  (3) Delete personal data provided by or obtained about me;
+  (4) Obtain a copy of my personal data in a portable and readily usable format; and
+  (5) Opt out of the processing of personal data for purposes of targeted advertising, the sale of personal data, or profiling in furtherance of decisions that produce legal or similarly significant effects concerning me.
+
+I am hereby exercising my RIGHT TO DELETE (item 3) and my RIGHT TO OPT OUT (item 5).
+
+MY IDENTIFYING INFORMATION:
+  Full Name: {{FULL_NAME}}
+  Email Address(es): {{EMAIL_ADDRESSES}}
+  Phone Number(s): {{PHONE_NUMBERS}}
+  Mailing Address (Virginia): {{MAILING_ADDRESS}}
+  Date of Birth: {{DATE_OF_BIRTH}}
+  Account/User ID (if known): {{ACCOUNT_ID}}
+
+SCOPE OF DELETION REQUEST:
+I request the deletion of ALL personal data your organization has collected or obtained about me. "Personal data" under the VCDPA means any information that is linked or reasonably linkable to an identified or identifiable natural person, excluding de-identified data and publicly available information.
+
+This includes but is not limited to:
+  - Identifiers and contact information
+  - Commercial and transactional records
+  - Internet or other electronic network activity information
+  - Geolocation data
+  - Audio, electronic, visual, thermal, olfactory, or similar information
+  - Inferences drawn to create a profile about a consumer
+  - Sensitive data (racial/ethnic origin, religious beliefs, mental or physical health diagnosis, sexual orientation, citizenship or immigration status, genetic or biometric data processed for the purpose of uniquely identifying a natural person, personal data collected from a known child, precise geolocation data)
+
+OPT-OUT REQUESTS:
+I additionally direct you to immediately cease:
+  (a) Selling my personal data to third parties;
+  (b) Processing my personal data for targeted advertising; and
+  (c) Profiling me in furtherance of decisions that produce legal or similarly significant effects.
+
+CONSENT FOR SENSITIVE DATA:
+Under Va. Code § 59.1-578(A)(5), a controller may not process sensitive data without first obtaining the consumer's consent, or in the case of children, complying with COPPA. I have not provided and do not provide consent for processing my sensitive data.
+
+RESPONSE TIMELINE:
+Under Va. Code § 59.1-577(D), you must respond to this request within 45 calendar days of receipt. You may extend this period once by an additional 45 days where reasonably necessary, taking into account the complexity and number of requests, provided you inform me of the extension and the reason for the delay.
+
+APPEALS:
+Under Va. Code § 59.1-577(E), if you decline to take action on my request, I have the right to appeal. You must:
+  (1) Establish an internal process for appeals;
+  (2) Respond to my appeal within 60 days;
+  (3) If you deny the appeal, provide me with a mechanism to contact the Virginia Attorney General to submit a complaint.
+
+ENFORCEMENT:
+The Virginia Attorney General has exclusive authority to enforce the VCDPA under Va. Code § 59.1-580. Before initiating an enforcement action, the Attorney General must provide a controller with 30 days' written notice identifying specific provisions alleged to have been violated and an opportunity to cure. Civil penalties may reach $7,500 per violation.
+
+DATA PROTECTION ASSESSMENTS:
+Under Va. Code § 59.1-580, controllers are required to conduct data protection assessments for processing activities that present a heightened risk of harm to consumers, including targeted advertising, sale of personal data, and profiling.
+
+Please confirm deletion of my personal data in writing to: {{EMAIL_ADDRESSES}}
+
+Sincerely,
+
+{{FULL_NAME}}
+{{MAILING_ADDRESS}}
+{{EMAIL_ADDRESSES}}
+{{PHONE_NUMBERS}}

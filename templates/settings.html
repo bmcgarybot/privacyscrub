@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-cog"></i> Settings</h1>
+    <p class="subtitle">Configure PrivacyScrub behavior and integrations</p>
+</div>
+
+<div class="settings-grid">
+    <div class="card">
+        <h3><i class="fas fa-clock"></i> Scan Schedule</h3>
+        <p>How often should PrivacyScrub re-scan data brokers for your information?</p>
+        <form action="/settings/scan-frequency" method="POST">
+            <select name="frequency" class="form-select">
+                <option value="daily">Daily (aggressive)</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly (recommended)</option>
+                <option value="quarterly">Quarterly (like DeleteMe)</option>
+            </select>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-key"></i> API Configuration</h3>
+        <form action="/settings/api-keys" method="POST">
+            <div class="form-group">
+                <label>Have I Been Pwned API Key <span class="badge badge-optional">Optional</span></label>
+                <input type="password" name="hibp_key" placeholder="Enter HIBP API key for breach monitoring"
+                       value="{{ settings.get('hibp_key', '') }}" class="form-input">
+                <small>Free at <a href="https://haveibeenpwned.com/API/Key" target="_blank">haveibeenpwned.com/API/Key</a></small>
+            </div>
+            <div class="form-group">
+                <label>Webhook URL <span class="badge badge-optional">Optional</span></label>
+                <input type="url" name="webhook_url" placeholder="https://your-server.com/webhook"
+                       value="{{ settings.get('webhook_url', '') }}" class="form-input">
+                <small>Receive POST notifications when new exposures are found</small>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save API Settings</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-database"></i> Data Management</h3>
+        <div class="btn-group-vertical">
+            <a href="/settings/export" class="btn"><i class="fas fa-download"></i> Export All Data (JSON)</a>
+            <a href="/settings/export?format=csv" class="btn"><i class="fas fa-file-csv"></i> Export as CSV</a>
+            <button class="btn btn-warning" onclick="if(confirm('Import will merge with existing data. Continue?'))document.getElementById('import-file').click()">
+                <i class="fas fa-upload"></i> Import Data
+            </button>
+            <input type="file" id="import-file" style="display:none" accept=".json" onchange="importData(this)">
+            <button class="btn btn-danger" onclick="if(confirm('⚠️ This will DELETE all scan results, opt-out tracking, and profiles. This cannot be undone. Are you sure?'))window.location='/settings/reset'">
+                <i class="fas fa-trash"></i> Reset Database
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-plug"></i> REST API</h3>
+        <p>PrivacyScrub exposes a REST API for integration with other tools.</p>
+        <div class="api-endpoints">
+            <code>GET /api/health</code> — Health check<br>
+            <code>GET /api/score</code> — Privacy DNA Score<br>
+            <code>GET /api/brokers</code> — List all brokers<br>
+            <code>POST /api/scan</code> — Trigger a scan<br>
+            <code>GET /api/report</code> — Generate report<br>
+        </div>
+        <a href="/api-docs" class="btn"><i class="fas fa-book"></i> Full API Documentation</a>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-info-circle"></i> About PrivacyScrub</h3>
+        <table class="info-table">
+            <tr><td>Version</td><td><strong>1.0.0</strong></td></tr>
+            <tr><td>License</td><td>MIT (Open Source)</td></tr>
+            <tr><td>Brokers in Database</td><td><strong>{{ broker_count }}</strong></td></tr>
+            <tr><td>Profiles</td><td>{{ profile_count }}</td></tr>
+            <tr><td>Total Scans Run</td><td>{{ scan_count }}</td></tr>
+        </table>
+        <p class="muted">The largest open-source data broker removal platform.</p>
+        <a href="https://github.com/bmcgarybot/privacyscrub" target="_blank" class="btn">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+    </div>
+</div>
+{% endblock %}

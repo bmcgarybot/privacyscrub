@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Displacement Mode{% endblock %}
+{% block header_title %}Displacement Mode{% endblock %}
+{% block header_subtitle %}Emergency privacy lockdown for maximum protection{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1><i class="fa-solid fa-shield-virus text-danger"></i> Displacement Mode</h1>
+  <p>Emergency privacy lockdown for evacuees, domestic violence survivors, or anyone requiring immediate privacy protection.</p>
+</div>
+
+<!-- Active Banner -->
+<div class="displacement-banner" id="displacement-banner" style="display:{% if displacement_active %}flex{% else %}none{% endif %};">
+  <div class="banner-icon"><i class="fa-solid fa-shield-virus"></i></div>
+  <div class="banner-text">
+    <h3>⚠️ Emergency Lockdown Active</h3>
+    <p>All privacy protections are at maximum level. Removals are being accelerated. Credit monitoring is on high alert.</p>
+  </div>
+</div>
+
+<!-- Activation Button -->
+<div class="card mb-3 text-center" style="padding:48px 24px;">
+  {% if displacement_active %}
+  <p class="text-muted mb-3">Lockdown has been active since {{ lockdown_since|default('January 15, 2024 at 2:30 PM') }}</p>
+  <button class="btn btn-warning btn-lg lockdown-btn" id="lockdown-toggle-btn" onclick="DisplacementMode.toggle()">
+    <i class="fa-solid fa-shield-halved"></i> Deactivate Lockdown
+  </button>
+  {% else %}
+  <div style="max-width:500px; margin:0 auto;">
+    <i class="fa-solid fa-shield-virus" style="font-size:4rem; color:var(--danger); margin-bottom:20px; display:block;"></i>
+    <h2 class="mb-2">Emergency Privacy Lockdown</h2>
+    <p class="text-muted mb-3">Activating displacement mode will immediately escalate all privacy protections. Credit freeze recommendations will be sent, address suppression will be accelerated, and all pending data removals will be prioritized.</p>
+    <button class="btn btn-danger btn-lg lockdown-btn" id="lockdown-toggle-btn" onclick="DisplacementMode.toggle()">
+      <i class="fa-solid fa-shield-virus"></i> Activate Emergency Lockdown
+    </button>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Emergency Action Checklist -->
+<div class="card mb-3" id="emergency-checklist-card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-list-check text-danger"></i> Emergency Action Checklist</h3>
+  </div>
+  <div class="emergency-checklist" id="emergency-checklist">
+    <div class="emergency-item">
+      <div class="status-indicator {% if displacement_active %}complete{% else %}pending{% endif %}"></div>
+      <div style="flex:1;">
+        <strong>Freeze Credit at All Bureaus</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Equifax, Experian, TransUnion, Innovis, ChexSystems, NCTUE</p>
+      </div>
+      <a href="/credit" class="btn btn-ghost btn-sm"><i class="fa-solid fa-external-link"></i> Go</a>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator {% if displacement_active %}in-progress{% else %}pending{% endif %}"></div>
+      <div style="flex:1;">
+        <strong>Accelerate All Pending Removals</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Send urgent re-submissions and escalate to legal if needed</p>
+      </div>
+      <a href="/optouts" class="btn btn-ghost btn-sm"><i class="fa-solid fa-external-link"></i> Go</a>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator {% if displacement_active %}in-progress{% else %}pending{% endif %}"></div>
+      <div style="flex:1;">
+        <strong>Suppress Address Changes</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Prevent new addresses from propagating to data brokers</p>
+      </div>
+      <button class="btn btn-ghost btn-sm" disabled><i class="fa-solid fa-check"></i></button>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator pending"></div>
+      <div style="flex:1;">
+        <strong>File USPS Mail Hold / Forwarding</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Prevent mail from reaching compromised address</p>
+      </div>
+      <a href="https://www.usps.com/manage/hold-mail.htm" target="_blank" class="btn btn-ghost btn-sm"><i class="fa-solid fa-external-link"></i> USPS</a>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator pending"></div>
+      <div style="flex:1;">
+        <strong>Update Voter Registration Privacy</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Request address confidentiality where available</p>
+      </div>
+      <button class="btn btn-ghost btn-sm" disabled><i class="fa-solid fa-external-link"></i></button>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator pending"></div>
+      <div style="flex:1;">
+        <strong>Review Social Media Privacy Settings</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Set all profiles to private, remove location data</p>
+      </div>
+      <button class="btn btn-ghost btn-sm" disabled><i class="fa-solid fa-external-link"></i></button>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator pending"></div>
+      <div style="flex:1;">
+        <strong>Enable Maximum Monitoring</strong>
+        <p class="text-muted" style="font-size:0.8rem;">Turn on dark web monitoring, breach alerts, and credit alerts</p>
+      </div>
+      <a href="/breaches" class="btn btn-ghost btn-sm"><i class="fa-solid fa-external-link"></i> Go</a>
+    </div>
+
+    <div class="emergency-item">
+      <div class="status-indicator pending"></div>
+      <div style="flex:1;">
+        <strong>Send Batch Legal Requests</strong>
+        <p class="text-muted" style="font-size:0.8rem;">CCPA/GDPR deletion requests to all brokers where found</p>
+      </div>
+      <a href="/legal" class="btn btn-ghost btn-sm"><i class="fa-solid fa-external-link"></i> Go</a>
+    </div>
+  </div>
+</div>
+
+<!-- Resources -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-hands-holding-heart text-accent"></i> Emergency Resources</h3>
+  </div>
+  <div class="grid-2">
+    <a href="https://www.thehotline.org/" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(255,107,107,0.15); color:#ff6b6b;">
+        <i class="fa-solid fa-phone"></i>
+      </div>
+      <div class="action-info">
+        <h4>National DV Hotline</h4>
+        <p>1-800-799-7233 · 24/7 confidential</p>
+      </div>
+    </a>
+    <a href="https://www.identitytheft.gov/" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(0,212,170,0.15); color:#00d4aa;">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div class="action-info">
+        <h4>IdentityTheft.gov</h4>
+        <p>FTC identity theft reporting & recovery</p>
+      </div>
+    </a>
+    <a href="https://www.ssa.gov/myaccount/" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(78,205,196,0.15); color:#4ecdc4;">
+        <i class="fa-solid fa-id-card"></i>
+      </div>
+      <div class="action-info">
+        <h4>SSA.gov</h4>
+        <p>Secure your Social Security account</p>
+      </div>
+    </a>
+    <a href="https://www.ic3.gov/" target="_blank" class="action-card">
+      <div class="action-icon" style="background:rgba(255,217,61,0.15); color:#ffd93d;">
+        <i class="fa-solid fa-building-columns"></i>
+      </div>
+      <div class="action-info">
+        <h4>FBI IC3</h4>
+        <p>Report internet crime and cyberstalking</p>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}
