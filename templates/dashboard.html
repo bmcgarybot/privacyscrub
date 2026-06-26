@@ -16,11 +16,28 @@
 </div>
 {% endif %}
 
+{% set has_profile = profiles|default([])|length > 0 %}
+{% set has_scans = brokers_checked|default(0) > 0 %}
+
+{% if not has_profile %}
+<!-- Welcome / Setup Prompt -->
+<div class="card mb-3" style="text-align:center; padding:40px 24px;">
+  <i class="fa-solid fa-shield-halved" style="font-size:3rem; color:var(--accent); margin-bottom:16px;"></i>
+  <h2 style="margin-bottom:8px;">Welcome to PrivacyScrub</h2>
+  <p class="text-muted" style="max-width:500px; margin:0 auto 24px;">
+    Add your profile to get started. Your data never leaves this machine.
+  </p>
+  <a href="/profiles" class="btn btn-primary" style="font-size:1.1rem; padding:12px 32px;">
+    <i class="fa-solid fa-user-plus"></i> Create Your Profile
+  </a>
+</div>
+{% else %}
+
 <!-- Privacy DNA Score -->
 <div class="grid-2 mb-3">
   <div class="card">
     <div class="score-gauge-container">
-      <div class="score-gauge" id="score-gauge" data-score="{{ privacy_score|default(72) }}">
+      <div class="score-gauge" id="score-gauge" data-score="{{ privacy_score|default(0) }}">
         <svg viewBox="0 0 220 220">
           <circle class="gauge-bg" cx="110" cy="110" r="100" />
           <circle class="gauge-fill" cx="110" cy="110" r="100" />
@@ -32,11 +49,13 @@
         </div>
       </div>
       <p class="score-description">
-        {% if privacy_score|default(72) >= 80 %}
+        {% if not has_scans %}
+          Run your first scan to calculate your privacy score.
+        {% elif privacy_score|default(0) >= 80 %}
           Excellent! Your privacy is well protected.
-        {% elif privacy_score|default(72) >= 60 %}
+        {% elif privacy_score|default(0) >= 60 %}
           Good, but there's room for improvement.
-        {% elif privacy_score|default(72) >= 40 %}
+        {% elif privacy_score|default(0) >= 40 %}
           Fair. Several exposures need attention.
         {% else %}
           Critical! Immediate action recommended.
@@ -89,27 +108,23 @@
 <div class="stats-grid">
   <div class="stat-card">
     <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
-    <div class="stat-value">{{ brokers_checked|default(812) }}</div>
+    <div class="stat-value">{{ brokers_checked|default(0) }}</div>
     <div class="stat-label">Brokers Checked</div>
-    <div class="stat-change down"><i class="fa-solid fa-arrow-up"></i> +15 new brokers added</div>
   </div>
   <div class="stat-card danger">
     <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
-    <div class="stat-value">{{ exposures_found|default(47) }}</div>
+    <div class="stat-value">{{ exposures_found|default(0) }}</div>
     <div class="stat-label">Found On</div>
-    <div class="stat-change down"><i class="fa-solid fa-arrow-down"></i> -8 from last scan</div>
   </div>
   <div class="stat-card success">
     <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-    <div class="stat-value">{{ removed_count|default(31) }}</div>
+    <div class="stat-value">{{ removed_count|default(0) }}</div>
     <div class="stat-label">Removed From</div>
-    <div class="stat-change down"><i class="fa-solid fa-arrow-up"></i> +5 this month</div>
   </div>
   <div class="stat-card warning">
     <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
-    <div class="stat-value">{{ pending_count|default(16) }}</div>
+    <div class="stat-value">{{ pending_count|default(0) }}</div>
     <div class="stat-label">Pending Removal</div>
-    <div class="stat-change"><i class="fa-solid fa-clock"></i> Avg 12 days remaining</div>
   </div>
 </div>
 
@@ -190,40 +205,9 @@
         </div>
       </div>
       {% else %}
-      <div class="activity-item">
-        <div class="activity-icon scan"><i class="fa-solid fa-magnifying-glass"></i></div>
-        <div class="activity-content">
-          <div class="activity-title">Full scan completed — 47 exposures found</div>
-          <div class="activity-meta">2 hours ago</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-icon optout"><i class="fa-solid fa-paper-plane"></i></div>
-        <div class="activity-content">
-          <div class="activity-title">Opt-out confirmed by Spokeo</div>
-          <div class="activity-meta">5 hours ago</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-icon breach"><i class="fa-solid fa-skull-crossbones"></i></div>
-        <div class="activity-content">
-          <div class="activity-title">New breach detected: LinkedIn (2024)</div>
-          <div class="activity-meta">1 day ago</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-icon optout"><i class="fa-solid fa-paper-plane"></i></div>
-        <div class="activity-content">
-          <div class="activity-title">Removal request sent to BeenVerified</div>
-          <div class="activity-meta">1 day ago</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-icon report"><i class="fa-solid fa-file-lines"></i></div>
-        <div class="activity-content">
-          <div class="activity-title">Monthly privacy report generated</div>
-          <div class="activity-meta">3 days ago</div>
-        </div>
+      <div style="text-align:center; padding:32px 16px; color:#8b95a5;">
+        <i class="fa-solid fa-clock-rotate-left" style="font-size:2rem; margin-bottom:12px; opacity:0.4;"></i>
+        <p>No activity yet. Run a scan or add a profile to get started.</p>
       </div>
       {% endfor %}
     </div>
@@ -240,4 +224,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}
