@@ -137,38 +137,49 @@
       <div class="card-header">
         <h3>State Privacy Law Request</h3>
       </div>
-      <p class="text-muted mb-2" style="font-size:0.85rem;">Generate requests based on your state's privacy laws. Multiple states now have comprehensive privacy legislation.</p>
-      <form>
+      <p class="text-muted mb-2" style="font-size:0.85rem;">Generate requests based on your state's privacy laws. All 50 states + DC are covered — states with comprehensive privacy laws use their specific statutes; others use FTC Act fallback.</p>
+      <form method="POST" action="/legal/generate">
+        <input type="hidden" name="request_type" value="state_specific">
+        <input type="hidden" name="profile_id" value="{{ profile.id if profile else '' }}">
         <div class="form-group">
           <label>Your State</label>
-          <select class="form-control">
-            <option value="az">Arizona (ACDPA)</option>
-            <option value="ca">California (CCPA/CPRA)</option>
-            <option value="co">Colorado (CPA)</option>
-            <option value="ct">Connecticut (CTDPA)</option>
-            <option value="de">Delaware (DPDPA)</option>
-            <option value="fl">Florida (FDBR)</option>
-            <option value="in">Indiana (ICDPA)</option>
-            <option value="ia">Iowa (ICDPA)</option>
-            <option value="mt">Montana (MCDPA)</option>
-            <option value="or">Oregon (OCPA)</option>
-            <option value="tn">Tennessee (TIPA)</option>
-            <option value="tx">Texas (TDPSA)</option>
-            <option value="ut">Utah (UCPA)</option>
-            <option value="va">Virginia (VCDPA)</option>
+          <select class="form-control" name="state_code" id="state-law-select" onchange="updateStateLawInfo()">
+            <option value="">— Select state —</option>
+            {% for st in available_states|default([]) %}
+            <option value="{{ st.code }}"
+                    data-law="{{ st.law_name }}"
+                    data-citation="{{ st.citation }}"
+                    data-effective="{{ st.effective }}"
+                    data-has-law="{{ st.has_privacy_law|lower }}"
+                    {% if st.code == user_state|default('') %}selected{% endif %}>
+              {{ st.name }} ({{ st.code }}){% if st.has_privacy_law %} ✓{% endif %}
+            </option>
+            {% endfor %}
           </select>
+          <div class="form-hint" id="state-law-detail" style="margin-top:6px;">
+            {% if user_state %}
+            <i class="fa-solid fa-gavel" style="color:var(--accent);"></i> Auto-selected from Settings. You can override.
+            {% else %}
+            <i class="fa-solid fa-info-circle"></i> Set your default state in <a href="/settings">Settings</a>.
+            {% endif %}
+          </div>
         </div>
         <div class="form-group">
           <label>Target Broker(s)</label>
-          <select class="form-control" id="state-broker-select" multiple style="min-height:100px;">
-            <option value="whitepages">Whitepages</option>
-            <option value="spokeo">Spokeo</option>
-            <option value="beenverified">BeenVerified</option>
-            <option value="acxiom">Acxiom</option>
-            <option value="epsilon">Epsilon</option>
+          <select class="form-control" name="broker_name" id="state-broker-select">
+            <option value="">— Optional: name a specific broker —</option>
+            <option value="Whitepages">Whitepages</option>
+            <option value="Spokeo">Spokeo</option>
+            <option value="BeenVerified">BeenVerified</option>
+            <option value="Acxiom">Acxiom</option>
+            <option value="Epsilon">Epsilon</option>
           </select>
         </div>
-        <button type="button" class="btn btn-primary" onclick="LegalGenerator.generate('state')">
+        <div class="form-group">
+          <label>Broker Email (Optional)</label>
+          <input type="email" class="form-control" name="broker_email" placeholder="privacy@example.com">
+        </div>
+        <button type="submit" class="btn btn-primary">
           <i class="fa-solid fa-file-lines"></i> Generate Letter
         </button>
       </form>
@@ -181,11 +192,40 @@
         </button>
       </div>
       <div class="letter-preview" id="state-preview">
-        <p style="color:#999; text-align:center; padding:40px;">Select your state and broker(s), then click "Generate Letter".</p>
+        {% if generated and selected_type == 'state_specific' %}
+        <pre style="white-space:pre-wrap; font-family:inherit; margin:0;">{{ generated.body }}</pre>
+        {% else %}
+        <p style="color:#999; text-align:center; padding:40px;">Select your state and click "Generate Letter" to preview.</p>
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
+
+<script>
+function updateStateLawInfo() {
+  var sel = document.getElementById('state-law-select');
+  var opt = sel.options[sel.selectedIndex];
+  var detail = document.getElementById('state-law-detail');
+  if (!opt || !opt.value) {
+    detail.innerHTML = '<i class="fa-solid fa-info-circle"></i> Select a state to see which law applies.';
+    return;
+  }
+  var law = opt.getAttribute('data-law');
+  var citation = opt.getAttribute('data-citation');
+  var effective = opt.getAttribute('data-effective');
+  var hasLaw = opt.getAttribute('data-has-law') === 'true';
+  if (hasLaw) {
+    detail.innerHTML = '<i class="fa-solid fa-gavel" style="color:var(--accent);"></i> <strong>' + law + '</strong> · ' + citation + ' · Effective: ' + effective;
+  } else {
+    detail.innerHTML = '<i class="fa-solid fa-info-circle" style="color:var(--warning);"></i> No comprehensive state privacy law. Using <strong>FTC Act (15 U.S.C. § 45)</strong> fallback.';
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var sel = document.getElementById('state-law-select');
+  if (sel && sel.value) updateStateLawInfo();
+});
+</script>
 
 <!-- Cease & Desist Tab -->
 <div class="tab-content" id="tab-legal-cease" data-tab-content="legal">

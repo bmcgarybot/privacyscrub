@@ -8,6 +8,31 @@
 
 <div class="settings-grid">
     <div class="card">
+        <h3><i class="fas fa-map-marker-alt"></i> State of Residence</h3>
+        <p>Select your state to auto-apply the correct privacy law template when generating legal requests.</p>
+        <form action="/settings/state" method="POST">
+            <select name="state_of_residence" class="form-select" id="state-select">
+                <option value="">— Select your state —</option>
+                {% for st in all_states|default([]) %}
+                <option value="{{ st.code }}" {% if st.code == current_state %}selected{% endif %}>
+                    {{ st.name }}{% if st.has_privacy_law %} — {{ st.law_name }}{% endif %}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="form-hint" id="state-law-info" style="margin:8px 0;">
+                {% if current_state_info and current_state_info.has_privacy_law %}
+                <i class="fas fa-gavel" style="color:var(--accent);"></i>
+                <strong>{{ current_state_info.law_name }}</strong> · {{ current_state_info.citation }} · Effective: {{ current_state_info.effective }}
+                {% elif current_state %}
+                <i class="fas fa-info-circle" style="color:var(--warning);"></i>
+                No comprehensive state privacy law. FTC Act (15 U.S.C. § 45) fallback applies.
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save State</button>
+        </form>
+    </div>
+
+    <div class="card">
         <h3><i class="fas fa-clock"></i> Scan Schedule</h3>
         <p>How often should PrivacyScrub re-scan data brokers for your information?</p>
         <form action="/settings/scan-frequency" method="POST">

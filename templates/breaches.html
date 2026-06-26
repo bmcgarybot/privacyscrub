@@ -9,66 +9,178 @@
   <h1><i class="fa-solid fa-user-secret text-accent"></i> Breach Monitor</h1>
 </div>
 
-<!-- Email Breach Check -->
+<!-- Summary Stats -->
+<div class="stats-grid mb-3">
+  <div class="stat-card danger">
+    <div class="stat-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+    <div class="stat-value">{{ summary.total|default(0) }}</div>
+    <div class="stat-label">Total Breaches</div>
+  </div>
+  <div class="stat-card warning">
+    <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
+    <div class="stat-value">
+      {% set affected = [] %}
+      {% for b in breaches|default([]) %}
+        {% if b.breach_domain and b.breach_domain not in affected %}
+          {% if affected.append(b.breach_domain) %}{% endif %}
+        {% endif %}
+      {% endfor %}
+      {{ affected|length }}
+    </div>
+    <div class="stat-label">Affected Accounts</div>
+  </div>
+  <div class="stat-card" style="border-left: 3px solid var(--info);">
+    <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+    <div class="stat-value" style="font-size:1rem;">{{ summary.most_recent|default('—') }}</div>
+    <div class="stat-label">Most Recent Breach</div>
+  </div>
+  <div class="stat-card" style="border-left: 3px solid var(--accent);">
+    <div class="stat-icon"><i class="fa-solid fa-tags"></i></div>
+    <div class="stat-value" style="font-size:1rem;">{{ summary.compromised_types|default([])|length }}</div>
+    <div class="stat-label">Data Types Exposed</div>
+  </div>
+</div>
+
+<!-- Scan Controls & Filters -->
+<div class="grid-2 mb-3">
+  <!-- Email Breach Scan -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-envelope-open-text text-danger"></i> Breach Scan</h3>
+    </div>
+    <p class="text-muted mb-2" style="font-size:0.85rem;">Scan profile + family member emails via Have I Been Pwned.</p>
+    {% if profile %}
+    <form method="POST" action="/breaches/scan">
+      <input type="hidden" name="profile_id" value="{{ profile.id }}">
+      <button class="btn btn-primary" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i> Run Breach Scan
+      </button>
+    </form>
+    {% if last_check %}
+    <div class="form-hint mt-1">
+      <i class="fa-solid fa-clock"></i> Last scheduled check: {{ last_check[:19] | replace('T', ' ') }} UTC
+    </div>
+    {% endif %}
+    {% else %}
+    <p class="text-muted">Create a profile first to run breach scans.</p>
+    {% endif %}
+  </div>
+
+  <!-- Filters -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-filter"></i> Filter Timeline</h3>
+    </div>
+    {% if family|length > 0 %}
+    <div class="form-group">
+      <label>Family Member</label>
+      <select class="form-control" id="filter-member" onchange="filterTimeline()">
+        <option value="">All Members</option>
+        {% if profile %}
+        <option value="primary" {% if filter_member == 'primary' %}selected{% endif %}>{{ profile.first_name }} {{ profile.last_name }} (Primary)</option>
+        {% endif %}
+        {% for fm in family %}
+        <option value="{{ fm.id }}" {% if filter_member == fm.id|string %}selected{% endif %}>{{ fm.first_name }} {{ fm.last_name }} ({{ fm.relationship }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% else %}
+    <p class="text-muted" style="font-size:0.85rem;">Add family members to a profile to filter by person.</p>
+    {% endif %}
+
+    <!-- Severity Legend -->
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+      <span class="badge" style="background:rgba(255,71,87,0.15); color:#ff4757;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Critical</span>
+      <span class="badge" style="background:rgba(255,165,0,0.15); color:#ffa500;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> High</span>
+      <span class="badge" style="background:rgba(255,217,61,0.15); color:#ffd93d;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Medium</span>
+      <span class="badge" style="background:rgba(0,212,170,0.15); color:#00d4aa;"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Low</span>
+    </div>
+  </div>
+</div>
+
+<!-- Breach Timeline -->
 <div class="card mb-3">
   <div class="card-header">
-    <h3><i class="fa-solid fa-envelope-open-text text-danger"></i> Email Breach Check</h3>
+    <h3><i class="fa-solid fa-timeline"></i> Breach Timeline</h3>
+    <span class="text-muted" style="font-size:0.8rem;">{{ breaches|length }} breach{{ 'es' if breaches|length != 1 else '' }}</span>
   </div>
-  <p class="text-muted mb-2" style="font-size:0.85rem;">Check if your email has been exposed in known data breaches. Powered by Have I Been Pwned.</p>
-  <div class="form-inline">
-    <div class="form-group">
-      <input type="email" class="form-control" id="breach-email-input" placeholder="Enter your email address...">
-    </div>
-    <button class="btn btn-primary" id="check-breach-btn" onclick="checkBreaches(document.getElementById('breach-email-input').value)">
-      <i class="fa-solid fa-magnifying-glass"></i> Check Breaches
-    </button>
-  </div>
-</div>
 
-<!-- Breach Results -->
-<div class="card mb-3" id="breach-results-card">
-  <div class="card-header">
-    <h3>Breach Results</h3>
-  </div>
-  <div id="breach-results">
-    <div class="empty-state">
-      <i class="fa-solid fa-shield-halved"></i>
-      <h3>Enter an email to check</h3>
-      <p>Results will appear here after checking</p>
-    </div>
-  </div>
-</div>
+  {% if breaches|length > 0 %}
+  <div class="breach-timeline">
+    {% for breach in breaches|sort(attribute='breach_date', reverse=true) %}
+    {% set sev = breach.severity|default('medium') %}
+    {% set sev_color = '#ffd93d' %}
+    {% if sev == 'critical' %}{% set sev_color = '#ff4757' %}
+    {% elif sev == 'high' %}{% set sev_color = '#ffa500' %}
+    {% elif sev == 'low' %}{% set sev_color = '#00d4aa' %}{% endif %}
 
-<!-- Stats & Timeline -->
-<div class="grid-2 mb-3">
-  <!-- Breach Stats -->
-  <div class="card">
-    <div class="card-header">
-      <h3>Breach Summary</h3>
-    </div>
-    <div class="stats-grid" style="margin-bottom:0;">
-      <div class="stat-card danger">
-        <div class="stat-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
-        <div class="stat-value">{{ breach_count|default(3) }}</div>
-        <div class="stat-label">Total Breaches</div>
+    <div class="timeline-item" data-severity="{{ sev }}">
+      <div class="timeline-marker" style="background:{{ sev_color }}; box-shadow: 0 0 8px {{ sev_color }}40;"></div>
+      <div class="timeline-content" style="border-left: 3px solid {{ sev_color }};">
+        <div class="timeline-header">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <strong style="font-size:1.05rem;">{{ breach.breach_name }}</strong>
+            <span class="badge" style="background:{{ sev_color }}20; color:{{ sev_color }}; font-size:0.7rem; text-transform:uppercase;">{{ sev }}</span>
+            {% if breach.discovered_at and last_check and breach.discovered_at > last_check %}
+            <span class="badge" style="background:rgba(78,205,196,0.2); color:var(--info); font-size:0.7rem; animation: pulse 2s infinite;">🆕 NEW</span>
+            {% endif %}
+            {% if breach.is_verified %}
+            <span class="badge" style="background:rgba(0,212,170,0.1); color:var(--accent); font-size:0.65rem;"><i class="fa-solid fa-check"></i> Verified</span>
+            {% endif %}
+          </div>
+          <span class="text-muted" style="font-size:0.8rem;">
+            {% if breach.breach_date %}{{ breach.breach_date }}{% else %}Unknown date{% endif %}
+          </span>
+        </div>
+
+        <div class="timeline-details" style="margin-top:8px;">
+          {% if breach.breach_domain %}
+          <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:4px;">
+            <i class="fa-solid fa-globe" style="width:16px;"></i> {{ breach.breach_domain }}
+          </div>
+          {% endif %}
+
+          <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:4px;">
+            <i class="fa-solid fa-calendar" style="width:16px;"></i>
+            Discovered: {{ breach.discovered_at[:10] if breach.discovered_at else 'Unknown' }}
+            {% if breach.breach_date %} · Occurred: {{ breach.breach_date }}{% endif %}
+          </div>
+
+          {% if breach.pwned_count %}
+          <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:8px;">
+            <i class="fa-solid fa-users" style="width:16px;"></i> {{ "{:,}".format(breach.pwned_count) }} accounts affected
+          </div>
+          {% endif %}
+
+          <!-- Data Types -->
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;">
+            {% set comp_data = breach.compromised_data %}
+            {% if comp_data is string %}
+              {% set comp_data = comp_data | default('[]') %}
+              {% if comp_data.startswith('[') %}
+                {% set data_types = comp_data | replace("'", '"') %}
+              {% else %}
+                {% set data_types = '[]' %}
+              {% endif %}
+            {% else %}
+              {% set data_types = comp_data %}
+            {% endif %}
+            {% for dtype in (data_types if data_types is iterable and data_types is not string else []) %}
+            <span class="badge" style="background:rgba(255,255,255,0.05); font-size:0.7rem;">{{ dtype }}</span>
+            {% endfor %}
+          </div>
+        </div>
       </div>
-      <div class="stat-card warning">
-        <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
-        <div class="stat-value">{{ total_records|default('921M') }}</div>
-        <div class="stat-label">Records Exposed</div>
-      </div>
     </div>
+    {% endfor %}
   </div>
-
-  <!-- Breach Timeline -->
-  <div class="card">
-    <div class="card-header">
-      <h3>Breach Timeline</h3>
-    </div>
-    <div style="height: 200px;">
-      <canvas id="breach-timeline-chart"></canvas>
-    </div>
+  {% else %}
+  <div class="empty-state">
+    <i class="fa-solid fa-shield-halved"></i>
+    <h3>No breaches found</h3>
+    <p>Run a breach scan to check your email addresses against known data breaches.</p>
   </div>
+  {% endif %}
 </div>
 
 <!-- Password Check -->
@@ -144,4 +256,64 @@
     </div>
   </div>
 </div>
+
+<style>
+  .breach-timeline {
+    position: relative;
+    padding-left: 30px;
+  }
+  .breach-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .timeline-marker {
+    position: absolute;
+    left: -24px;
+    top: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .timeline-content {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-left: 8px;
+  }
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .timeline-item.filtered-out {
+    display: none;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+</style>
+
+<script>
+function filterTimeline() {
+  var member = document.getElementById('filter-member').value;
+  if (member) {
+    window.location.href = '/breaches?profile_id={{ profile.id if profile else "" }}&member=' + member;
+  } else {
+    window.location.href = '/breaches?profile_id={{ profile.id if profile else "" }}';
+  }
+}
+</script>
 {% endblock %}

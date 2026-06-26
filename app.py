@@ -60,6 +60,7 @@ from legal import (
 )
 from breach import (
     scan_profile_breaches, check_passwords, get_breach_summary, HIBPClient,
+    schedule_breach_checks, get_last_breach_check,
 )
 from utils import (
     calculate_privacy_score, generate_pdf_report,
@@ -102,6 +103,9 @@ def create_app() -> Flask:
 
     # Initialise database
     init_db()
+
+    # Start the recurring breach check scheduler (weekly, background thread)
+    schedule_breach_checks()
 
     # Register API blueprint
     app.register_blueprint(api_bp)
@@ -528,12 +532,14 @@ def _register_routes(app: Flask) -> None:
 
         request_types = get_legal_request_types()
         available_states = get_available_states()
+        user_state = get_setting("state_of_residence", "")
 
         return render_template(
             "legal.html",
             profile=profile,
             request_types=request_types,
             available_states=available_states,
+            user_state=user_state,
         )
 
     @app.route("/legal/generate", methods=["POST"])
@@ -572,6 +578,7 @@ def _register_routes(app: Flask) -> None:
             return redirect(url_for("legal_page", profile_id=profile_id))
 
         profile = get_profile(profile_id)
+        user_state = get_setting("state_of_residence", "")
         return render_template(
             "legal.html",
             profile=profile,
@@ -579,6 +586,7 @@ def _register_routes(app: Flask) -> None:
             available_states=get_available_states(),
             generated=result,
             selected_type=request_type,
+            user_state=user_state,
         )
 
     # ===================================================================
@@ -587,12 +595,15 @@ def _register_routes(app: Flask) -> None:
 
     @app.route("/breaches")
     def breaches_page():
-        """Breach monitor — HIBP breach lookup and password audit."""
+        """Breach monitor — HIBP breach lookup, timeline, and password audit."""
         profiles = get_all_profiles()
         profile_id = request.args.get("profile_id", type=int)
+        filter_member = request.args.get("member", "")
         profile = None
         breaches = []
         summary = {}
+        family = []
+        last_check = get_last_breach_check()
 
         if profile_id:
             profile = get_profile(profile_id)
@@ -602,12 +613,16 @@ def _register_routes(app: Flask) -> None:
         if profile:
             breaches = get_breaches(profile["id"])
             summary = get_breach_summary(profile["id"])
+            family = get_family_members(profile["id"])
 
         return render_template(
             "breaches.html",
             profile=profile,
             breaches=breaches,
             summary=summary,
+            family=family,
+            filter_member=filter_member,
+            last_check=last_check,
         )
 
     @app.route("/breaches/scan", methods=["POST"])
@@ -1129,7 +1144,32 @@ def _register_routes(app: Flask) -> None:
             "notification": get_settings_by_category("notification"),
             "display": get_settings_by_category("display"),
         }
-        return render_template("settings.html", settings=all_settings, categories=categories)
+        # State of residence
+        current_state = get_setting("state_of_residence", "")
+        available_states = get_available_states()
+        current_state_info = None
+        if current_state:
+            for st in available_states:
+                if st["code"] == current_state:
+                    current_state_info = st
+                    break
+        return render_template(
+            "settings.html",
+            settings=all_settings,
+            categories=categories,
+            all_states=available_states,
+            current_state=current_state,
+            current_state_info=current_state_info,
+        )
+
+    @app.route("/settings/state", methods=["POST"])
+    def settings_state():
+        """Save state of residence setting."""
+        state_code = request.form.get("state_of_residence", "").strip().upper()
+        set_setting("state_of_residence", state_code, "general", "User state of residence for legal templates")
+        log_activity(None, None, "settings_updated", "system", f"State of residence set to {state_code}")
+        flash(f"State of residence saved: {state_code}" if state_code else "State of residence cleared.", "success")
+        return redirect(url_for("settings_page"))
 
     @app.route("/settings/update", methods=["POST"])
     def settings_update():

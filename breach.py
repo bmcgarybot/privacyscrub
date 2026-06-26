@@ -24,6 +24,7 @@ API Key:
 import hashlib
 import json
 import logging
+import threading
 import time
 from datetime import datetime, timezone
 from typing import Optional
@@ -32,7 +33,8 @@ import requests
 
 from models import (
     save_breach, get_breaches, get_breach_count, get_profile,
-    get_family_members, log_activity, get_setting,
+    get_family_members, log_activity, get_setting, set_setting,
+    get_all_profiles,
 )
 
 logger = logging.getLogger("privacyscrub.breach")
@@ -544,3 +546,155 @@ def get_breach_summary(profile_id: int) -> dict:
         "most_severe": most_severe,
         "compromised_types": sorted(all_types),
     }
+
+
+# ---------------------------------------------------------------------------
+# Recurring Breach Check Scheduler
+# ---------------------------------------------------------------------------
+
+BREACH_CHECK_INTERVAL = 7 * 24 * 60 * 60  # 7 days in seconds
+
+_scheduler_thread: Optional[threading.Thread] = None
+_scheduler_stop = threading.Event()
+
+
+def _run_scheduled_breach_check() -> dict:
+    """
+    Run breach checks across ALL profiles + family members.
+    Flags new breaches discovered since last check.
+
+    Returns:
+        Summary dict with results per profile.
+    """
+    last_check = get_setting("breach_last_check", "")
+    now_iso = datetime.now(timezone.utc).isoformat()
+
+    profiles = get_all_profiles()
+    if not profiles:
+        logger.info("Scheduled breach check: no profiles to scan")
+        return {"profiles_checked": 0, "total_new": 0}
+
+    total_new = 0
+
+    for profile in profiles:
+        pid = profile["id"]
+        # Get existing breaches BEFORE scan
+        existing_names = {b["breach_name"] for b in get_breaches(pid)}
+
+        try:
+            result = scan_profile_breaches(pid)
+        except Exception as e:
+            logger.error("Scheduled breach scan failed for profile %d: %s", pid, e)
+            continue
+
+        # Identify truly new breaches (not in DB before this scan)
+        new_breaches = []
+        for b in result.get("breaches", []):
+            if b["name"] not in existing_names:
+                new_breaches.append(b)
+
+        if new_breaches:
+            total_new += len(new_breaches)
+            # Log prominently
+            severity_counts = {}
+            for nb in new_breaches:
+                s = nb.get("severity", "medium")
+                severity_counts[s] = severity_counts.get(s, 0) + 1
+
+            severity_summary = ", ".join(f"{c} {s}" for s, c in sorted(severity_counts.items(),
+                                         key=lambda x: {"critical": 0, "high": 1, "medium": 2, "low": 3}.get(x[0], 4)))
+            breach_names = ", ".join(nb["name"] for nb in new_breaches[:5])
+            if len(new_breaches) > 5:
+                breach_names += f" (+{len(new_breaches) - 5} more)"
+
+            log_activity(
+                None, pid, "breach_new_found", "breach",
+                f"🚨 {len(new_breaches)} NEW breach(es) detected: {breach_names} ({severity_summary})",
+                metadata={
+                    "new_count": len(new_breaches),
+                    "severity_counts": severity_counts,
+                    "breach_names": [nb["name"] for nb in new_breaches],
+                    "scheduled": True,
+                },
+            )
+
+    # Update last check timestamp
+    set_setting("breach_last_check", now_iso, "general", "Last scheduled breach check timestamp")
+
+    log_activity(
+        None, None, "breach_scheduled_check", "breach",
+        f"Scheduled breach check complete: {len(profiles)} profile(s) scanned, {total_new} new breach(es) found",
+    )
+
+    logger.info("Scheduled breach check done: %d profiles, %d new breaches", len(profiles), total_new)
+    return {"profiles_checked": len(profiles), "total_new": total_new}
+
+
+def _scheduler_loop() -> None:
+    """Background thread loop that runs breach checks weekly."""
+    logger.info("Breach scheduler started (interval: %d seconds)", BREACH_CHECK_INTERVAL)
+
+    while not _scheduler_stop.is_set():
+        # Check if enough time has passed since last check
+        last_check = get_setting("breach_last_check", "")
+        should_run = True
+
+        if last_check:
+            try:
+                last_dt = datetime.fromisoformat(last_check)
+                elapsed = (datetime.now(timezone.utc) - last_dt).total_seconds()
+                if elapsed < BREACH_CHECK_INTERVAL:
+                    should_run = False
+                    wait_time = BREACH_CHECK_INTERVAL - elapsed
+                    logger.debug("Breach check not due yet (%.1f hours until next)", wait_time / 3600)
+            except (ValueError, TypeError):
+                should_run = True
+
+        if should_run:
+            try:
+                _run_scheduled_breach_check()
+            except Exception as e:
+                logger.exception("Scheduled breach check crashed: %s", e)
+
+        # Sleep in small intervals so we can respond to stop event
+        for _ in range(60):  # Check stop event every 60 seconds
+            if _scheduler_stop.wait(60):
+                return
+
+
+def schedule_breach_checks() -> None:
+    """
+    Start the background breach check scheduler.
+    Safe to call multiple times — only one thread will run.
+    Call on app startup.
+    """
+    global _scheduler_thread
+
+    if _scheduler_thread is not None and _scheduler_thread.is_alive():
+        logger.info("Breach scheduler already running")
+        return
+
+    _scheduler_stop.clear()
+    _scheduler_thread = threading.Thread(
+        target=_scheduler_loop,
+        name="breach-scheduler",
+        daemon=True,
+    )
+    _scheduler_thread.start()
+    logger.info("Breach check scheduler started (weekly interval)")
+
+
+def stop_breach_scheduler() -> None:
+    """Stop the background breach check scheduler."""
+    global _scheduler_thread
+    _scheduler_stop.set()
+    if _scheduler_thread is not None:
+        _scheduler_thread.join(timeout=5)
+        _scheduler_thread = None
+    logger.info("Breach scheduler stopped")
+
+
+def get_last_breach_check() -> Optional[str]:
+    """Return the ISO timestamp of the last scheduled breach check, or None."""
+    val = get_setting("breach_last_check", "")
+    return val if val else None

@@ -296,125 +296,402 @@ def generate_ccpa_delete(
 # State-Specific Privacy Law Templates
 # ---------------------------------------------------------------------------
 
-STATE_TEMPLATES = {
-    "AZ": {
-        "law_name": "Arizona Data Privacy Act (pending)",
-        "citation": "Ariz. Rev. Stat. § TBD",
-        "effective": "Pending legislation",
-        "body": """Subject: Consumer Data Deletion Request — Arizona Resident
+# ---------------------------------------------------------------------------
+# FTC Act fallback template for states without comprehensive privacy laws
+# ---------------------------------------------------------------------------
+
+def _ftc_fallback_template(state_name: str) -> str:
+    """Generate an FTC Act fallback deletion request for a given state."""
+    return f"""Subject: Consumer Data Deletion Request — {state_name} Resident
 
 To Whom It May Concern,
 
-I am an Arizona resident and I am requesting the deletion of my personal data under applicable state and federal privacy protections.
+I am a {state_name} resident and I am requesting the deletion of my personal data under applicable federal and state privacy protections.
 
 My details:
-- Full Name: {{full_name}}
-- Email: {{email}}
-- Phone: {{phone}}
-- Address: {{address}}, {{city_state_zip}}
+- Full Name: {{{{full_name}}}}
+- Email: {{{{email}}}}
+- Phone: {{{{phone}}}}
+- Address: {{{{address}}}}, {{{{city_state_zip}}}}
 
-While Arizona's comprehensive privacy legislation is pending, I invoke my rights under the FTC Act (15 U.S.C. § 45) prohibiting unfair and deceptive practices, and I request complete removal of my personal information from your databases and all affiliated services.
+I invoke my rights under the Federal Trade Commission Act (15 U.S.C. § 45), which prohibits unfair and deceptive trade practices, including the unauthorized collection, sale, and publication of personal information without consent.
 
-Please confirm receipt and completion of this request.
+I request that you:
+
+1. Immediately delete all personal data you hold about me from your databases and systems
+2. Remove my information from any public-facing websites, directories, or search results
+3. Notify any third parties, affiliates, or data partners to whom you have disclosed my information to also delete it
+4. Confirm completion of this request in writing within 30 days
+
+Failure to comply may constitute an unfair or deceptive trade practice under 15 U.S.C. § 45 and may be reported to the Federal Trade Commission and the {state_name} Attorney General.
 
 Sincerely,
-{{full_name}}
-{{date}}
-""",
-    },
+{{{{full_name}}}}
+{{{{date}}}}
+"""
+
+
+# ---------------------------------------------------------------------------
+# State-specific template builder for enacted comprehensive privacy laws
+# ---------------------------------------------------------------------------
+
+def _state_privacy_template(state_name: str, law_short: str, citation: str) -> str:
+    """Generate a state-specific privacy law deletion request template."""
+    return f"""Subject: Consumer Data Deletion Request Under the {law_short}
+
+To Whom It May Concern,
+
+I am a {state_name} resident exercising my rights under the {law_short}, {citation}.
+
+My identification details:
+- Full Name: {{{{full_name}}}}
+- Email: {{{{email}}}}
+- Phone: {{{{phone}}}}
+- Address: {{{{address}}}}, {{{{city_state_zip}}}}
+
+Under the {law_short}, I have the right to request deletion of personal data you have collected about me. I hereby exercise that right and request that you:
+
+1. Delete all personal data concerning me from your records and systems
+2. Direct any processors or third parties to whom you disclosed my data to also delete it
+3. Confirm completion of the deletion within the time period required by law
+
+If you decline this request, please provide a written explanation of the basis for denial along with instructions for how I may appeal your decision.
+
+Sincerely,
+{{{{full_name}}}}
+{{{{date}}}}
+"""
+
+
+STATE_TEMPLATES = {
+    # ---- States with enacted comprehensive privacy laws ----
+
     "CA": {
         "law_name": "California Consumer Privacy Act (CCPA) / CPRA",
         "citation": "Cal. Civ. Code §§ 1798.100–1798.199.100",
         "effective": "January 1, 2020 (CCPA) / January 1, 2023 (CPRA)",
-        "body": CCPA_DELETE_TEMPLATE,  # Reuse full CCPA template for CA
+        "body": CCPA_DELETE_TEMPLATE,
     },
     "CO": {
         "law_name": "Colorado Privacy Act (CPA)",
         "citation": "Colo. Rev. Stat. § 6-1-1301 et seq.",
         "effective": "July 1, 2023",
-        "body": """Subject: Consumer Data Deletion Request Under the Colorado Privacy Act
-
-To Whom It May Concern,
-
-I am a Colorado resident exercising my rights under the Colorado Privacy Act (CPA), Colo. Rev. Stat. § 6-1-1301 et seq.
-
-My identification details:
-- Full Name: {{full_name}}
-- Email: {{email}}
-- Phone: {{phone}}
-- Address: {{address}}, {{city_state_zip}}
-
-Under CPA § 6-1-1306(1)(d), I have the right to request deletion of personal data you have collected about me. I hereby exercise that right and request that you:
-
-1. Delete all personal data concerning me from your records
-2. Direct any processors to whom you disclosed my data to also delete it
-3. Confirm completion of the deletion within 45 days (§ 6-1-1306(3))
-
-If you decline this request, please provide a written explanation of the basis for denial, as required by § 6-1-1306(4), along with instructions for how I may appeal your decision to the Colorado Attorney General.
-
-Sincerely,
-{{full_name}}
-{{date}}
-""",
+        "body": _state_privacy_template("Colorado", "Colorado Privacy Act (CPA)", "Colo. Rev. Stat. § 6-1-1301 et seq."),
     },
     "CT": {
         "law_name": "Connecticut Data Privacy Act (CTDPA)",
         "citation": "Conn. Public Act No. 22-15",
         "effective": "July 1, 2023",
-        "body": """Subject: Consumer Data Deletion Request Under the Connecticut Data Privacy Act
-
-To Whom It May Concern,
-
-I am a Connecticut resident exercising my rights under the Connecticut Data Privacy Act (CTDPA), Public Act No. 22-15.
-
-My identification details:
-- Full Name: {{full_name}}
-- Email: {{email}}
-- Phone: {{phone}}
-- Address: {{address}}, {{city_state_zip}}
-
-Under Section 4(4) of the CTDPA, I have the right to delete personal data that you have obtained about me. I hereby exercise that right and request that you:
-
-1. Delete all personal data you hold about me
-2. Notify any third-party recipients of this deletion request
-3. Respond to this request within 45 days as required by Section 4(d)
-
-If you require additional information for identity verification, please contact me at the email address above. Any denial must include a justification and instructions for appeal to the Connecticut Attorney General.
-
-Sincerely,
-{{full_name}}
-{{date}}
-""",
+        "body": _state_privacy_template("Connecticut", "Connecticut Data Privacy Act (CTDPA)", "Conn. Public Act No. 22-15"),
     },
     "VA": {
         "law_name": "Virginia Consumer Data Protection Act (VCDPA)",
         "citation": "Va. Code Ann. § 59.1-575 et seq.",
         "effective": "January 1, 2023",
-        "body": """Subject: Consumer Data Deletion Request Under the Virginia CDPA
-
-To Whom It May Concern,
-
-I am a Virginia resident exercising my rights under the Virginia Consumer Data Protection Act (VCDPA), Va. Code Ann. § 59.1-575 et seq.
-
-My identification details:
-- Full Name: {{full_name}}
-- Email: {{email}}
-- Phone: {{phone}}
-- Address: {{address}}, {{city_state_zip}}
-
-Under § 59.1-577(A)(4), I have the right to delete personal data you have collected about me. I hereby request:
-
-1. Deletion of all personal data concerning me from your systems
-2. Notification to any processors or third parties who received my data
-3. A response within 45 days as required by § 59.1-577(C)
-
-If this request is denied, please provide the legal basis for the denial and information on how to appeal to the Virginia Attorney General under § 59.1-577(D).
-
-Sincerely,
-{{full_name}}
-{{date}}
-""",
+        "body": _state_privacy_template("Virginia", "Virginia Consumer Data Protection Act (VCDPA)", "Va. Code Ann. § 59.1-575 et seq."),
     },
+    "UT": {
+        "law_name": "Utah Consumer Privacy Act (UCPA)",
+        "citation": "Utah Code Ann. § 13-61-101 et seq.",
+        "effective": "December 31, 2023",
+        "body": _state_privacy_template("Utah", "Utah Consumer Privacy Act (UCPA)", "Utah Code Ann. § 13-61-101 et seq."),
+    },
+    "IA": {
+        "law_name": "Iowa Consumer Data Protection Act (Iowa CDPA)",
+        "citation": "Iowa Code ch. 715D",
+        "effective": "January 1, 2025",
+        "body": _state_privacy_template("Iowa", "Iowa Consumer Data Protection Act", "Iowa Code ch. 715D"),
+    },
+    "IN": {
+        "law_name": "Indiana Consumer Data Protection Act (ICDPA)",
+        "citation": "Ind. Code § 24-15-1-1 et seq.",
+        "effective": "January 1, 2026",
+        "body": _state_privacy_template("Indiana", "Indiana Consumer Data Protection Act (ICDPA)", "Ind. Code § 24-15-1-1 et seq."),
+    },
+    "TN": {
+        "law_name": "Tennessee Information Protection Act (TIPA)",
+        "citation": "Tenn. Code Ann. § 47-18-3201 et seq.",
+        "effective": "July 1, 2025",
+        "body": _state_privacy_template("Tennessee", "Tennessee Information Protection Act (TIPA)", "Tenn. Code Ann. § 47-18-3201 et seq."),
+    },
+    "TX": {
+        "law_name": "Texas Data Privacy and Security Act (TDPSA)",
+        "citation": "Tex. Bus. & Com. Code ch. 541",
+        "effective": "July 1, 2024",
+        "body": _state_privacy_template("Texas", "Texas Data Privacy and Security Act (TDPSA)", "Tex. Bus. & Com. Code ch. 541"),
+    },
+    "MT": {
+        "law_name": "Montana Consumer Data Privacy Act (MCDPA)",
+        "citation": "Mont. Code Ann. § 30-14-2801 et seq.",
+        "effective": "October 1, 2024",
+        "body": _state_privacy_template("Montana", "Montana Consumer Data Privacy Act (MCDPA)", "Mont. Code Ann. § 30-14-2801 et seq."),
+    },
+    "OR": {
+        "law_name": "Oregon Consumer Privacy Act (OCPA)",
+        "citation": "Or. Rev. Stat. § 646A.570 et seq.",
+        "effective": "July 1, 2024",
+        "body": _state_privacy_template("Oregon", "Oregon Consumer Privacy Act (OCPA)", "Or. Rev. Stat. § 646A.570 et seq."),
+    },
+    "DE": {
+        "law_name": "Delaware Personal Data Privacy Act (DPDPA)",
+        "citation": "Del. Code Ann. tit. 6, ch. 12D",
+        "effective": "January 1, 2025",
+        "body": _state_privacy_template("Delaware", "Delaware Personal Data Privacy Act (DPDPA)", "Del. Code Ann. tit. 6, ch. 12D"),
+    },
+    "NJ": {
+        "law_name": "New Jersey Data Privacy Act (NJDPA)",
+        "citation": "N.J. Stat. Ann. § 56:8-166 et seq.",
+        "effective": "January 15, 2025",
+        "body": _state_privacy_template("New Jersey", "New Jersey Data Privacy Act (NJDPA)", "N.J. Stat. Ann. § 56:8-166 et seq."),
+    },
+    "NH": {
+        "law_name": "New Hampshire Privacy Act (NHPA)",
+        "citation": "N.H. Rev. Stat. Ann. § 507-H:1 et seq.",
+        "effective": "January 1, 2025",
+        "body": _state_privacy_template("New Hampshire", "New Hampshire Privacy Act (NHPA)", "N.H. Rev. Stat. Ann. § 507-H:1 et seq."),
+    },
+    "NE": {
+        "law_name": "Nebraska Data Privacy Act (NDPA)",
+        "citation": "Neb. Rev. Stat. § 87-1101 et seq.",
+        "effective": "January 1, 2025",
+        "body": _state_privacy_template("Nebraska", "Nebraska Data Privacy Act (NDPA)", "Neb. Rev. Stat. § 87-1101 et seq."),
+    },
+    "MD": {
+        "law_name": "Maryland Online Data Privacy Act (MODPA)",
+        "citation": "Md. Code Ann., Com. Law § 14-4601 et seq.",
+        "effective": "October 1, 2025",
+        "body": _state_privacy_template("Maryland", "Maryland Online Data Privacy Act (MODPA)", "Md. Code Ann., Com. Law § 14-4601 et seq."),
+    },
+    "MN": {
+        "law_name": "Minnesota Consumer Data Privacy Act (MCDPA)",
+        "citation": "Minn. Stat. § 325O.01 et seq.",
+        "effective": "July 31, 2025",
+        "body": _state_privacy_template("Minnesota", "Minnesota Consumer Data Privacy Act (MCDPA)", "Minn. Stat. § 325O.01 et seq."),
+    },
+    "KY": {
+        "law_name": "Kentucky Consumer Data Protection Act (KCDPA)",
+        "citation": "Ky. Rev. Stat. Ann. § 367.501 et seq.",
+        "effective": "January 1, 2026",
+        "body": _state_privacy_template("Kentucky", "Kentucky Consumer Data Protection Act (KCDPA)", "Ky. Rev. Stat. Ann. § 367.501 et seq."),
+    },
+    "FL": {
+        "law_name": "Florida Digital Bill of Rights (FDBR)",
+        "citation": "Fla. Stat. § 501.701 et seq.",
+        "effective": "July 1, 2024",
+        "body": _state_privacy_template("Florida", "Florida Digital Bill of Rights (FDBR)", "Fla. Stat. § 501.701 et seq."),
+    },
+    "RI": {
+        "law_name": "Rhode Island Data Transparency and Privacy Protection Act (RIDPA)",
+        "citation": "R.I. Gen. Laws § 6-48.1-1 et seq.",
+        "effective": "January 1, 2026",
+        "body": _state_privacy_template("Rhode Island", "Rhode Island Data Transparency and Privacy Protection Act (RIDPA)", "R.I. Gen. Laws § 6-48.1-1 et seq."),
+    },
+
+    # ---- States without comprehensive privacy laws — FTC Act fallback ----
+
+    "AL": {
+        "law_name": "Federal FTC Act (Alabama)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Alabama"),
+    },
+    "AK": {
+        "law_name": "Federal FTC Act (Alaska)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Alaska"),
+    },
+    "AZ": {
+        "law_name": "Federal FTC Act (Arizona)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Arizona"),
+    },
+    "AR": {
+        "law_name": "Federal FTC Act (Arkansas)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Arkansas"),
+    },
+    "GA": {
+        "law_name": "Federal FTC Act (Georgia)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Georgia"),
+    },
+    "HI": {
+        "law_name": "Federal FTC Act (Hawaii)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Hawaii"),
+    },
+    "ID": {
+        "law_name": "Federal FTC Act (Idaho)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Idaho"),
+    },
+    "IL": {
+        "law_name": "Federal FTC Act (Illinois)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Illinois"),
+    },
+    "KS": {
+        "law_name": "Federal FTC Act (Kansas)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Kansas"),
+    },
+    "LA": {
+        "law_name": "Federal FTC Act (Louisiana)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Louisiana"),
+    },
+    "ME": {
+        "law_name": "Federal FTC Act (Maine)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Maine"),
+    },
+    "MA": {
+        "law_name": "Federal FTC Act (Massachusetts)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Massachusetts"),
+    },
+    "MI": {
+        "law_name": "Federal FTC Act (Michigan)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Michigan"),
+    },
+    "MS": {
+        "law_name": "Federal FTC Act (Mississippi)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Mississippi"),
+    },
+    "MO": {
+        "law_name": "Federal FTC Act (Missouri)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Missouri"),
+    },
+    "NV": {
+        "law_name": "Federal FTC Act (Nevada)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Nevada"),
+    },
+    "NM": {
+        "law_name": "Federal FTC Act (New Mexico)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("New Mexico"),
+    },
+    "NY": {
+        "law_name": "Federal FTC Act (New York)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("New York"),
+    },
+    "NC": {
+        "law_name": "Federal FTC Act (North Carolina)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("North Carolina"),
+    },
+    "ND": {
+        "law_name": "Federal FTC Act (North Dakota)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("North Dakota"),
+    },
+    "OH": {
+        "law_name": "Federal FTC Act (Ohio)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Ohio"),
+    },
+    "OK": {
+        "law_name": "Federal FTC Act (Oklahoma)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Oklahoma"),
+    },
+    "PA": {
+        "law_name": "Federal FTC Act (Pennsylvania)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Pennsylvania"),
+    },
+    "SC": {
+        "law_name": "Federal FTC Act (South Carolina)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("South Carolina"),
+    },
+    "SD": {
+        "law_name": "Federal FTC Act (South Dakota)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("South Dakota"),
+    },
+    "VT": {
+        "law_name": "Federal FTC Act (Vermont)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Vermont"),
+    },
+    "WA": {
+        "law_name": "Federal FTC Act (Washington)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Washington"),
+    },
+    "WV": {
+        "law_name": "Federal FTC Act (West Virginia)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("West Virginia"),
+    },
+    "WI": {
+        "law_name": "Federal FTC Act (Wisconsin)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Wisconsin"),
+    },
+    "WY": {
+        "law_name": "Federal FTC Act (Wyoming)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("Wyoming"),
+    },
+    "DC": {
+        "law_name": "Federal FTC Act (District of Columbia)",
+        "citation": "15 U.S.C. § 45",
+        "effective": "Federal — ongoing",
+        "body": _ftc_fallback_template("the District of Columbia"),
+    },
+}
+
+# Full state name map for display purposes
+STATE_NAMES = {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
+    "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware",
+    "FL": "Florida", "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho",
+    "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas",
+    "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine", "MD": "Maryland",
+    "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi",
+    "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada",
+    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York",
+    "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio", "OK": "Oklahoma",
+    "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
+    "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah",
+    "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
+    "WI": "Wisconsin", "WY": "Wyoming", "DC": "District of Columbia",
 }
 
 
@@ -488,16 +765,19 @@ def generate_state_request(
 
 
 def get_available_states() -> list[dict]:
-    """Return list of states with available templates."""
-    return [
-        {
+    """Return list of states with available templates, sorted by state code."""
+    states = []
+    for code, info in STATE_TEMPLATES.items():
+        states.append({
             "code": code,
+            "name": STATE_NAMES.get(code, code),
             "law_name": info["law_name"],
             "citation": info["citation"],
             "effective": info["effective"],
-        }
-        for code, info in STATE_TEMPLATES.items()
-    ]
+            "has_privacy_law": "FTC Act" not in info["law_name"],
+        })
+    states.sort(key=lambda s: s["code"])
+    return states
 
 
 # ---------------------------------------------------------------------------
@@ -768,7 +1048,7 @@ def get_legal_request_types() -> list[dict]:
             "id": "state_specific",
             "name": "State-Specific Privacy Request",
             "description": "Privacy deletion requests citing state-specific laws.",
-            "jurisdiction": "AZ, CA, CO, CT, VA",
+            "jurisdiction": "All 50 states + DC",
         },
         {
             "id": "cease_desist",
