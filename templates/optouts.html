@@ -39,7 +39,7 @@
   </div>
   <div class="stat-card info">
     <div class="stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
-    <div class="stat-value">{{ submitted|default(12) }}</div>
+    <div class="stat-value">{{ submitted|default(0) }}</div>
     <div class="stat-label">Submitted</div>
   </div>
   <div class="stat-card">
@@ -49,7 +49,7 @@
   </div>
   <div class="stat-card success">
     <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-    <div class="stat-value">{{ confirmed|default(31) }}</div>
+    <div class="stat-value">{{ confirmed|default(0) }}</div>
     <div class="stat-label">Confirmed</div>
   </div>
 </div>

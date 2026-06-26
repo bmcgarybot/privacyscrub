@@ -41,12 +41,12 @@
 <div class="stats-grid">
   <div class="stat-card">
     <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
-    <div class="stat-value">{{ total_brokers|default(812) }}</div>
+    <div class="stat-value">{{ total_brokers|default(0) }}</div>
     <div class="stat-label">Total Brokers in DB</div>
   </div>
   <div class="stat-card danger">
     <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
-    <div class="stat-value">{{ found_on|default(47) }}</div>
+    <div class="stat-value">{{ found_on|default(0) }}</div>
     <div class="stat-label">Currently Found On</div>
   </div>
   <div class="stat-card success">
@@ -56,7 +56,7 @@
   </div>
   <div class="stat-card warning">
     <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-    <div class="stat-value">{{ errors|default(13) }}</div>
+    <div class="stat-value">{{ errors|default(0) }}</div>
     <div class="stat-label">Errors / Unreachable</div>
   </div>
 </div>
