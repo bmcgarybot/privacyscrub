@@ -115,6 +115,37 @@
 
 <!-- Charts Row -->
 <div class="grid-2 mb-3">
+  <!-- Email Sender Stats -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-envelope text-accent"></i> Email Removal Requests</h3>
+      <a href="/email-center" class="btn btn-ghost btn-sm">Open Email Center</a>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:16px; padding:8px 0;">
+      <div style="flex:1; min-width:120px; text-align:center; padding:12px; background:rgba(0,212,170,0.08); border-radius:8px;">
+        <div style="font-size:1.6rem; font-weight:700; color:#00d4aa;">{{ email_summary.sent|default(0) }}</div>
+        <div style="font-size:0.75rem; color:#8b95a5; margin-top:4px;">Emails Sent</div>
+      </div>
+      <div style="flex:1; min-width:120px; text-align:center; padding:12px; background:rgba(0,123,255,0.08); border-radius:8px;">
+        <div style="font-size:1.6rem; font-weight:700; color:#007bff;">{{ email_summary.completed|default(0) }}</div>
+        <div style="font-size:0.75rem; color:#8b95a5; margin-top:4px;">Completed</div>
+      </div>
+      <div style="flex:1; min-width:120px; text-align:center; padding:12px; background:rgba(255,193,7,0.08); border-radius:8px;">
+        <div style="font-size:1.6rem; font-weight:700; color:#ffc107;">{{ email_summary.action_needed|default(0) }}</div>
+        <div style="font-size:0.75rem; color:#8b95a5; margin-top:4px;">Needs Action</div>
+      </div>
+      <div style="flex:1; min-width:120px; text-align:center; padding:12px; background:rgba(255,107,107,0.08); border-radius:8px;">
+        <div style="font-size:1.6rem; font-weight:700; color:#ff6b6b;">{{ email_summary.failed|default(0) }}</div>
+        <div style="font-size:0.75rem; color:#8b95a5; margin-top:4px;">Failed</div>
+      </div>
+    </div>
+    {% if email_summary.total|default(0) == 0 %}
+    <p style="color:#8b95a5; font-size:0.85rem; margin-top:8px;">
+      No removal emails sent yet. <a href="/email-center" style="color:#00d4aa;">Set up your Email Center</a> to start removing your data from brokers.
+    </p>
+    {% endif %}
+  </div>
+
   <!-- Threat Timeline -->
   <div class="card">
     <div class="card-header">
@@ -125,8 +156,9 @@
       <canvas id="threat-timeline-chart"></canvas>
     </div>
   </div>
+</div>
 
-  <!-- Category Breakdown -->
+<div class="grid-2 mb-3">
   <div class="card">
     <div class="card-header">
       <h3>Exposure by Category</h3>

@@ -142,6 +142,23 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("created_at", "TEXT DEFAULT (datetime('now'))"),
         ("updated_at", "TEXT DEFAULT (datetime('now'))"),
     ],
+    "email_requests": [
+        ("id", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+        ("profile_id", "INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE"),
+        ("broker_id", "TEXT NOT NULL"),
+        ("to_email", "TEXT NOT NULL"),
+        ("subject", "TEXT DEFAULT ''"),
+        ("template_key", "TEXT DEFAULT ''"),               # gdpr|ccpa|cpra|generic_us|arizona
+        ("status", "TEXT DEFAULT 'pending'"),              # pending|preview|sent|delivered|replied|action_needed|completed|failed
+        ("message_id", "TEXT DEFAULT ''"),                 # SMTP Message-ID for tracking
+        ("response_text", "TEXT DEFAULT ''"),              # Notes about the response
+        ("family_member_id", "INTEGER"),                   # NULL = main profile, else family_members.id
+        ("batch_id", "TEXT DEFAULT ''"),                   # Groups emails from one batch send
+        ("sent_at", "TEXT DEFAULT ''"),
+        ("follow_up_date", "TEXT DEFAULT ''"),             # When to follow up / auto-resend
+        ("created_at", "TEXT DEFAULT (datetime('now'))"),
+        ("updated_at", "TEXT DEFAULT (datetime('now'))"),
+    ],
 }
 
 # ---------------------------------------------------------------------------
@@ -292,6 +309,11 @@ def _ensure_indexes(conn: sqlite3.Connection) -> None:
         "CREATE INDEX IF NOT EXISTS idx_activity_action ON activity_log(action)",
         "CREATE INDEX IF NOT EXISTS idx_settings_key ON settings(key)",
         "CREATE INDEX IF NOT EXISTS idx_custom_profile ON custom_removals(profile_id)",
+        "CREATE INDEX IF NOT EXISTS idx_email_req_profile ON email_requests(profile_id)",
+        "CREATE INDEX IF NOT EXISTS idx_email_req_broker ON email_requests(broker_id)",
+        "CREATE INDEX IF NOT EXISTS idx_email_req_status ON email_requests(status)",
+        "CREATE INDEX IF NOT EXISTS idx_email_req_batch ON email_requests(batch_id)",
+        "CREATE INDEX IF NOT EXISTS idx_email_req_followup ON email_requests(follow_up_date)",
     ]
     for idx in indexes:
         conn.execute(idx)

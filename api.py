@@ -27,6 +27,13 @@ from models import (
     get_breaches, get_optouts, get_all_settings,
     log_activity,
 )
+from email_sender import (
+    send_batch, get_email_summary, get_email_requests,
+    update_email_request_status, get_available_templates,
+    get_email_config, save_email_config, test_smtp_connection,
+    render_template as render_email_template,
+    get_pending_followups,
+)
 from scanner import (
     start_scan, get_scan_status, load_brokers,
     get_broker_count, get_broker_categories, scan_state,
@@ -403,3 +410,277 @@ def api_health():
         "version": "1.0.0",
         "broker_count": get_broker_count(),
     })
+
+
+# ---------------------------------------------------------------------------
+# POST /api/email/send — Send removal emails
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/send", methods=["POST"])
+@require_api_key
+def api_email_send():
+    """
+    Send removal request emails to data brokers.
+
+    JSON body:
+        {
+            "profile_id": int (required),
+            "template": "gdpr" | "ccpa" | "cpra" | "generic_us" | "arizona",
+            "broker_ids": [...] (optional, defaults to all),
+            "dry_run": bool (optional, defaults to false),
+            "include_family": bool (optional, defaults to false),
+            "priority": "crucial" | "high" | "medium" | "low" (optional filter)
+        }
+
+    Returns:
+        200: { "status": "ok", "sent": int, "failed": int, ... }
+    """
+    data = request.get_json(silent=True) or {}
+    profile_id = data.get("profile_id")
+
+    if not profile_id:
+        return _error("profile_id is required")
+
+    profile = get_profile(profile_id)
+    if not profile:
+        return _error(f"Profile {profile_id} not found", 404)
+
+    template_key = data.get("template", "generic_us")
+    broker_ids = data.get("broker_ids", [])
+    dry_run = data.get("dry_run", False)
+    include_family = data.get("include_family", False)
+    priority_filter = data.get("priority")
+
+    result = send_batch(
+        profile_id=profile_id,
+        broker_ids=broker_ids,
+        template_key=template_key,
+        dry_run=dry_run,
+        include_family=include_family,
+        priority_filter=priority_filter,
+    )
+
+    if "error" in result:
+        return _error(result["error"])
+
+    return _success(result)
+
+
+# ---------------------------------------------------------------------------
+# GET /api/email/status — Email sending status
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/status", methods=["GET"])
+@require_api_key
+def api_email_status():
+    """
+    Get email sending status and summary.
+
+    Query params:
+        profile_id (int, optional): Filter by profile.
+        status (str, optional): Filter by status.
+        limit (int, optional): Max results.
+        offset (int, optional): Pagination offset.
+
+    Returns:
+        200: { "status": "ok", "summary": {...}, "requests": [...] }
+    """
+    profile_id = request.args.get("profile_id", type=int)
+    status_filter = request.args.get("status")
+    limit = min(request.args.get("limit", 50, type=int), 500)
+    offset = request.args.get("offset", 0, type=int)
+
+    summary = get_email_summary(profile_id)
+    requests = get_email_requests(
+        profile_id=profile_id,
+        status=status_filter,
+        limit=limit,
+        offset=offset,
+    )
+
+    return _success({
+        "summary": summary,
+        "requests": requests,
+        "limit": limit,
+        "offset": offset,
+    })
+
+
+# ---------------------------------------------------------------------------
+# PUT /api/email/request/<id> — Update email request status
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/request/<int:request_id>", methods=["PUT"])
+@require_api_key
+def api_email_update(request_id: int):
+    """
+    Update the status of an email request.
+
+    JSON body:
+        {
+            "status": "delivered" | "replied" | "action_needed" | "completed" | "failed",
+            "response_text": "..." (optional)
+        }
+
+    Returns:
+        200: { "status": "ok", "updated": true }
+    """
+    data = request.get_json(silent=True) or {}
+    new_status = data.get("status")
+    response_text = data.get("response_text", "")
+
+    if not new_status:
+        return _error("status is required")
+
+    valid_statuses = ["pending", "sent", "delivered", "replied", "action_needed", "completed", "failed"]
+    if new_status not in valid_statuses:
+        return _error(f"Invalid status. Must be one of: {', '.join(valid_statuses)}")
+
+    success = update_email_request_status(request_id, new_status, response_text)
+    if not success:
+        return _error(f"Email request {request_id} not found", 404)
+
+    return _success({"updated": True})
+
+
+# ---------------------------------------------------------------------------
+# GET /api/email/templates — List available templates
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/templates", methods=["GET"])
+@require_api_key
+def api_email_templates():
+    """List available email templates."""
+    templates = get_available_templates()
+    return _success({"templates": templates})
+
+
+# ---------------------------------------------------------------------------
+# POST /api/email/preview — Preview a rendered email
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/preview", methods=["POST"])
+@require_api_key
+def api_email_preview():
+    """
+    Preview a rendered email template.
+
+    JSON body:
+        {
+            "profile_id": int (required),
+            "template": "gdpr" | "ccpa" | "cpra" | "generic_us" | "arizona",
+            "broker_id": "..." (optional, for context)
+        }
+
+    Returns:
+        200: { "status": "ok", "subject": "...", "body": "...", "template_name": "..." }
+    """
+    data = request.get_json(silent=True) or {}
+    profile_id = data.get("profile_id")
+    template_key = data.get("template", "generic_us")
+
+    if not profile_id:
+        return _error("profile_id is required")
+
+    profile = get_profile(profile_id)
+    if not profile:
+        return _error(f"Profile {profile_id} not found", 404)
+
+    rendered = render_email_template(template_key, profile)
+    if "error" in rendered:
+        return _error(rendered["error"])
+
+    return _success(rendered)
+
+
+# ---------------------------------------------------------------------------
+# POST /api/email/config — Save SMTP configuration
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/config", methods=["POST"])
+@require_api_key
+def api_email_config_save():
+    """
+    Save SMTP configuration.
+
+    JSON body:
+        {
+            "smtp_host": "smtp.gmail.com",
+            "smtp_port": 587,
+            "smtp_user": "user@gmail.com",
+            "smtp_pass": "app-password-here",
+            "from_email": "user@gmail.com",
+            "from_name": "Your Name"
+        }
+    """
+    data = request.get_json(silent=True) or {}
+
+    required = ["smtp_host", "smtp_user", "smtp_pass"]
+    for field in required:
+        if not data.get(field):
+            return _error(f"{field} is required")
+
+    save_email_config(data)
+    log_activity(None, None, "email_config_updated", "system", "SMTP configuration updated")
+
+    return _success({"message": "SMTP configuration saved"})
+
+
+# ---------------------------------------------------------------------------
+# GET /api/email/config — Get SMTP configuration (masked)
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/config", methods=["GET"])
+@require_api_key
+def api_email_config_get():
+    """Get current SMTP configuration (password masked)."""
+    config = get_email_config()
+    if not config:
+        return _success({"configured": False, "config": None})
+
+    # Mask password
+    masked = dict(config)
+    if masked.get("smtp_pass"):
+        masked["smtp_pass"] = "••••••••"
+
+    return _success({"configured": True, "config": masked})
+
+
+# ---------------------------------------------------------------------------
+# POST /api/email/test — Test SMTP connection
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/test", methods=["POST"])
+@require_api_key
+def api_email_test():
+    """
+    Test SMTP connection with current or provided configuration.
+
+    If JSON body is provided, tests that config. Otherwise tests saved config.
+    """
+    data = request.get_json(silent=True)
+
+    if data and data.get("smtp_host"):
+        config = data
+    else:
+        config = get_email_config()
+        if not config:
+            return _error("No SMTP configuration found. Save config first.")
+
+    result = test_smtp_connection(config)
+    if result["success"]:
+        return _success({"message": result["message"]})
+    else:
+        return _error(result["message"])
+
+
+# ---------------------------------------------------------------------------
+# GET /api/email/followups — Get pending follow-ups
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/email/followups", methods=["GET"])
+@require_api_key
+def api_email_followups():
+    """Get email requests that need follow-up (past follow-up date)."""
+    followups = get_pending_followups()
+    return _success({"followups": followups, "count": len(followups)})

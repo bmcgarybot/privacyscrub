@@ -67,6 +67,13 @@ from utils import (
     export_full_report_json, format_timestamp,
 )
 from api import api_bp
+from email_sender import (
+    get_email_config, save_email_config, test_smtp_connection,
+    send_batch, get_email_requests, get_email_summary,
+    update_email_request_status, get_available_templates,
+    render_template as render_email_template,
+    TEMPLATES as EMAIL_TEMPLATES,
+)
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -160,6 +167,7 @@ def _register_routes(app: Flask) -> None:
         breaches_summary = {}
         optout_summary = {}
         recent_activity = []
+        email_summary = {}
 
         profile_id = request.args.get("profile_id", type=int)
         if profiles:
@@ -178,6 +186,7 @@ def _register_routes(app: Flask) -> None:
                 manager = OptOutManager()
                 optout_summary = manager.get_summary(profile["id"])
                 recent_activity = get_activity_log(profile_id=profile["id"], limit=10)
+                email_summary = get_email_summary(profile["id"])
 
         return render_template(
             "dashboard.html",
@@ -187,6 +196,7 @@ def _register_routes(app: Flask) -> None:
             breaches_summary=breaches_summary,
             optout_summary=optout_summary,
             recent_activity=recent_activity,
+            email_summary=email_summary,
         )
 
     # ===================================================================
@@ -200,6 +210,9 @@ def _register_routes(app: Flask) -> None:
         family_data = {}
         for p in profiles:
             family_data[p["id"]] = get_family_members(p["id"])
+            # Ensure score exists for template rendering
+            if "score" not in p:
+                p["score"] = 50  # Default until scan calculates it
         return render_template("profiles.html", profiles=profiles, family_data=family_data)
 
     @app.route("/profiles/add", methods=["POST"])
@@ -706,6 +719,140 @@ def _register_routes(app: Flask) -> None:
     # ===================================================================
     # 9. DISPLACEMENT MODE — /displacement
     # ===================================================================
+
+    @app.route("/email-center")
+    def email_center_page():
+        """Email Center — configure SMTP, send removal emails, track responses."""
+        profiles = get_all_profiles()
+        profile_id = request.args.get("profile_id", type=int)
+        profile = None
+        family = []
+        email_config = get_email_config()
+        summary = {}
+        recent_requests = []
+
+        if profile_id:
+            profile = get_profile(profile_id)
+        elif profiles:
+            profile = profiles[0]
+
+        if profile:
+            family = get_family_members(profile["id"])
+            summary = get_email_summary(profile["id"])
+            recent_requests = get_email_requests(profile_id=profile["id"], limit=50)
+
+        templates = get_available_templates()
+        broker_count = get_broker_count()
+
+        # Get priority breakdown from brokers
+        brokers = load_brokers()
+        priority_counts = {}
+        for b in brokers:
+            p = b.get("priority", "medium")
+            priority_counts[p] = priority_counts.get(p, 0) + 1
+
+        return render_template(
+            "email_center.html",
+            profile=profile,
+            family=family,
+            email_config=email_config,
+            summary=summary,
+            recent_requests=recent_requests,
+            templates=templates,
+            broker_count=broker_count,
+            priority_counts=priority_counts,
+        )
+
+    @app.route("/email-center/config", methods=["POST"])
+    def email_center_config():
+        """Save SMTP configuration."""
+        config = {
+            "smtp_host": request.form.get("smtp_host", "").strip(),
+            "smtp_port": request.form.get("smtp_port", "587").strip(),
+            "smtp_user": request.form.get("smtp_user", "").strip(),
+            "smtp_pass": request.form.get("smtp_pass", "").strip(),
+            "from_email": request.form.get("from_email", "").strip(),
+            "from_name": request.form.get("from_name", "").strip(),
+        }
+
+        if not config["smtp_host"] or not config["smtp_user"] or not config["smtp_pass"]:
+            flash("SMTP host, username, and password are required.", "error")
+            return redirect(url_for("email_center_page"))
+
+        if not config["from_email"]:
+            config["from_email"] = config["smtp_user"]
+
+        save_email_config(config)
+        log_activity(None, None, "email_config_saved", "system", "SMTP configuration saved")
+        flash("SMTP configuration saved.", "success")
+        return redirect(url_for("email_center_page"))
+
+    @app.route("/email-center/test", methods=["POST"])
+    def email_center_test():
+        """Test SMTP connection."""
+        config = get_email_config()
+        if not config:
+            flash("Configure SMTP settings first.", "error")
+            return redirect(url_for("email_center_page"))
+
+        result = test_smtp_connection(config)
+        if result["success"]:
+            flash("SMTP connection successful!", "success")
+        else:
+            flash(f"SMTP test failed: {result['message']}", "error")
+        return redirect(url_for("email_center_page"))
+
+    @app.route("/email-center/send", methods=["POST"])
+    def email_center_send():
+        """Send removal emails to brokers."""
+        profile_id = request.form.get("profile_id", type=int)
+        template_key = request.form.get("template", "generic_us")
+        dry_run = request.form.get("dry_run") == "1"
+        include_family = request.form.get("include_family") == "1"
+        priority_filter = request.form.get("priority", "").strip() or None
+
+        if not profile_id:
+            flash("Select a profile.", "error")
+            return redirect(url_for("email_center_page"))
+
+        result = send_batch(
+            profile_id=profile_id,
+            broker_ids=[],
+            template_key=template_key,
+            dry_run=dry_run,
+            include_family=include_family,
+            priority_filter=priority_filter,
+        )
+
+        if "error" in result:
+            flash(result["error"], "error")
+        elif dry_run:
+            flash(
+                f"Dry run complete: {result['sent']} emails previewed, "
+                f"{result['skipped']} skipped.",
+                "success",
+            )
+        else:
+            flash(
+                f"Batch complete: {result['sent']} sent, "
+                f"{result['failed']} failed, {result['skipped']} skipped. "
+                f"{result['remaining_today']} remaining today.",
+                "success",
+            )
+
+        return redirect(url_for("email_center_page", profile_id=profile_id))
+
+    @app.route("/email-center/update/<int:request_id>", methods=["POST"])
+    def email_center_update(request_id):
+        """Update an email request status."""
+        status = request.form.get("status", "").strip()
+        response_text = request.form.get("response_text", "").strip()
+        profile_id = request.form.get("profile_id", type=int)
+
+        if status:
+            update_email_request_status(request_id, status, response_text)
+            flash(f"Email request status updated to '{status}'.", "success")
+        return redirect(url_for("email_center_page", profile_id=profile_id))
 
     @app.route("/displacement")
     def displacement_page():

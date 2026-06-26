@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% set active_page = 'email_center' %}
+{% block title %}Email Center{% endblock %}
+{% block header_title %}Email Center{% endblock %}
+{% block header_subtitle %}Send removal requests to data brokers{% endblock %}
+
+{% block content %}
+
+<!-- Pipeline Overview -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+    <div class="stat-value">{{ summary.sent|default(0) }}</div>
+    <div class="stat-label">Emails Sent</div>
+  </div>
+  <div class="stat-card success">
+    <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="stat-value">{{ summary.completed|default(0) }}</div>
+    <div class="stat-label">Completed</div>
+  </div>
+  <div class="stat-card warning">
+    <div class="stat-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+    <div class="stat-value">{{ summary.action_needed|default(0) }}</div>
+    <div class="stat-label">Needs Action</div>
+  </div>
+  <div class="stat-card danger">
+    <div class="stat-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+    <div class="stat-value">{{ summary.failed|default(0) }}</div>
+    <div class="stat-label">Failed</div>
+  </div>
+</div>
+
+<div class="grid-2 mb-3">
+  <!-- SMTP Configuration -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-gear text-accent"></i> SMTP Configuration</h3>
+      {% if email_config %}
+      <span class="badge success"><i class="fa-solid fa-check"></i> Configured</span>
+      {% else %}
+      <span class="badge warning"><i class="fa-solid fa-exclamation"></i> Not Configured</span>
+      {% endif %}
+    </div>
+    <form method="POST" action="/email-center/config">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">SMTP Host</label>
+          <input type="text" name="smtp_host" class="form-control"
+                 value="{{ email_config.smtp_host if email_config else '' }}"
+                 placeholder="smtp.gmail.com" required>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <div style="flex:1;">
+            <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Port</label>
+            <input type="number" name="smtp_port" class="form-control"
+                   value="{{ email_config.smtp_port if email_config else '587' }}"
+                   placeholder="587">
+          </div>
+          <div style="flex:2;">
+            <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Username</label>
+            <input type="text" name="smtp_user" class="form-control"
+                   value="{{ email_config.smtp_user if email_config else '' }}"
+                   placeholder="your@gmail.com" required>
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Password / App Password</label>
+          <input type="password" name="smtp_pass" class="form-control"
+                 placeholder="{% if email_config %}••••••••{% else %}App password or SMTP password{% endif %}"
+                 {% if not email_config %}required{% endif %}>
+          <p style="font-size:0.7rem; color:#6c7585; margin-top:4px;">
+            For Gmail, use an <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:#00d4aa;">App Password</a>
+          </p>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <div style="flex:1;">
+            <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">From Email</label>
+            <input type="email" name="from_email" class="form-control"
+                   value="{{ email_config.from_email if email_config else '' }}"
+                   placeholder="your@gmail.com">
+          </div>
+          <div style="flex:1;">
+            <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">From Name</label>
+            <input type="text" name="from_name" class="form-control"
+                   value="{{ email_config.from_name if email_config else '' }}"
+                   placeholder="Your Name">
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Save Config
+          </button>
+          {% if email_config %}
+          <form method="POST" action="/email-center/test" style="display:inline;">
+            <button type="submit" class="btn btn-ghost" formaction="/email-center/test">
+              <i class="fa-solid fa-plug"></i> Test Connection
+            </button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+
+    {% if not email_config %}
+    <div style="margin-top:16px; padding:12px; background:rgba(255,193,7,0.08); border-radius:8px; border-left:3px solid #ffc107;">
+      <p style="color:#ffc107; font-size:0.85rem; margin:0;">
+        <i class="fa-solid fa-info-circle"></i>
+        <strong>Setup required</strong> — Configure SMTP to start sending removal emails.
+        All credentials are stored locally and never leave your server.
+      </p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Send Removal Emails -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa-solid fa-paper-plane text-accent"></i> Send Removal Emails</h3>
+    </div>
+    {% if email_config %}
+    <form method="POST" action="/email-center/send">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <!-- Profile selector -->
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Profile</label>
+          <select name="profile_id" class="form-control">
+            {% for p in all_profiles %}
+            <option value="{{ p.id }}" {% if profile and p.id == profile.id %}selected{% endif %}>
+              {{ p.first_name }} {{ p.last_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Template selector -->
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Email Template</label>
+          <select name="template" class="form-control">
+            {% for t in templates %}
+            <option value="{{ t.key }}">{{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Priority filter -->
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#8b95a5; margin-bottom:4px;">Priority Filter (optional)</label>
+          <select name="priority" class="form-control">
+            <option value="">All brokers ({{ broker_count }})</option>
+            <option value="crucial">Crucial only ({{ priority_counts.get('crucial', 0) }})</option>
+            <option value="high">High priority ({{ priority_counts.get('high', 0) }})</option>
+            <option value="medium">Medium priority ({{ priority_counts.get('medium', 0) }})</option>
+            <option value="low">Low priority ({{ priority_counts.get('low', 0) }})</option>
+          </select>
+        </div>
+
+        <!-- Options -->
+        <div style="display:flex; gap:16px;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#c8ced6;">
+            <input type="checkbox" name="include_family" value="1">
+            <span style="font-size:0.85rem;">Include family members</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#c8ced6;">
+            <input type="checkbox" name="dry_run" value="1" checked>
+            <span style="font-size:0.85rem;">Dry run (preview only)</span>
+          </label>
+        </div>
+
+        {% if family %}
+        <div style="padding:8px 12px; background:rgba(0,212,170,0.06); border-radius:6px; font-size:0.8rem; color:#8b95a5;">
+          <i class="fa-solid fa-users" style="color:#00d4aa;"></i>
+          Family members: 
+          {% for m in family %}
+            <strong>{{ m.first_name }}</strong> ({{ m.relationship }}){% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div style="display:flex; gap:8px;">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Send Emails
+          </button>
+        </div>
+
+        <p style="font-size:0.7rem; color:#6c7585;">
+          Rate limited: 250 emails/day max · 2-second delay between sends · Already-sent brokers are skipped (30-day window)
+        </p>
+      </div>
+    </form>
+    {% else %}
+    <div style="text-align:center; padding:40px 20px; color:#6c7585;">
+      <i class="fa-solid fa-lock" style="font-size:2rem; margin-bottom:12px; display:block; color:#8b95a5;"></i>
+      <p>Configure SMTP settings first to enable email sending.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Pipeline View -->
+{% if summary.total|default(0) > 0 %}
+<div class="card mb-3">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-bars-progress text-accent"></i> Removal Pipeline</h3>
+  </div>
+  <div style="display:flex; gap:4px; height:24px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+    {% set total = summary.total|default(1) %}
+    {% if summary.completed|default(0) > 0 %}
+    <div style="flex:{{ summary.completed }}; background:#00d4aa;" title="Completed: {{ summary.completed }}"></div>
+    {% endif %}
+    {% if summary.replied|default(0) > 0 %}
+    <div style="flex:{{ summary.replied }}; background:#007bff;" title="Replied: {{ summary.replied }}"></div>
+    {% endif %}
+    {% if summary.delivered|default(0) > 0 %}
+    <div style="flex:{{ summary.delivered }}; background:#17a2b8;" title="Delivered: {{ summary.delivered }}"></div>
+    {% endif %}
+    {% if summary.sent|default(0) > 0 %}
+    <div style="flex:{{ summary.sent }}; background:#6c757d;" title="Sent: {{ summary.sent }}"></div>
+    {% endif %}
+    {% if summary.action_needed|default(0) > 0 %}
+    <div style="flex:{{ summary.action_needed }}; background:#ffc107;" title="Needs Action: {{ summary.action_needed }}"></div>
+    {% endif %}
+    {% if summary.failed|default(0) > 0 %}
+    <div style="flex:{{ summary.failed }}; background:#ff6b6b;" title="Failed: {{ summary.failed }}"></div>
+    {% endif %}
+    {% if summary.pending|default(0) > 0 %}
+    <div style="flex:{{ summary.pending }}; background:#343a40;" title="Pending: {{ summary.pending }}"></div>
+    {% endif %}
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:16px; font-size:0.8rem;">
+    <span style="color:#00d4aa;">● Completed ({{ summary.completed|default(0) }})</span>
+    <span style="color:#007bff;">● Replied ({{ summary.replied|default(0) }})</span>
+    <span style="color:#17a2b8;">● Delivered ({{ summary.delivered|default(0) }})</span>
+    <span style="color:#6c757d;">● Sent ({{ summary.sent|default(0) }})</span>
+    <span style="color:#ffc107;">● Needs Action ({{ summary.action_needed|default(0) }})</span>
+    <span style="color:#ff6b6b;">● Failed ({{ summary.failed|default(0) }})</span>
+  </div>
+</div>
+{% endif %}
+
+<!-- Email History Table -->
+<div class="card">
+  <div class="card-header">
+    <h3><i class="fa-solid fa-clock-rotate-left text-accent"></i> Email History</h3>
+    <span style="font-size:0.8rem; color:#8b95a5;">{{ recent_requests|length }} recent</span>
+  </div>
+  {% if recent_requests %}
+  <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <thead>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.06); color:#8b95a5; text-align:left;">
+          <th style="padding:10px 8px;">Broker</th>
+          <th style="padding:10px 8px;">To</th>
+          <th style="padding:10px 8px;">Template</th>
+          <th style="padding:10px 8px;">Status</th>
+          <th style="padding:10px 8px;">Sent</th>
+          <th style="padding:10px 8px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for req in recent_requests %}
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+          <td style="padding:8px; color:#e0e6ed;">{{ req.broker_id }}</td>
+          <td style="padding:8px; color:#8b95a5; font-size:0.8rem;">{{ req.to_email }}</td>
+          <td style="padding:8px; color:#8b95a5;">{{ req.template_key }}</td>
+          <td style="padding:8px;">
+            {% if req.status == 'sent' %}
+              <span class="badge" style="background:rgba(108,117,125,0.2); color:#adb5bd;">Sent</span>
+            {% elif req.status == 'delivered' %}
+              <span class="badge" style="background:rgba(23,162,184,0.2); color:#17a2b8;">Delivered</span>
+            {% elif req.status == 'replied' %}
+              <span class="badge" style="background:rgba(0,123,255,0.2); color:#007bff;">Replied</span>
+            {% elif req.status == 'completed' %}
+              <span class="badge" style="background:rgba(0,212,170,0.2); color:#00d4aa;">Completed</span>
+            {% elif req.status == 'action_needed' %}
+              <span class="badge" style="background:rgba(255,193,7,0.2); color:#ffc107;">Needs Action</span>
+            {% elif req.status == 'failed' %}
+              <span class="badge" style="background:rgba(255,107,107,0.2); color:#ff6b6b;">Failed</span>
+            {% elif req.status == 'preview' %}
+              <span class="badge" style="background:rgba(108,117,125,0.15); color:#6c757d;">Preview</span>
+            {% else %}
+              <span class="badge" style="background:rgba(108,117,125,0.15); color:#6c757d;">{{ req.status }}</span>
+            {% endif %}
+          </td>
+          <td style="padding:8px; color:#6c7585; font-size:0.8rem;">{{ req.sent_at[:16] if req.sent_at else '—' }}</td>
+          <td style="padding:8px;">
+            <form method="POST" action="/email-center/update/{{ req.id }}" style="display:inline-flex; gap:4px;">
+              <input type="hidden" name="profile_id" value="{{ profile.id if profile else '' }}">
+              <select name="status" class="form-control" style="font-size:0.75rem; padding:2px 6px; min-width:100px;">
+                <option value="">Update…</option>
+                <option value="delivered">Delivered</option>
+                <option value="replied">Replied</option>
+                <option value="action_needed">Needs Action</option>
+                <option value="completed">Completed</option>
+                <option value="failed">Failed</option>
+              </select>
+              <button type="submit" class="btn btn-ghost btn-sm" style="font-size:0.7rem; padding:2px 8px;">
+                <i class="fa-solid fa-check"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div style="text-align:center; padding:40px 20px; color:#6c7585;">
+    <i class="fa-solid fa-inbox" style="font-size:2rem; margin-bottom:12px; display:block; color:#8b95a5;"></i>
+    <p>No emails sent yet. Configure SMTP and start sending removal requests.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

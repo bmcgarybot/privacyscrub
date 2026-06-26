@@ -43,6 +43,9 @@
           <i class="fa-solid fa-paper-plane"></i> Opt-Out Center
           {% if pending_optouts %}<span class="nav-badge warning">{{ pending_optouts }}</span>{% endif %}
         </a>
+        <a href="/email-center" class="nav-item {% if active_page == 'email_center' %}active{% endif %}">
+          <i class="fa-solid fa-envelope"></i> Email Center
+        </a>
         <a href="/legal" class="nav-item {% if active_page == 'legal' %}active{% endif %}">
           <i class="fa-solid fa-scale-balanced"></i> Legal Center
         </a>
