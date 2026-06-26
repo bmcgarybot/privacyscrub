@@ -376,19 +376,88 @@ STATE_TEMPLATES = {
         "law_name": "Colorado Privacy Act (CPA)",
         "citation": "Colo. Rev. Stat. § 6-1-1301 et seq.",
         "effective": "July 1, 2023",
-        "body": _state_privacy_template("Colorado", "Colorado Privacy Act (CPA)", "Colo. Rev. Stat. § 6-1-1301 et seq."),
+        "body": """Subject: Consumer Data Deletion Request Under the Colorado Privacy Act
+
+To Whom It May Concern,
+
+I am a Colorado resident exercising my rights under the Colorado Privacy Act (CPA), Colo. Rev. Stat. § 6-1-1301 et seq.
+
+My identification details:
+- Full Name: {{full_name}}
+- Email: {{email}}
+- Phone: {{phone}}
+- Address: {{address}}, {{city_state_zip}}
+
+Under CPA § 6-1-1306(1)(d), I have the right to request deletion of personal data you have collected about me. I hereby exercise that right and request that you:
+
+1. Delete all personal data concerning me from your records
+2. Direct any processors to whom you disclosed my data to also delete it
+3. Confirm completion of the deletion within 45 days (§ 6-1-1306(3))
+
+If you decline this request, please provide a written explanation of the basis for denial, as required by § 6-1-1306(4), along with instructions for how I may appeal your decision to the Colorado Attorney General.
+
+Sincerely,
+{{full_name}}
+{{date}}
+""",
     },
     "CT": {
         "law_name": "Connecticut Data Privacy Act (CTDPA)",
         "citation": "Conn. Public Act No. 22-15",
         "effective": "July 1, 2023",
-        "body": _state_privacy_template("Connecticut", "Connecticut Data Privacy Act (CTDPA)", "Conn. Public Act No. 22-15"),
+        "body": """Subject: Consumer Data Deletion Request Under the Connecticut Data Privacy Act
+
+To Whom It May Concern,
+
+I am a Connecticut resident exercising my rights under the Connecticut Data Privacy Act (CTDPA), Public Act No. 22-15.
+
+My identification details:
+- Full Name: {{full_name}}
+- Email: {{email}}
+- Phone: {{phone}}
+- Address: {{address}}, {{city_state_zip}}
+
+Under Section 4(4) of the CTDPA, I have the right to delete personal data that you have obtained about me. I hereby exercise that right and request that you:
+
+1. Delete all personal data you hold about me
+2. Notify any third-party recipients of this deletion request
+3. Respond to this request within 45 days as required by Section 4(d)
+
+If you require additional information for identity verification, please contact me at the email address above. Any denial must include a justification and instructions for appeal to the Connecticut Attorney General.
+
+Sincerely,
+{{full_name}}
+{{date}}
+""",
     },
     "VA": {
         "law_name": "Virginia Consumer Data Protection Act (VCDPA)",
         "citation": "Va. Code Ann. § 59.1-575 et seq.",
         "effective": "January 1, 2023",
-        "body": _state_privacy_template("Virginia", "Virginia Consumer Data Protection Act (VCDPA)", "Va. Code Ann. § 59.1-575 et seq."),
+        "body": """Subject: Consumer Data Deletion Request Under the Virginia CDPA
+
+To Whom It May Concern,
+
+I am a Virginia resident exercising my rights under the Virginia Consumer Data Protection Act (VCDPA), Va. Code Ann. § 59.1-575 et seq.
+
+My identification details:
+- Full Name: {{full_name}}
+- Email: {{email}}
+- Phone: {{phone}}
+- Address: {{address}}, {{city_state_zip}}
+
+Under § 59.1-577(A)(4), I have the right to delete personal data you have collected about me. I hereby request:
+
+1. Deletion of all personal data concerning me from your systems
+2. Notification to any processors or third parties who received my data
+3. A response within 45 days as required by § 59.1-577(C)
+
+If this request is denied, please provide the legal basis for the denial and information on how to appeal to the Virginia Attorney General under § 59.1-577(D).
+
+Sincerely,
+{{full_name}}
+{{date}}
+""",
     },
     "UT": {
         "law_name": "Utah Consumer Privacy Act (UCPA)",
@@ -502,10 +571,36 @@ STATE_TEMPLATES = {
         "body": _ftc_fallback_template("Alaska"),
     },
     "AZ": {
-        "law_name": "Federal FTC Act (Arizona)",
-        "citation": "15 U.S.C. § 45",
-        "effective": "Federal — ongoing",
-        "body": _ftc_fallback_template("Arizona"),
+        "law_name": "Arizona Data Privacy Act (pending)",
+        "citation": "Ariz. Rev. Stat. § TBD + 15 U.S.C. § 45",
+        "effective": "Pending legislation",
+        "body": """Subject: Consumer Data Deletion Request — Arizona Resident
+
+To Whom It May Concern,
+
+I am an Arizona resident and I am requesting the deletion of my personal data under applicable state and federal privacy protections.
+
+My details:
+- Full Name: {{full_name}}
+- Email: {{email}}
+- Phone: {{phone}}
+- Address: {{address}}, {{city_state_zip}}
+
+While Arizona's comprehensive privacy legislation is pending, I invoke my rights under the FTC Act (15 U.S.C. § 45) prohibiting unfair and deceptive practices, and I request complete removal of my personal information from your databases and all affiliated services.
+
+I request that you:
+
+1. Immediately delete all personal data you hold about me
+2. Remove my information from any public-facing websites, directories, or search results
+3. Notify any third parties or data partners to also delete my information
+4. Confirm completion of this request in writing within 30 days
+
+Failure to comply may be reported to the Federal Trade Commission and the Arizona Attorney General.
+
+Sincerely,
+{{full_name}}
+{{date}}
+""",
     },
     "AR": {
         "law_name": "Federal FTC Act (Arkansas)",
@@ -774,7 +869,7 @@ def get_available_states() -> list[dict]:
             "law_name": info["law_name"],
             "citation": info["citation"],
             "effective": info["effective"],
-            "has_privacy_law": "FTC Act" not in info["law_name"],
+            "has_privacy_law": "FTC Act" not in info["law_name"] and "pending" not in info.get("effective", "").lower(),
         })
     states.sort(key=lambda s: s["code"])
     return states

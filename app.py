@@ -1160,6 +1160,9 @@ def _register_routes(app: Flask) -> None:
             all_states=available_states,
             current_state=current_state,
             current_state_info=current_state_info,
+            broker_count=get_broker_count(),
+            profile_count=len(get_all_profiles()),
+            scan_count=len(get_activity_log(category="scan", limit=10000)),
         )
 
     @app.route("/settings/state", methods=["POST"])
