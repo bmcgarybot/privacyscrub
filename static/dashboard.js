@@ -485,7 +485,7 @@ const Forms = {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const url = form.action || form.dataset.url;
-        const method = form.method || 'POST';
+        const method = (form.method && form.method.toUpperCase() !== 'GET') ? form.method : 'POST';
         const submitBtn = form.querySelector('[type="submit"]');
         const originalText = submitBtn ? submitBtn.innerHTML : '';
 

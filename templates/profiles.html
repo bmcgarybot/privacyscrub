@@ -108,7 +108,7 @@
       <button class="modal-close" onclick="Modal.close('add-profile-modal')"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <form id="profile-form" data-ajax data-url="/api/profiles" data-on-success="reload">
+      <form id="profile-form" method="POST" data-ajax data-url="/api/profiles" data-on-success="reload">
         <div class="form-row">
           <div class="form-group">
             <label>Full Name *</label>
