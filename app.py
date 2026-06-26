@@ -1174,6 +1174,26 @@ def _register_routes(app: Flask) -> None:
         flash(f"State of residence saved: {state_code}" if state_code else "State of residence cleared.", "success")
         return redirect(url_for("settings_page"))
 
+    @app.route("/settings/scan-frequency", methods=["POST"])
+    def settings_scan_frequency():
+        """Save scan frequency setting."""
+        freq = request.form.get("frequency", "monthly").strip()
+        set_setting("scan_frequency", freq, "scan", "How often to re-scan data brokers")
+        log_activity(None, None, "settings_updated", "system", f"Scan frequency set to {freq}")
+        flash(f"Scan frequency saved: {freq}.", "success")
+        return redirect(url_for("settings_page"))
+
+    @app.route("/settings/api-keys", methods=["POST"])
+    def settings_api_keys():
+        """Save API key settings."""
+        hibp_key = request.form.get("hibp_key", "").strip()
+        webhook_url = request.form.get("webhook_url", "").strip()
+        set_setting("hibp_api_key", hibp_key, "webhook", "Have I Been Pwned API key")
+        set_setting("webhook_url", webhook_url, "webhook", "Webhook notification URL")
+        log_activity(None, None, "settings_updated", "system", "API keys updated")
+        flash("API settings saved.", "success")
+        return redirect(url_for("settings_page"))
+
     @app.route("/settings/update", methods=["POST"])
     def settings_update():
         """Update application settings."""
