@@ -74,6 +74,9 @@
                 <i class="fas fa-upload"></i> Import Data
             </button>
             <input type="file" id="import-file" style="display:none" accept=".json" onchange="importData(this)">
+            <button class="btn" onclick="Walkthrough.resetAll(); alert('Tour reset! Refresh any page to see the walkthrough again.');">
+                <i class="fas fa-route"></i> Reset Guided Tour
+            </button>
             <button class="btn btn-danger" onclick="if(confirm('⚠️ This will DELETE all scan results, opt-out tracking, and profiles. This cannot be undone. Are you sure?'))window.location='/settings/reset'">
                 <i class="fas fa-trash"></i> Reset Database
             </button>
@@ -108,4 +111,23 @@
         </a>
     </div>
 </div>
+
+{% block scripts %}
+<script>
+initWalkthrough('settings', [
+  {
+    target: '#state-select',
+    title: 'State of Residence',
+    description: "Pick your state so legal templates auto-select the right privacy law. States with comprehensive privacy laws will use their specific statutes.",
+    position: 'bottom'
+  },
+  {
+    target: '.form-input[name="hibp_key"]',
+    title: 'API Keys',
+    description: "Optional: Add an HIBP API key ($3.50/month) for email breach monitoring. Password checks are free without it.",
+    position: 'bottom'
+  }
+]);
+</script>
+{% endblock %}
 {% endblock %}

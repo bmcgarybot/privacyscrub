@@ -19,8 +19,7 @@
         {% for profile in profiles|default([]) %}
         <option value="{{ profile.id }}">{{ profile.name }}</option>
         {% else %}
-        <option value="1">John Doe</option>
-        <option value="2">Jane Doe</option>
+        <option value="" disabled selected>No profiles — add one first</option>
         {% endfor %}
       </select>
     </div>
@@ -29,10 +28,10 @@
 
 <!-- Tabs -->
 <div class="tabs" data-tab-group="legal">
-  <button class="tab active" data-tab="gdpr"><i class="fa-solid fa-globe-europe"></i> GDPR Erasure</button>
-  <button class="tab" data-tab="ccpa"><i class="fa-solid fa-flag-usa"></i> CCPA Delete</button>
-  <button class="tab" data-tab="state"><i class="fa-solid fa-landmark"></i> State Laws</button>
-  <button class="tab" data-tab="cease"><i class="fa-solid fa-gavel"></i> Cease & Desist</button>
+  <button class="tab active" data-tab="gdpr"><i class="fa-solid fa-globe-europe"></i> <span data-tooltip="EU General Data Protection Regulation — Right to Erasure under Article 17. Applies to any company processing EU residents' data.">GDPR Erasure</span></button>
+  <button class="tab" data-tab="ccpa"><i class="fa-solid fa-flag-usa"></i> <span data-tooltip="California Consumer Privacy Act — Right to Delete under § 1798.105. Valid for California residents.">CCPA Delete</span></button>
+  <button class="tab" data-tab="state"><i class="fa-solid fa-landmark"></i> <span data-tooltip="State-specific privacy law requests. Uses your state's statute or FTC Act fallback for states without comprehensive privacy laws.">State Laws</span></button>
+  <button class="tab" data-tab="cease"><i class="fa-solid fa-gavel"></i> <span data-tooltip="A formal legal demand to immediately stop publishing your data. Stronger than standard opt-out requests.">Cease &amp; Desist</span></button>
 </div>
 
 <!-- GDPR Tab -->
@@ -281,4 +280,29 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </div>
 </div>
+
+{% block scripts %}
+<script>
+initWalkthrough('legal', [
+  {
+    target: '.tabs[data-tab-group="legal"]',
+    title: 'Request Types',
+    description: "Choose your request type: GDPR for EU companies, CCPA for California, State Laws for your state, or Cease & Desist for persistent offenders.",
+    position: 'bottom'
+  },
+  {
+    target: '.tab[data-tab="state"]',
+    title: 'State Privacy Laws',
+    description: "Your state is auto-selected from Settings. Each letter cites the specific law that applies to your state.",
+    position: 'bottom'
+  },
+  {
+    target: '.letter-preview',
+    title: 'Letter Preview',
+    description: "Preview and copy your generated letter here. Each letter is customized with your information and the correct legal citations.",
+    position: 'top'
+  }
+]);
+</script>
+{% endblock %}
 {% endblock %}

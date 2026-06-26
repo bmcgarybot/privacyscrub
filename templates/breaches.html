@@ -188,7 +188,7 @@
   <div class="card-header">
     <h3><i class="fa-solid fa-key text-warning"></i> Password Audit</h3>
   </div>
-  <p class="text-muted mb-2" style="font-size:0.85rem;">Check if a password has appeared in known breaches. Uses k-anonymity — your full password is <strong>never</strong> sent over the network.</p>
+  <p class="text-muted mb-2" style="font-size:0.85rem;">Check if a password has appeared in known breaches. Uses <span data-tooltip="k-anonymity means only the first 5 characters of your password's SHA-1 hash are sent. The API returns all matching hashes, and the check happens locally. Your actual password never leaves your machine.">k-anonymity</span> — your full password is <strong>never</strong> sent over the network.</p>
   <div class="form-inline">
     <div class="form-group">
       <input type="password" class="form-control" id="password-check-input" placeholder="Enter a password to check...">
@@ -315,5 +315,26 @@ function filterTimeline() {
     window.location.href = '/breaches?profile_id={{ profile.id if profile else "" }}';
   }
 }
+
+initWalkthrough('breaches', [
+  {
+    target: '.btn-primary[type="submit"]',
+    title: 'Breach Scan',
+    description: "Check if your email addresses appear in known data breaches via Have I Been Pwned.",
+    position: 'bottom'
+  },
+  {
+    target: '.breach-timeline, .empty-state',
+    title: 'Breach Timeline',
+    description: "Breaches appear in a color-coded timeline: red = critical, orange = high, yellow = medium, green = low.",
+    position: 'top'
+  },
+  {
+    target: '#password-check-input',
+    title: 'Password Audit',
+    description: "Test passwords safely — only a partial hash is sent, never your actual password. Uses k-anonymity for complete safety.",
+    position: 'top'
+  }
+]);
 </script>
 {% endblock %}

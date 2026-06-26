@@ -38,41 +38,14 @@
     </div>
   </div>
   {% else %}
-  <!-- Demo profiles when no data -->
-  <div class="card">
-    <div class="card-header">
-      <h3>John Doe</h3>
-      <div class="score-mini-circle" style="border-color:var(--accent); color:var(--accent);">72</div>
-    </div>
-    <div style="font-size:0.8rem; color:var(--text-secondary);">
-      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> 2 emails</p>
-      <p><i class="fa-solid fa-phone" style="width:16px;"></i> 1 phone number</p>
-      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> 2 addresses</p>
-    </div>
-    <div class="mt-2">
-      <span class="badge warning">23 exposures</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header">
-      <h3>Jane Doe</h3>
-      <div class="score-mini-circle" style="border-color:var(--warning); color:var(--warning);">58</div>
-    </div>
-    <div style="font-size:0.8rem; color:var(--text-secondary);">
-      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> 3 emails</p>
-      <p><i class="fa-solid fa-phone" style="width:16px;"></i> 2 phone numbers</p>
-      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> 1 address</p>
-    </div>
-    <div class="mt-2">
-      <span class="badge danger">38 exposures</span>
-    </div>
-  </div>
-  <div class="card" style="border-style:dashed; display:flex; align-items:center; justify-content:center; min-height:180px; cursor:pointer;" onclick="Modal.open('add-profile-modal')">
-    <div class="empty-state" style="padding:20px;">
-      <i class="fa-solid fa-user-plus"></i>
-      <h3>Add Family Member</h3>
-      <p>Protect another person's privacy</p>
-    </div>
+  <!-- Empty state — no profiles yet -->
+  <div class="card" style="grid-column: 1 / -1; text-align:center; padding:48px 24px;">
+    <i class="fa-solid fa-users" style="font-size:3rem; color:var(--accent); margin-bottom:16px; opacity:0.6;"></i>
+    <h3 style="margin-bottom:8px;">No profiles yet</h3>
+    <p class="text-muted" style="max-width:400px; margin:0 auto 20px;">Add your first family member to get started. Your data stays 100% on this machine.</p>
+    <button class="btn btn-primary" onclick="Modal.open('add-profile-modal')">
+      <i class="fa-solid fa-user-plus"></i> Add Your First Profile
+    </button>
   </div>
   {% endfor %}
 </div>
@@ -116,29 +89,9 @@
         </tr>
         {% else %}
         <tr>
-          <td><strong>John Doe</strong></td>
-          <td><span class="badge success">72/100</span></td>
-          <td>23</td>
-          <td>2024-01-15</td>
-          <td><span class="badge success">Active</span></td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-pen"></i></button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Jane Doe</strong></td>
-          <td><span class="badge warning">58/100</span></td>
-          <td>38</td>
-          <td>2024-01-15</td>
-          <td><span class="badge success">Active</span></td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-pen"></i></button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+          <td colspan="6" style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+            <i class="fa-solid fa-users" style="font-size:2rem; margin-bottom:12px; opacity:0.4; display:block;"></i>
+            <p>No family members yet. Add your first profile to get started.</p>
           </td>
         </tr>
         {% endfor %}
@@ -159,7 +112,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>Full Name *</label>
-            <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+            <input type="text" class="form-control" name="name" placeholder="Full name" required>
           </div>
           <div class="form-group">
             <label>Date of Birth</label>
@@ -236,4 +189,29 @@
     </div>
   </div>
 </div>
+
+{% block scripts %}
+<script>
+initWalkthrough('profiles', [
+  {
+    target: '.btn-primary[onclick*="add-profile-modal"]',
+    title: 'Add Family Members',
+    description: "Start by adding yourself. Enter your name, email, phone, and address. This info stays 100% on your machine — nothing is sent anywhere.",
+    position: 'bottom'
+  },
+  {
+    target: '.grid-3',
+    title: 'Profile Cards',
+    description: "Each family member gets their own privacy score and scan results. Click any card to see details.",
+    position: 'bottom'
+  },
+  {
+    target: '.table-container',
+    title: 'Family Overview Table',
+    description: "Track everyone's exposure status, last scan date, and take action from here.",
+    position: 'top'
+  }
+]);
+</script>
+{% endblock %}
 {% endblock %}

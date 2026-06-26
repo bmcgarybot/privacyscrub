@@ -22,7 +22,7 @@
 <!-- Activation Button -->
 <div class="card mb-3 text-center" style="padding:48px 24px;">
   {% if displacement_active %}
-  <p class="text-muted mb-3">Lockdown has been active since {{ lockdown_since|default('January 15, 2024 at 2:30 PM') }}</p>
+  <p class="text-muted mb-3">Lockdown has been active since {{ lockdown_since|default('activation') }}</p>
   <button class="btn btn-warning btn-lg lockdown-btn" id="lockdown-toggle-btn" onclick="DisplacementMode.toggle()">
     <i class="fa-solid fa-shield-halved"></i> Deactivate Lockdown
   </button>

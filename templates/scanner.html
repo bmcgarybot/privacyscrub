@@ -51,7 +51,7 @@
   </div>
   <div class="stat-card success">
     <div class="stat-icon"><i class="fa-solid fa-eye-slash"></i></div>
-    <div class="stat-value">{{ not_found|default(752) }}</div>
+    <div class="stat-value">{{ not_found|default(0) }}</div>
     <div class="stat-label">Not Found</div>
   </div>
   <div class="stat-card warning">
@@ -97,7 +97,7 @@
 <div class="card">
   <div class="card-header">
     <h3>Scan Results</h3>
-    <span class="text-muted" style="font-size:0.8rem;">Last scan: {{ last_scan_date|default('2024-01-15 14:30') }}</span>
+    <span class="text-muted" style="font-size:0.8rem;">Last scan: {{ last_scan_date|default('Never') }}</span>
   </div>
   <div class="table-container">
     <table id="scan-results-table">
@@ -139,101 +139,11 @@
           </td>
         </tr>
         {% else %}
-        <!-- Demo data -->
+        <!-- Empty state -->
         <tr>
-          <td><strong>Whitepages</strong></td>
-          <td>People Search</td>
-          <td><span class="badge tier-1">Tier 1</span></td>
-          <td>Name, Address, Phone, Relatives</td>
-          <td><span class="badge danger">Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('whitepages')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Spokeo</strong></td>
-          <td>People Search</td>
-          <td><span class="badge tier-1">Tier 1</span></td>
-          <td>Name, Address, Phone, Email</td>
-          <td><span class="badge danger">Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('spokeo')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>BeenVerified</strong></td>
-          <td>People Search</td>
-          <td><span class="badge tier-1">Tier 1</span></td>
-          <td>Name, Address, Phone, Age, Relatives</td>
-          <td><span class="badge danger">Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('beenverified')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>ZoomInfo</strong></td>
-          <td>B2B / Lead Gen</td>
-          <td><span class="badge tier-2">Tier 2</span></td>
-          <td>Name, Email, Employment</td>
-          <td><span class="badge danger">Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('zoominfo')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Acxiom</strong></td>
-          <td>Marketing / AdTech</td>
-          <td><span class="badge tier-2">Tier 2</span></td>
-          <td>Name, Address, Demographics</td>
-          <td><span class="badge danger">Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('acxiom')"><i class="fa-solid fa-paper-plane"></i> Opt-Out</button>
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>TruePeopleSearch</strong></td>
-          <td>People Search</td>
-          <td><span class="badge tier-1">Tier 1</span></td>
-          <td>Name, Address, Phone</td>
-          <td><span class="badge success">Not Found</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Equifax</strong></td>
-          <td>Financial / Credit</td>
-          <td><span class="badge tier-1">Tier 1</span></td>
-          <td>—</td>
-          <td><span class="badge warning">Error</span></td>
-          <td>2024-01-15</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-circle-info"></i></button>
-            </div>
+          <td colspan="7" style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+            <i class="fa-solid fa-radar" style="font-size:2rem; margin-bottom:12px; opacity:0.4; display:block;"></i>
+            <p>No scan results yet. Select a profile and run your first scan.</p>
           </td>
         </tr>
         {% endfor %}
@@ -241,4 +151,23 @@
     </table>
   </div>
 </div>
+
+{% block scripts %}
+<script>
+initWalkthrough('scanner', [
+  {
+    target: '#start-scan-btn',
+    title: 'Run a Scan',
+    description: "Hit this to scan 800+ data brokers for your personal information. Scans run locally on your machine — nothing is sent to third parties.",
+    position: 'bottom'
+  },
+  {
+    target: '#scan-results-table',
+    title: 'Scan Results',
+    description: "Found brokers appear here with their risk level and opt-out options. You can filter by category, tier, and status.",
+    position: 'top'
+  }
+]);
+</script>
+{% endblock %}
 {% endblock %}

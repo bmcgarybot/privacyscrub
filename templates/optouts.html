@@ -34,7 +34,7 @@
 <div class="stats-grid">
   <div class="stat-card warning">
     <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
-    <div class="stat-value">{{ pending|default(8) }}</div>
+    <div class="stat-value">{{ pending|default(0) }}</div>
     <div class="stat-label">Pending</div>
   </div>
   <div class="stat-card info">
@@ -44,7 +44,7 @@
   </div>
   <div class="stat-card">
     <div class="stat-icon"><i class="fa-solid fa-spinner"></i></div>
-    <div class="stat-value">{{ processing|default(5) }}</div>
+    <div class="stat-value">{{ processing|default(0) }}</div>
     <div class="stat-label">Processing</div>
   </div>
   <div class="stat-card success">
@@ -70,7 +70,7 @@
     <!-- Pending Column -->
     <div class="kanban-column">
       <div class="kanban-column-header">
-        <h4><i class="fa-solid fa-clock" style="color:var(--warning);"></i> Pending <span class="kanban-count">{{ pending|default(3) }}</span></h4>
+        <h4><i class="fa-solid fa-clock" style="color:var(--warning);"></i> Pending <span class="kanban-count">{{ pending|default(0) }}</span></h4>
       </div>
       <div class="kanban-cards">
         {% for item in optouts_pending|default([]) %}
@@ -82,26 +82,8 @@
           </div>
         </div>
         {% else %}
-        <div class="kanban-card">
-          <div class="kanban-card-title">Whitepages</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
-            <span><i class="fa-solid fa-calendar"></i> Added Jan 15</span>
-          </div>
-        </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Radaris</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
-            <span><i class="fa-solid fa-calendar"></i> Added Jan 15</span>
-          </div>
-        </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Intelius</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-layer-group"></i> People Search</span>
-            <span><i class="fa-solid fa-calendar"></i> Added Jan 14</span>
-          </div>
+        <div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:0.8rem;">
+          <p>No pending opt-outs</p>
         </div>
         {% endfor %}
       </div>
@@ -110,103 +92,84 @@
     <!-- Submitted Column -->
     <div class="kanban-column">
       <div class="kanban-column-header">
-        <h4><i class="fa-solid fa-paper-plane" style="color:var(--info);"></i> Submitted <span class="kanban-count">{{ submitted_count|default(4) }}</span></h4>
+        <h4><i class="fa-solid fa-paper-plane" style="color:var(--info);"></i> Submitted <span class="kanban-count">{{ submitted_count|default(0) }}</span></h4>
       </div>
       <div class="kanban-cards">
+        {% for item in optouts_submitted|default([]) %}
         <div class="kanban-card">
-          <div class="kanban-card-title">BeenVerified</div>
+          <div class="kanban-card-title">{{ item.broker_name }}</div>
           <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 13</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> Est. 7 days</span>
+            <span><i class="fa-solid fa-calendar"></i> Submitted {{ item.submitted_date }}</span>
           </div>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">FastPeopleSearch</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 12</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> Est. 3 days</span>
-          </div>
+        {% else %}
+        <div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:0.8rem;">
+          <p>No submitted requests</p>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">ZoomInfo</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 10</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> Est. 14 days</span>
-          </div>
-        </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Apollo.io</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Submitted Jan 10</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> Est. 10 days</span>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 
     <!-- Processing Column -->
     <div class="kanban-column">
       <div class="kanban-column-header">
-        <h4><i class="fa-solid fa-spinner" style="color:var(--accent);"></i> Processing <span class="kanban-count">{{ processing_count|default(2) }}</span></h4>
+        <h4><i class="fa-solid fa-spinner" style="color:var(--accent);"></i> Processing <span class="kanban-count">{{ processing_count|default(0) }}</span></h4>
       </div>
       <div class="kanban-cards">
+        {% for item in optouts_processing|default([]) %}
         <div class="kanban-card">
-          <div class="kanban-card-title">Spokeo</div>
+          <div class="kanban-card-title">{{ item.broker_name }}</div>
           <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Started Jan 8</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> ~2 days remaining</span>
+            <span><i class="fa-solid fa-calendar"></i> Started {{ item.started_date }}</span>
           </div>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">Nuwber</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-calendar"></i> Started Jan 7</span>
-            <span><i class="fa-solid fa-hourglass-half"></i> ~5 days remaining</span>
-          </div>
+        {% else %}
+        <div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:0.8rem;">
+          <p>No processing requests</p>
         </div>
+        {% endfor %}
       </div>
     </div>
 
     <!-- Confirmed Column -->
     <div class="kanban-column">
       <div class="kanban-column-header">
-        <h4><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Confirmed <span class="kanban-count">{{ confirmed_count|default(5) }}</span></h4>
+        <h4><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Confirmed <span class="kanban-count">{{ confirmed_count|default(0) }}</span></h4>
       </div>
       <div class="kanban-cards">
+        {% for item in optouts_confirmed|default([]) %}
         <div class="kanban-card">
-          <div class="kanban-card-title">MyLife</div>
+          <div class="kanban-card-title">{{ item.broker_name }}</div>
           <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 12</span>
+            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed {{ item.confirmed_date }}</span>
           </div>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">PeopleFinders</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 10</span>
-          </div>
+        {% else %}
+        <div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:0.8rem;">
+          <p>No confirmed removals yet</p>
         </div>
-        <div class="kanban-card">
-          <div class="kanban-card-title">TruePeopleSearch</div>
-          <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-circle-check text-accent"></i> Confirmed Jan 8</span>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 
     <!-- Reappeared Column -->
     <div class="kanban-column">
       <div class="kanban-column-header">
-        <h4><i class="fa-solid fa-rotate" style="color:var(--danger);"></i> Reappeared <span class="kanban-count">{{ reappeared_count|default(1) }}</span></h4>
+        <h4><i class="fa-solid fa-rotate" style="color:var(--danger);"></i> Reappeared <span class="kanban-count">{{ reappeared_count|default(0) }}</span></h4>
       </div>
       <div class="kanban-cards">
+        {% for item in optouts_reappeared|default([]) %}
         <div class="kanban-card" style="border-left:3px solid var(--danger);">
-          <div class="kanban-card-title">USPhoneBook</div>
+          <div class="kanban-card-title">{{ item.broker_name }}</div>
           <div class="kanban-card-meta">
-            <span><i class="fa-solid fa-triangle-exclamation text-danger"></i> Reappeared Jan 14</span>
-            <span>Originally removed Dec 20</span>
+            <span><i class="fa-solid fa-triangle-exclamation text-danger"></i> Reappeared {{ item.reappeared_date }}</span>
           </div>
         </div>
+        {% else %}
+        <div style="text-align:center; padding:24px 12px; color:var(--text-muted); font-size:0.8rem;">
+          <p>No reappearances — great!</p>
+        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -243,42 +206,36 @@
           </tr>
         </thead>
         <tbody>
+          {% for item in optouts|default([]) %}
           <tr>
-            <td><input type="checkbox" class="optout-checkbox" value="whitepages" onchange="updateBatchActions()"></td>
-            <td><strong>Whitepages</strong></td>
-            <td>People Search</td>
-            <td><span class="badge warning">Pending</span></td>
-            <td>—</td>
-            <td>—</td>
-            <td><button class="btn btn-primary btn-sm" onclick="submitOptOut('whitepages')"><i class="fa-solid fa-paper-plane"></i></button></td>
+            <td><input type="checkbox" class="optout-checkbox" value="{{ item.id }}" onchange="updateBatchActions()"></td>
+            <td><strong>{{ item.broker_name }}</strong></td>
+            <td>{{ item.category|default('—') }}</td>
+            <td>
+              <span class="badge {% if item.status == 'pending' %}warning{% elif item.status == 'submitted' %}info{% elif item.status == 'processing' %}info{% elif item.status == 'confirmed' %}success{% elif item.status == 'reappeared' %}danger{% else %}neutral{% endif %}">
+                {{ item.status|default('Pending')|title }}
+              </span>
+            </td>
+            <td>{{ item.submitted_date|default('—') }}</td>
+            <td>{{ item.expected_date|default('—') }}</td>
+            <td>
+              {% if item.status == 'pending' %}
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-paper-plane"></i></button>
+              {% elif item.status == 'reappeared' %}
+              <button class="btn btn-danger btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-redo"></i></button>
+              {% else %}
+              <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button>
+              {% endif %}
+            </td>
           </tr>
+          {% else %}
           <tr>
-            <td><input type="checkbox" class="optout-checkbox" value="spokeo" onchange="updateBatchActions()"></td>
-            <td><strong>Spokeo</strong></td>
-            <td>People Search</td>
-            <td><span class="badge info">Processing</span></td>
-            <td>Jan 8, 2024</td>
-            <td>Jan 17, 2024</td>
-            <td><button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button></td>
+            <td colspan="7" style="text-align:center; padding:32px 16px; color:var(--text-muted);">
+              <i class="fa-solid fa-paper-plane" style="font-size:2rem; margin-bottom:12px; opacity:0.4; display:block;"></i>
+              <p>No opt-out requests yet. Run a scan to find brokers with your data.</p>
+            </td>
           </tr>
-          <tr>
-            <td><input type="checkbox" class="optout-checkbox" value="mylife" onchange="updateBatchActions()"></td>
-            <td><strong>MyLife</strong></td>
-            <td>People Search</td>
-            <td><span class="badge success">Confirmed</span></td>
-            <td>Jan 2, 2024</td>
-            <td>Jan 12, 2024</td>
-            <td><button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button></td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" class="optout-checkbox" value="usphonebook" onchange="updateBatchActions()"></td>
-            <td><strong>USPhoneBook</strong></td>
-            <td>Phone / Telecom</td>
-            <td><span class="badge danger">Reappeared</span></td>
-            <td>Dec 10, 2023</td>
-            <td>—</td>
-            <td><button class="btn btn-danger btn-sm" onclick="submitOptOut('usphonebook')"><i class="fa-solid fa-redo"></i></button></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

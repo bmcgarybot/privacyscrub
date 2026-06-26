@@ -44,7 +44,7 @@
         </svg>
         <div class="gauge-center">
           <div class="gauge-value">0</div>
-          <div class="gauge-label">Privacy Score</div>
+          <div class="gauge-label" data-tooltip="Your Privacy DNA Score factors in broker exposure, breach history, and data depth. 100 = fully private.">Privacy Score</div>
           <div class="gauge-sublabel">out of 100</div>
         </div>
       </div>
@@ -109,22 +109,22 @@
   <div class="stat-card">
     <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
     <div class="stat-value">{{ brokers_checked|default(0) }}</div>
-    <div class="stat-label">Brokers Checked</div>
+    <div class="stat-label" data-tooltip="Total number of data broker sites scanned for your personal information.">Brokers Checked</div>
   </div>
   <div class="stat-card danger">
     <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
     <div class="stat-value">{{ exposures_found|default(0) }}</div>
-    <div class="stat-label">Found On</div>
+    <div class="stat-label" data-tooltip="Number of data broker sites that currently have your personal information listed.">Found On</div>
   </div>
   <div class="stat-card success">
     <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
     <div class="stat-value">{{ removed_count|default(0) }}</div>
-    <div class="stat-label">Removed From</div>
+    <div class="stat-label" data-tooltip="Brokers that have confirmed removal of your personal data.">Removed From</div>
   </div>
   <div class="stat-card warning">
     <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
     <div class="stat-value">{{ pending_count|default(0) }}</div>
-    <div class="stat-label">Pending Removal</div>
+    <div class="stat-label" data-tooltip="Opt-out requests that have been submitted but not yet confirmed by the broker.">Pending Removal</div>
   </div>
 </div>
 
@@ -225,4 +225,41 @@
   </div>
 </div>
 {% endif %}
+
+{% block scripts %}
+<script>
+initWalkthrough('dashboard', [
+  {
+    target: null,
+    icon: '🛡️',
+    title: 'Welcome to PrivacyScrub!',
+    description: "Let's take a quick tour of your privacy command center. This only takes 30 seconds."
+  },
+  {
+    target: '.score-gauge-container',
+    title: 'Privacy DNA Score',
+    description: 'This is your Privacy DNA Score. It measures how exposed your personal data is online. Higher is better — 100 means fully private.',
+    position: 'right'
+  },
+  {
+    target: '.action-card',
+    title: 'Quick Actions',
+    description: 'Use these shortcuts to scan brokers, check breaches, or generate reports.',
+    position: 'left'
+  },
+  {
+    target: '.stats-grid',
+    title: 'Exposure Stats',
+    description: 'These cards track how many brokers have your info, how many you\'ve been removed from, and what\'s still pending.',
+    position: 'top'
+  },
+  {
+    target: '.activity-feed',
+    title: 'Recent Activity',
+    description: 'All your scans, removals, and alerts show up here. Check back to see your progress over time.',
+    position: 'top'
+  }
+]);
+</script>
+{% endblock %}
 {% endblock %}
