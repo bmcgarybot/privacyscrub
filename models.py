@@ -49,6 +49,7 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("state", "TEXT DEFAULT ''"),
         ("zip_code", "TEXT DEFAULT ''"),
         ("aliases", "TEXT DEFAULT '[]'"),             # JSON array of former/maiden names
+        ("social_accounts", "TEXT DEFAULT '[]'"),     # JSON array of {platform, url} dicts
         ("is_primary", "INTEGER DEFAULT 0"),
         ("created_at", "TEXT DEFAULT (datetime('now'))"),
         ("updated_at", "TEXT DEFAULT (datetime('now'))"),
@@ -335,7 +336,7 @@ def create_profile(data: dict) -> int:
     """
     with db_session() as conn:
         # Ensure JSON fields are strings
-        for json_field in ("addresses", "aliases"):
+        for json_field in ("addresses", "aliases", "social_accounts"):
             if json_field in data and isinstance(data[json_field], list):
                 data[json_field] = json.dumps(data[json_field])
 
@@ -378,7 +379,7 @@ def update_profile(profile_id: int, data: dict) -> bool:
         data: Dict of column→value pairs to set.
     """
     with db_session() as conn:
-        for json_field in ("addresses", "aliases"):
+        for json_field in ("addresses", "aliases", "social_accounts"):
             if json_field in data and isinstance(data[json_field], list):
                 data[json_field] = json.dumps(data[json_field])
 

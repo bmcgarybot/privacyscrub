@@ -199,6 +199,16 @@
             <input type="text" class="form-control" name="zip_code" placeholder="85001" maxlength="10">
           </div>
         </div>
+
+        <!-- Social Media Accounts -->
+        <div class="form-group" style="border-top:1px solid rgba(139,149,165,0.15); padding-top:16px; margin-top:8px;">
+          <label><i class="fa-solid fa-share-nodes" style="margin-right:4px;"></i> Social Media Accounts</label>
+          <div class="form-hint" style="margin-bottom:8px;">Brokers scrape social profiles — add yours so we can find and remove them</div>
+          <div id="create-social-fields"></div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addCreateSocialField()">
+            <i class="fa-solid fa-plus"></i> Add Social Account
+          </button>
+        </div>
       </form>
 
       <script>
@@ -220,6 +230,55 @@
         removeBtn.style.color = '#ff6b6b';
         removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
         removeBtn.onclick = function() { row.remove(); };
+        row.appendChild(input);
+        row.appendChild(removeBtn);
+        container.appendChild(row);
+      }
+
+      var _createSocialPlatforms = [
+        {value:'facebook', label:'Facebook', placeholder:'facebook.com/username'},
+        {value:'linkedin', label:'LinkedIn', placeholder:'linkedin.com/in/username'},
+        {value:'twitter', label:'X / Twitter', placeholder:'x.com/username'},
+        {value:'instagram', label:'Instagram', placeholder:'instagram.com/username'},
+        {value:'tiktok', label:'TikTok', placeholder:'tiktok.com/@username'},
+        {value:'reddit', label:'Reddit', placeholder:'reddit.com/u/username'},
+        {value:'youtube', label:'YouTube', placeholder:'youtube.com/@channel'},
+        {value:'other', label:'Other', placeholder:'https://...'}
+      ];
+
+      function addCreateSocialField() {
+        var container = document.getElementById('create-social-fields');
+        var row = document.createElement('div');
+        row.className = 'multi-field-row mb-1';
+        row.style.display = 'flex';
+        row.style.gap = '8px';
+        row.style.marginTop = '6px';
+        var select = document.createElement('select');
+        select.className = 'form-control';
+        select.name = 'social_platform';
+        select.style.maxWidth = '140px';
+        _createSocialPlatforms.forEach(function(sp) {
+          var opt = document.createElement('option');
+          opt.value = sp.value;
+          opt.textContent = sp.label;
+          select.appendChild(opt);
+        });
+        var input = document.createElement('input');
+        input.type = 'url';
+        input.className = 'form-control';
+        input.name = 'social_url';
+        input.placeholder = 'facebook.com/username';
+        select.onchange = function() {
+          var f = _createSocialPlatforms.find(function(sp) { return sp.value === select.value; });
+          if (f) input.placeholder = f.placeholder;
+        };
+        var removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn btn-ghost btn-sm';
+        removeBtn.style.color = '#ff6b6b';
+        removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        removeBtn.onclick = function() { row.remove(); };
+        row.appendChild(select);
         row.appendChild(input);
         row.appendChild(removeBtn);
         container.appendChild(row);
@@ -254,30 +313,45 @@
             <input type="text" class="form-control" name="last_name" id="edit-last-name" required>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" name="email" id="edit-email">
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" class="form-control" name="phone" id="edit-phone">
-          </div>
-        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label>Date of Birth</label>
             <input type="date" class="form-control" name="date_of_birth" id="edit-dob">
           </div>
           <div class="form-group">
-            <label>Aliases</label>
-            <input type="text" class="form-control" name="aliases" id="edit-aliases" placeholder="Comma separated">
+            <label>Known Aliases</label>
+            <input type="text" class="form-control" name="aliases" id="edit-aliases" placeholder="Maiden name, nicknames (comma separated)">
           </div>
         </div>
+
+        <!-- Email Addresses -->
         <div class="form-group">
-          <label>Address</label>
-          <input type="text" class="form-control" name="addresses" id="edit-addresses">
+          <label>Email Addresses</label>
+          <div id="edit-email-fields"></div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addEditField('edit-email-fields', 'email_extra', 'email', 'another@email.com')">
+            <i class="fa-solid fa-plus"></i> Add Email
+          </button>
         </div>
+
+        <!-- Phone Numbers -->
+        <div class="form-group">
+          <label>Phone Numbers</label>
+          <div id="edit-phone-fields"></div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addEditField('edit-phone-fields', 'phone_extra', 'tel', '(555) 000-0000')">
+            <i class="fa-solid fa-plus"></i> Add Phone
+          </button>
+        </div>
+
+        <!-- Addresses -->
+        <div class="form-group">
+          <label>Addresses</label>
+          <div id="edit-address-fields"></div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addEditField('edit-address-fields', 'address_extra', 'text', '456 Oak Ave, City, ST 00000')">
+            <i class="fa-solid fa-plus"></i> Add Address
+          </button>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label>City</label>
@@ -291,6 +365,16 @@
             <label>ZIP</label>
             <input type="text" class="form-control" name="zip_code" id="edit-zip" maxlength="10">
           </div>
+        </div>
+
+        <!-- Social Media Accounts -->
+        <div class="form-group" style="border-top:1px solid rgba(139,149,165,0.15); padding-top:16px; margin-top:8px;">
+          <label><i class="fa-solid fa-share-nodes" style="margin-right:4px;"></i> Social Media Accounts</label>
+          <div class="form-hint" style="margin-bottom:8px;">Brokers scrape social profiles — add yours so we can find and remove them</div>
+          <div id="edit-social-fields"></div>
+          <button type="button" class="btn btn-ghost btn-sm mt-1" onclick="addSocialField()">
+            <i class="fa-solid fa-plus"></i> Add Social Account
+          </button>
         </div>
       </form>
     </div>
@@ -323,17 +407,102 @@ profileData[{{ profile.id }}] = {
   addresses: {{ profile.addresses|default('[]')|tojson }},
   city: {{ profile.city|default('')|tojson }},
   state: {{ profile.state|default('')|tojson }},
-  zip_code: {{ profile.zip_code|default('')|tojson }}
+  zip_code: {{ profile.zip_code|default('')|tojson }},
+  social_accounts: {{ profile.social_accounts|default('[]')|tojson }}
 };
 {% endfor %}
+
+var socialPlatforms = [
+  {value:'facebook', label:'Facebook', icon:'fa-brands fa-facebook', placeholder:'facebook.com/username'},
+  {value:'linkedin', label:'LinkedIn', icon:'fa-brands fa-linkedin', placeholder:'linkedin.com/in/username'},
+  {value:'twitter', label:'X / Twitter', icon:'fa-brands fa-x-twitter', placeholder:'x.com/username'},
+  {value:'instagram', label:'Instagram', icon:'fa-brands fa-instagram', placeholder:'instagram.com/username'},
+  {value:'tiktok', label:'TikTok', icon:'fa-brands fa-tiktok', placeholder:'tiktok.com/@username'},
+  {value:'reddit', label:'Reddit', icon:'fa-brands fa-reddit', placeholder:'reddit.com/u/username'},
+  {value:'youtube', label:'YouTube', icon:'fa-brands fa-youtube', placeholder:'youtube.com/@channel'},
+  {value:'other', label:'Other', icon:'fa-solid fa-globe', placeholder:'https://...'}
+];
+
+function addEditField(containerId, name, type, placeholder, value) {
+  var container = document.getElementById(containerId);
+  var row = document.createElement('div');
+  row.className = 'multi-field-row mb-1';
+  row.style.display = 'flex';
+  row.style.gap = '8px';
+  row.style.marginTop = '6px';
+  var input = document.createElement('input');
+  input.type = type;
+  input.className = 'form-control';
+  input.name = name;
+  input.placeholder = placeholder;
+  if (value) input.value = value;
+  var removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'btn btn-ghost btn-sm';
+  removeBtn.style.color = '#ff6b6b';
+  removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  removeBtn.onclick = function() { row.remove(); };
+  row.appendChild(input);
+  row.appendChild(removeBtn);
+  container.appendChild(row);
+}
+
+function addSocialField(platform, url) {
+  var container = document.getElementById('edit-social-fields');
+  var row = document.createElement('div');
+  row.className = 'multi-field-row mb-1';
+  row.style.display = 'flex';
+  row.style.gap = '8px';
+  row.style.marginTop = '6px';
+
+  var select = document.createElement('select');
+  select.className = 'form-control';
+  select.name = 'social_platform';
+  select.style.maxWidth = '140px';
+  socialPlatforms.forEach(function(sp) {
+    var opt = document.createElement('option');
+    opt.value = sp.value;
+    opt.textContent = sp.label;
+    if (platform === sp.value) opt.selected = true;
+    select.appendChild(opt);
+  });
+
+  var input = document.createElement('input');
+  input.type = 'url';
+  input.className = 'form-control';
+  input.name = 'social_url';
+  input.placeholder = 'Profile URL';
+  if (url) input.value = url;
+
+  // Update placeholder when platform changes
+  select.onchange = function() {
+    var found = socialPlatforms.find(function(sp) { return sp.value === select.value; });
+    if (found) input.placeholder = found.placeholder;
+  };
+  if (!url) {
+    var found = socialPlatforms.find(function(sp) { return sp.value === (platform||'facebook'); });
+    if (found) input.placeholder = found.placeholder;
+  }
+
+  var removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'btn btn-ghost btn-sm';
+  removeBtn.style.color = '#ff6b6b';
+  removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  removeBtn.onclick = function() { row.remove(); };
+
+  row.appendChild(select);
+  row.appendChild(input);
+  row.appendChild(removeBtn);
+  container.appendChild(row);
+}
 
 function editProfile(id) {
   var p = profileData[id];
   if (!p) return;
+
   document.getElementById('edit-first-name').value = p.first_name;
   document.getElementById('edit-last-name').value = p.last_name;
-  document.getElementById('edit-email').value = p.email;
-  document.getElementById('edit-phone').value = p.phone;
   document.getElementById('edit-dob').value = p.date_of_birth;
   document.getElementById('edit-state').value = p.state;
   document.getElementById('edit-city').value = p.city;
@@ -347,13 +516,47 @@ function editProfile(id) {
     document.getElementById('edit-aliases').value = p.aliases;
   }
 
-  // Parse addresses
+  // Populate emails
+  var emailContainer = document.getElementById('edit-email-fields');
+  emailContainer.innerHTML = '';
+  var emails = p.email ? p.email.split(',') : [''];
+  emails.forEach(function(e, i) {
+    addEditField('edit-email-fields', i === 0 ? 'email' : 'email_extra', 'email', 'email@example.com', e.trim());
+  });
+
+  // Populate phones
+  var phoneContainer = document.getElementById('edit-phone-fields');
+  phoneContainer.innerHTML = '';
+  var phones = p.phone ? p.phone.split(',') : [''];
+  phones.forEach(function(ph, i) {
+    addEditField('edit-phone-fields', i === 0 ? 'phone' : 'phone_extra', 'tel', '(555) 123-4567', ph.trim());
+  });
+
+  // Populate addresses
+  var addrContainer = document.getElementById('edit-address-fields');
+  addrContainer.innerHTML = '';
   try {
     var addrs = JSON.parse(p.addresses);
-    document.getElementById('edit-addresses').value = Array.isArray(addrs) ? addrs.join('\n') : p.addresses;
+    if (!Array.isArray(addrs)) addrs = p.addresses ? [p.addresses] : [''];
+    if (addrs.length === 0) addrs = [''];
   } catch(e) {
-    document.getElementById('edit-addresses').value = p.addresses;
+    addrs = p.addresses ? [p.addresses] : [''];
   }
+  addrs.forEach(function(a, i) {
+    addEditField('edit-address-fields', i === 0 ? 'addresses' : 'address_extra', 'text', '123 Main St', a.trim());
+  });
+
+  // Populate social accounts
+  var socialContainer = document.getElementById('edit-social-fields');
+  socialContainer.innerHTML = '';
+  try {
+    var socials = JSON.parse(p.social_accounts);
+    if (Array.isArray(socials) && socials.length > 0) {
+      socials.forEach(function(s) {
+        addSocialField(s.platform || 'other', s.url || '');
+      });
+    }
+  } catch(e) {}
 
   document.getElementById('edit-profile-form').action = '/profiles/edit/' + id;
   document.getElementById('delete-profile-form').action = '/profiles/delete/' + id;

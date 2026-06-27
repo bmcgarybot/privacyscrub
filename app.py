@@ -235,12 +235,13 @@ def _register_routes(app: Flask) -> None:
             # Build display-friendly properties
             p["display_name"] = f"{p.get('first_name', '')} {p.get('last_name', '')}".strip() or "Unnamed"
 
-            # Count emails (primary + extras stored in DB)
-            email_count = 1 if p.get("email") else 0
-            p["email_count"] = email_count
+            # Count emails (comma-separated in DB)
+            email_str = p.get("email", "")
+            p["email_count"] = len([e for e in email_str.split(",") if e.strip()]) if email_str else 0
 
-            # Count phones
-            p["phone_count"] = 1 if p.get("phone") else 0
+            # Count phones (comma-separated in DB)
+            phone_str = p.get("phone", "")
+            p["phone_count"] = len([ph for ph in phone_str.split(",") if ph.strip()]) if phone_str else 0
 
             # Count addresses — stored as JSON array string
             addr_raw = p.get("addresses", "[]")
@@ -275,18 +276,42 @@ def _register_routes(app: Flask) -> None:
     @app.route("/profiles/add", methods=["POST"])
     def profiles_add():
         """Add a new profile."""
+        # Collect all emails (primary + extras)
+        emails = [request.form.get("email", "").strip()]
+        emails += [e.strip() for e in request.form.getlist("email_extra") if e.strip()]
+        emails = [e for e in emails if e]
+
+        # Collect all phones
+        phones = [request.form.get("phone", "").strip()]
+        phones += [p.strip() for p in request.form.getlist("phone_extra") if p.strip()]
+        phones = [p for p in phones if p]
+
+        # Collect all addresses
+        addrs = [request.form.get("addresses", "").strip()]
+        addrs += [a.strip() for a in request.form.getlist("address_extra") if a.strip()]
+        addrs = [a for a in addrs if a]
+
+        # Collect social accounts
+        platforms = request.form.getlist("social_platform")
+        urls = request.form.getlist("social_url")
+        socials = []
+        for plat, url in zip(platforms, urls):
+            if url.strip():
+                socials.append({"platform": plat, "url": url.strip()})
+
         data = {
             "first_name": request.form.get("first_name", "").strip(),
             "last_name": request.form.get("last_name", "").strip(),
             "middle_name": request.form.get("middle_name", "").strip(),
-            "email": request.form.get("email", "").strip(),
-            "phone": request.form.get("phone", "").strip(),
+            "email": ",".join(emails),
+            "phone": ",".join(phones),
             "date_of_birth": request.form.get("date_of_birth", "").strip(),
             "city": request.form.get("city", "").strip(),
             "state": request.form.get("state", "").strip(),
             "zip_code": request.form.get("zip_code", "").strip(),
-            "addresses": [a.strip() for a in request.form.get("addresses", "").split("\n") if a.strip()],
-            "aliases": [a.strip() for a in request.form.get("aliases", "").split("\n") if a.strip()],
+            "addresses": addrs,
+            "aliases": [a.strip() for a in request.form.get("aliases", "").split(",") if a.strip()],
+            "social_accounts": socials,
             "is_primary": 1 if request.form.get("is_primary") else 0,
         }
 
@@ -301,18 +326,42 @@ def _register_routes(app: Flask) -> None:
     @app.route("/profiles/edit/<int:profile_id>", methods=["POST"])
     def profiles_edit(profile_id):
         """Edit an existing profile."""
+        # Collect all emails (primary + extras)
+        emails = [request.form.get("email", "").strip()]
+        emails += [e.strip() for e in request.form.getlist("email_extra") if e.strip()]
+        emails = [e for e in emails if e]
+
+        # Collect all phones
+        phones = [request.form.get("phone", "").strip()]
+        phones += [p.strip() for p in request.form.getlist("phone_extra") if p.strip()]
+        phones = [p for p in phones if p]
+
+        # Collect all addresses
+        addrs = [request.form.get("addresses", "").strip()]
+        addrs += [a.strip() for a in request.form.getlist("address_extra") if a.strip()]
+        addrs = [a for a in addrs if a]
+
+        # Collect social accounts
+        platforms = request.form.getlist("social_platform")
+        urls = request.form.getlist("social_url")
+        socials = []
+        for plat, url in zip(platforms, urls):
+            if url.strip():
+                socials.append({"platform": plat, "url": url.strip()})
+
         data = {
             "first_name": request.form.get("first_name", "").strip(),
             "last_name": request.form.get("last_name", "").strip(),
             "middle_name": request.form.get("middle_name", "").strip(),
-            "email": request.form.get("email", "").strip(),
-            "phone": request.form.get("phone", "").strip(),
+            "email": ",".join(emails),
+            "phone": ",".join(phones),
             "date_of_birth": request.form.get("date_of_birth", "").strip(),
             "city": request.form.get("city", "").strip(),
             "state": request.form.get("state", "").strip(),
             "zip_code": request.form.get("zip_code", "").strip(),
-            "addresses": [a.strip() for a in request.form.get("addresses", "").split("\n") if a.strip()],
-            "aliases": [a.strip() for a in request.form.get("aliases", "").split("\n") if a.strip()],
+            "addresses": addrs,
+            "aliases": [a.strip() for a in request.form.get("aliases", "").split(",") if a.strip()],
+            "social_accounts": socials,
         }
 
         update_profile(profile_id, data)
