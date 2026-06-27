@@ -47,19 +47,27 @@
     </div>
 
     <div class="card">
-        <h3><i class="fas fa-key"></i> API Configuration</h3>
+        <h3><i class="fas fa-key"></i> Breach Monitoring API</h3>
+        <p style="margin-bottom:12px;">To check if your email addresses appear in known data breaches, you need a <strong>Have I Been Pwned</strong> API key. Password checking is free without it.</p>
+        <div style="background:rgba(0,212,170,0.08); border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+          <strong style="color:#00d4aa;">How to get your key:</strong>
+          <ol style="margin:8px 0 0 16px; font-size:0.9rem;">
+            <li>Go to <a href="https://haveibeenpwned.com/API/Key" target="_blank" style="color:#00d4aa;">haveibeenpwned.com/API/Key</a></li>
+            <li>Sign up — costs <strong>$3.50/month</strong></li>
+            <li>Copy your API key and paste it below</li>
+          </ol>
+        </div>
         <form action="/settings/api-keys" method="POST">
             <div class="form-group">
-                <label>Have I Been Pwned API Key <span class="badge badge-optional">Optional</span></label>
-                <input type="password" name="hibp_key" placeholder="Enter HIBP API key for breach monitoring"
-                       value="{{ settings.get('hibp_key', '') }}" class="form-input">
-                <small>Free at <a href="https://haveibeenpwned.com/API/Key" target="_blank">haveibeenpwned.com/API/Key</a></small>
+                <label>HIBP API Key</label>
+                <input type="password" name="hibp_key" placeholder="Paste your HIBP API key here"
+                       value="{{ settings.get('hibp_api_key', '') }}" class="form-input">
             </div>
             <div class="form-group">
                 <label>Webhook URL <span class="badge badge-optional">Optional</span></label>
                 <input type="url" name="webhook_url" placeholder="https://your-server.com/webhook"
                        value="{{ settings.get('webhook_url', '') }}" class="form-input">
-                <small>Receive POST notifications when new exposures are found</small>
+                <small>Receive notifications when new breaches are found</small>
             </div>
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save API Settings</button>
         </form>

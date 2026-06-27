@@ -172,6 +172,10 @@ def _register_routes(app: Flask) -> None:
         optout_summary = {}
         recent_activity = []
         email_summary = {}
+        broker_count = get_broker_count()
+        found_count = 0
+        removed_count = 0
+        pending_count = 0
 
         profile_id = request.args.get("profile_id", type=int)
         if profiles:
@@ -183,7 +187,6 @@ def _register_routes(app: Flask) -> None:
             if profile:
                 scan_results = get_latest_scan_results(profile["id"])
                 breaches = get_breaches(profile["id"])
-                broker_count = get_broker_count()
                 score_data = calculate_privacy_score(scan_results, breaches, broker_count)
                 breaches_summary = get_breach_summary(profile["id"])
 
@@ -192,15 +195,26 @@ def _register_routes(app: Flask) -> None:
                 recent_activity = get_activity_log(profile_id=profile["id"], limit=10)
                 email_summary = get_email_summary(profile["id"])
 
+                found_count = sum(1 for r in scan_results if r.get("found"))
+                removed_count = optout_summary.get("confirmed", 0) if optout_summary else 0
+                pending_count = optout_summary.get("pending", 0) if optout_summary else 0
+
         return render_template(
             "dashboard.html",
+            profiles=profiles,
             profile=profile,
+            privacy_score=score_data.get("score", 0) if score_data else 0,
+            brokers_checked=broker_count if scan_results else 0,
+            exposures_found=found_count,
+            removed_count=removed_count,
+            pending_count=pending_count,
             score=score_data,
             scan_results=scan_results,
             breaches_summary=breaches_summary,
             optout_summary=optout_summary,
             recent_activity=recent_activity,
             email_summary=email_summary,
+            displacement_active=get_setting("displacement_active", "") == "1",
         )
 
     # ===================================================================
