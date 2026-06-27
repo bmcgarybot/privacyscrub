@@ -50,7 +50,8 @@ from scanner import (
 )
 from optout import (
     OptOutManager, AutoSubmitter, batch_update_status,
-    auto_submit_optouts, get_credit_freeze_links, get_optout_prescreen,
+    auto_submit_optouts, auto_submit_single_optout,
+    get_credit_freeze_links, get_optout_prescreen,
     CREDIT_FREEZE_LINKS, OPT_OUT_PRESCREEN,
 )
 from legal import (
@@ -406,6 +407,8 @@ def _register_routes(app: Flask) -> None:
         profile = None
         optouts = []
         summary = {}
+        auto_removable_count = 0
+        auto_removable_pending = 0
 
         if profile_id:
             profile = get_profile(profile_id)
@@ -417,12 +420,31 @@ def _register_routes(app: Flask) -> None:
             manager = OptOutManager()
             summary = manager.get_summary(profile["id"])
 
+            # Count auto-removable brokers among pending opt-outs
+            all_brokers = load_brokers()
+            broker_map = {b["id"]: b for b in all_brokers}
+            pending_optouts = get_optouts(profile["id"], status="pending")
+            for o in pending_optouts:
+                broker = broker_map.get(o.get("broker_id", ""))
+                if broker and broker.get("auto_removable", False):
+                    auto_removable_pending += 1
+
+            # Total auto-removable from all brokers
+            auto_removable_count = sum(1 for b in all_brokers if b.get("auto_removable", False))
+
+            # Add auto_removable flag to each optout for template use
+            for o in optouts:
+                broker = broker_map.get(o.get("broker_id", ""))
+                o["auto_removable"] = broker.get("auto_removable", False) if broker else False
+
         return render_template(
             "optouts.html",
             profile=profile,
             optouts=optouts,
             summary=summary,
             status_filter=status_filter,
+            auto_removable_count=auto_removable_count,
+            auto_removable_pending=auto_removable_pending,
         )
 
     @app.route("/optouts/create", methods=["POST"])
@@ -493,11 +515,42 @@ def _register_routes(app: Flask) -> None:
             return redirect(url_for("optouts_page"))
 
         result = auto_submit_optouts(profile_id)
-        flash(
+        drafts = result.get("drafts", 0)
+        msg = (
             f"Auto-submit complete: {result.get('submitted', 0)} submitted, "
-            f"{result.get('failed', 0)} failed, {result.get('skipped', 0)} skipped.",
-            "success",
+            f"{result.get('failed', 0)} failed, {result.get('skipped', 0)} skipped."
         )
+        if drafts:
+            msg += f" {drafts} saved as drafts (SMTP not configured)."
+        flash(msg, "success")
+        return redirect(url_for("optouts_page", profile_id=profile_id))
+
+    @app.route("/optouts/auto-submit/<int:profile_id>", methods=["POST"])
+    def auto_submit(profile_id):
+        """Trigger auto opt-out submission for all eligible pending brokers."""
+        result = auto_submit_optouts(profile_id)
+        drafts = result.get("drafts", 0)
+        msg = (
+            f"Auto-submit complete: {result.get('submitted', 0)} submitted, "
+            f"{result.get('failed', 0)} failed, {result.get('skipped', 0)} skipped."
+        )
+        if drafts:
+            msg += f" {drafts} saved as drafts (SMTP not configured)."
+        flash(msg, "success")
+        return redirect(url_for("optouts_page", profile_id=profile_id))
+
+    @app.route("/optouts/auto-submit-single/<int:optout_id>", methods=["POST"])
+    def auto_submit_single(optout_id):
+        """Auto-submit a single opt-out."""
+        result = auto_submit_single_optout(optout_id)
+        profile_id = request.form.get("profile_id", type=int)
+        if result.get("success"):
+            msg = f"Auto-submitted opt-out for {result.get('broker_name', 'broker')}."
+            if result.get("draft"):
+                msg += " (Saved as draft — SMTP not configured)"
+            flash(msg, "success")
+        else:
+            flash(f"Auto-submit failed: {result.get('message', result.get('error', 'Unknown error'))}", "error")
         return redirect(url_for("optouts_page", profile_id=profile_id))
 
     @app.route("/optouts/instructions/<broker_id>")
@@ -506,6 +559,48 @@ def _register_routes(app: Flask) -> None:
         manager = OptOutManager()
         instructions = manager.get_instructions(broker_id)
         return jsonify(instructions)
+
+    @app.route("/scan-and-remove/<int:profile_id>", methods=["POST"])
+    def scan_and_remove(profile_id):
+        """Full automation: scan all brokers, then auto-submit opt-outs for all found."""
+        profile = get_profile(profile_id)
+        if not profile:
+            flash("Profile not found.", "error")
+            return redirect(url_for("dashboard"))
+
+        # Step 1: Start scan and wait for results (synchronous for simplicity)
+        try:
+            batch_id = start_scan(profile_id)
+        except Exception as e:
+            flash(f"Scan failed: {e}", "error")
+            return redirect(url_for("dashboard"))
+
+        # Step 2: Create opt-outs from scan results
+        scan_results = get_latest_scan_results(profile_id)
+        manager = OptOutManager()
+        created_ids = manager.create_batch_from_scan(profile_id, scan_results)
+
+        # Step 3: Auto-submit eligible opt-outs
+        submit_result = auto_submit_optouts(profile_id)
+
+        drafts = submit_result.get("drafts", 0)
+        found = sum(1 for r in scan_results if r.get("found"))
+        msg = (
+            f"Scan & Auto-Remove complete: Found on {found} brokers, "
+            f"created {len(created_ids)} opt-outs, "
+            f"{submit_result.get('submitted', 0)} auto-submitted, "
+            f"{submit_result.get('skipped', 0)} require manual action."
+        )
+        if drafts:
+            msg += f" {drafts} saved as email drafts."
+        flash(msg, "success")
+
+        log_activity(
+            None, profile_id, "scan_and_remove", "optout",
+            msg,
+        )
+
+        return redirect(url_for("optouts_page", profile_id=profile_id))
 
     @app.route("/optouts/custom/add", methods=["POST"])
     def optouts_custom_add():

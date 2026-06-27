@@ -27,7 +27,8 @@
     "privacy_email": "optout@whitepages.com",
     "priority": "crucial",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "spokeo",
@@ -58,7 +59,8 @@
     "privacy_email": "privacy@spokeo.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "beenverified",
@@ -93,7 +95,8 @@
       "numberguru",
       "ownerly",
       "peoplesmart"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "truepeoplesearch",
@@ -123,7 +126,8 @@
     "privacy_email": "privacy@truepeoplesearch.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fastpeoplesearch",
@@ -153,7 +157,8 @@
     "privacy_email": "optout@fastpeoplesearch.com",
     "priority": "crucial",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "radaris",
@@ -185,7 +190,8 @@
     "privacy_email": "optout@radaris.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "intelius",
@@ -220,7 +226,8 @@
       "classmates",
       "ussearch",
       "zabasearch"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "peoplefinders",
@@ -250,7 +257,8 @@
     "privacy_email": "optout@peoplefinders.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "mylife",
@@ -281,7 +289,8 @@
     "privacy_email": "optout@mylife.com",
     "priority": "crucial",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "nuwber",
@@ -311,7 +320,8 @@
     "privacy_email": "optout@nuwber.com",
     "priority": "crucial",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "usphonebook",
@@ -339,7 +349,8 @@
     "privacy_email": "optout@usphonebook.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "anywho",
@@ -374,7 +385,8 @@
       "intelius",
       "ussearch",
       "zabasearch"
-    ]
+    ],
+    "auto_removable": true
   },
   {
     "id": "peekyou",
@@ -402,7 +414,8 @@
     "privacy_email": "optout@peekyou.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "familytreenow",
@@ -432,7 +445,8 @@
     "privacy_email": "optout@familytreenow.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "thatsthem",
@@ -463,7 +477,8 @@
     "privacy_email": "optout@thatsthem.com",
     "priority": "crucial",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "truthfinder",
@@ -494,7 +509,8 @@
     "privacy_email": "privacy@truthfinder.com",
     "priority": "crucial",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "instantcheckmate",
@@ -525,7 +541,8 @@
     "privacy_email": "optout@instantcheckmate.com",
     "priority": "crucial",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ussearch",
@@ -560,7 +577,8 @@
       "classmates",
       "intelius",
       "zabasearch"
-    ]
+    ],
+    "auto_removable": true
   },
   {
     "id": "peoplesmart",
@@ -595,7 +613,8 @@
       "neighborwho",
       "numberguru",
       "ownerly"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "peoplelooker",
@@ -625,7 +644,8 @@
     "privacy_email": "optout@peoplelooker.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "cocofinder",
@@ -655,7 +675,8 @@
     "privacy_email": "privacy@cocofinder.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "idtrue",
@@ -685,7 +706,8 @@
     "privacy_email": "privacy@idtrue.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "spydialer",
@@ -715,7 +737,8 @@
     "privacy_email": "privacy@spydialer.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "pipl",
@@ -745,7 +768,8 @@
     "privacy_email": "optout@pipl.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "zabasearch",
@@ -780,7 +804,8 @@
       "classmates",
       "intelius",
       "ussearch"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "publicrecordsnow",
@@ -810,7 +835,8 @@
     "privacy_email": "privacy@publicrecordsnow.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fouroneone",
@@ -840,7 +866,8 @@
     "privacy_email": "optout@fouroneone.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "clustrmaps",
@@ -870,7 +897,8 @@
     "privacy_email": "privacy@clustrmaps.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "privateeye",
@@ -900,7 +928,8 @@
     "privacy_email": "privacy@privateeye.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "cubib",
@@ -930,7 +959,8 @@
     "privacy_email": "optout@cubib.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "okcaller",
@@ -960,7 +990,8 @@
     "privacy_email": "privacy@okcaller.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "searchquarry",
@@ -990,7 +1021,8 @@
     "privacy_email": "optout@searchquarry.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "recordsfinder",
@@ -1020,7 +1052,8 @@
     "privacy_email": "privacy@recordsfinder.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "peoplesearchnow",
@@ -1050,7 +1083,8 @@
     "privacy_email": "privacy@peoplesearchnow.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "usapeoplesearch",
@@ -1080,7 +1114,8 @@
     "privacy_email": "optout@usapeoplesearch.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "unmask",
@@ -1110,7 +1145,8 @@
     "privacy_email": "optout@unmask.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "bumper",
@@ -1140,7 +1176,8 @@
     "privacy_email": "optout@bumper.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "informationcom",
@@ -1170,7 +1207,8 @@
     "privacy_email": "optout@informationcom.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "neighborwho",
@@ -1205,7 +1243,8 @@
       "numberguru",
       "ownerly",
       "peoplesmart"
-    ]
+    ],
+    "auto_removable": true
   },
   {
     "id": "veripages",
@@ -1235,7 +1274,8 @@
     "privacy_email": "privacy@veripages.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fastbackgroundcheck",
@@ -1265,7 +1305,8 @@
     "privacy_email": "privacy@fastbackgroundcheck.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "numberguru",
@@ -1300,7 +1341,8 @@
       "neighborwho",
       "ownerly",
       "peoplesmart"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "reunion",
@@ -1330,7 +1372,8 @@
     "privacy_email": "privacy@reunion.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "officialusa",
@@ -1360,7 +1403,8 @@
     "privacy_email": "privacy@officialusa.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "freepeopledirectory",
@@ -1390,7 +1434,8 @@
     "privacy_email": "optout@freepeopledirectory.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "findpeoplesearch",
@@ -1420,7 +1465,8 @@
     "privacy_email": "optout@findpeoplesearch.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "virtory",
@@ -1450,7 +1496,8 @@
     "privacy_email": "privacy@virtory.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "centeda",
@@ -1480,7 +1527,8 @@
     "privacy_email": "privacy@centeda.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "addresssearch",
@@ -1510,7 +1558,8 @@
     "privacy_email": "optout@addresssearch.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "instantpeoplefinder",
@@ -1540,7 +1589,8 @@
     "privacy_email": "privacy@instantpeoplefinder.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "classmates",
@@ -1575,7 +1625,8 @@
       "intelius",
       "ussearch",
       "zabasearch"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "infopay",
@@ -1605,7 +1656,8 @@
     "privacy_email": "optout@infopay.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "yellowbook",
@@ -1635,7 +1687,8 @@
     "privacy_email": "privacy@yellowbook.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "telephonedirectories",
@@ -1665,7 +1718,8 @@
     "privacy_email": "optout@telephonedirectories.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "searchpeoplefree",
@@ -1695,7 +1749,8 @@
     "privacy_email": "privacy@searchpeoplefree.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "checkpeople",
@@ -1725,7 +1780,8 @@
     "privacy_email": "privacy@checkpeople.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "advancedbackgroundchecks",
@@ -1755,7 +1811,8 @@
     "privacy_email": "privacy@advancedbackgroundchecks.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "cyberbackgroundchecks",
@@ -1785,7 +1842,8 @@
     "privacy_email": "compliance@cyberbackgroundchecks.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "smartbackgroundchecks",
@@ -1815,7 +1873,8 @@
     "privacy_email": "privacy@smartbackgroundchecks.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "infotracer",
@@ -1845,7 +1904,8 @@
     "privacy_email": "privacy@infotracer.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "arrestfacts",
@@ -1875,7 +1935,8 @@
     "privacy_email": "privacy@arrestfacts.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "arrests_org",
@@ -1905,7 +1966,8 @@
     "privacy_email": "privacy@arrests.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "publicrecords",
@@ -1935,7 +1997,8 @@
     "privacy_email": "compliance@publicrecords.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "staterecords",
@@ -1965,7 +2028,8 @@
     "privacy_email": "compliance@staterecords.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "courtrecords_us",
@@ -1995,7 +2059,8 @@
     "privacy_email": "privacy@courtrecords.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "govrecords",
@@ -2025,7 +2090,8 @@
     "privacy_email": "privacy@govrecords.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vinelink",
@@ -2055,7 +2121,8 @@
     "privacy_email": "compliance@vinelink.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "neighborreport",
@@ -2085,7 +2152,8 @@
     "privacy_email": "compliance@neighborreport.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "spyfly",
@@ -2115,7 +2183,8 @@
     "privacy_email": "privacy@spyfly.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "backgroundalert",
@@ -2145,7 +2214,8 @@
     "privacy_email": "privacy@backgroundalert.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "mugshots",
@@ -2175,7 +2245,8 @@
     "privacy_email": "compliance@mugshots.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "bustedmugshots",
@@ -2205,7 +2276,8 @@
     "privacy_email": "compliance@bustedmugshots.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "jailbase",
@@ -2235,7 +2307,8 @@
     "privacy_email": "compliance@jailbase.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "publicdata",
@@ -2265,7 +2338,8 @@
     "privacy_email": "privacy@publicdata.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "backgroundchecks_org",
@@ -2295,7 +2369,8 @@
     "privacy_email": "privacy@backgroundchecks.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "criminalwatchdog",
@@ -2325,7 +2400,8 @@
     "privacy_email": "compliance@criminalwatchdog.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "goodhire",
@@ -2355,7 +2431,8 @@
     "privacy_email": "compliance@goodhire.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "checkr",
@@ -2385,7 +2462,8 @@
     "privacy_email": "compliance@checkr.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sterling",
@@ -2415,7 +2493,8 @@
     "privacy_email": "privacy@sterling.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "hireright",
@@ -2445,7 +2524,8 @@
     "privacy_email": "compliance@hireright.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "accurate",
@@ -2475,7 +2555,8 @@
     "privacy_email": "privacy@accurate.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "infomart",
@@ -2505,7 +2586,8 @@
     "privacy_email": "privacy@infomart.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "judyrecords",
@@ -2535,7 +2617,8 @@
     "privacy_email": "compliance@judyrecords.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "unicourt",
@@ -2565,7 +2648,8 @@
     "privacy_email": "compliance@unicourt.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "publicrecordcom",
@@ -2595,7 +2679,8 @@
     "privacy_email": "compliance@publicrecordcom.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "blackbookonline",
@@ -2625,7 +2710,8 @@
     "privacy_email": "privacy@blackbookonline.com",
     "priority": "high",
     "process_type": "search-first",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "zoominfo",
@@ -2656,7 +2742,8 @@
     "privacy_email": "privacy@zoominfo.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "apollo",
@@ -2687,7 +2774,8 @@
     "privacy_email": "privacy@apollo.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "lusha",
@@ -2718,7 +2806,8 @@
     "privacy_email": "dataprotection@lusha.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rocketreach",
@@ -2749,7 +2838,8 @@
     "privacy_email": "privacy@rocketreach.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "clearbit",
@@ -2780,7 +2870,8 @@
     "privacy_email": "dataprotection@clearbit.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "cognism",
@@ -2811,7 +2902,8 @@
     "privacy_email": "privacy@cognism.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "leadiq",
@@ -2842,7 +2934,8 @@
     "privacy_email": "dataprotection@leadiq.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "salesintel",
@@ -2873,7 +2966,8 @@
     "privacy_email": "dataprotection@salesintel.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "kaspr",
@@ -2904,7 +2998,8 @@
     "privacy_email": "dataprotection@kaspr.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "hunter",
@@ -2935,7 +3030,8 @@
     "privacy_email": "privacy@hunter.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "uplead",
@@ -2966,7 +3062,8 @@
     "privacy_email": "privacy@uplead.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "seamless",
@@ -2997,7 +3094,8 @@
     "privacy_email": "privacy@seamless.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "snov",
@@ -3028,7 +3126,8 @@
     "privacy_email": "dataprotection@snov.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "contactout",
@@ -3059,7 +3158,8 @@
     "privacy_email": "privacy@contactout.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "signalhire",
@@ -3090,7 +3190,8 @@
     "privacy_email": "privacy@signalhire.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "getprospect",
@@ -3121,7 +3222,8 @@
     "privacy_email": "dataprotection@getprospect.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "leadgenius",
@@ -3152,7 +3254,8 @@
     "privacy_email": "privacy@leadgenius.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "aeroleads",
@@ -3183,7 +3286,8 @@
     "privacy_email": "privacy@aeroleads.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "datanyze",
@@ -3214,7 +3318,8 @@
     "privacy_email": "privacy@datanyze.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lead411",
@@ -3245,7 +3350,8 @@
     "privacy_email": "dataprotection@lead411.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "crunchbase",
@@ -3276,7 +3382,8 @@
     "privacy_email": "dataprotection@crunchbase.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "pitchbook",
@@ -3307,7 +3414,8 @@
     "privacy_email": "dataprotection@pitchbook.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "owler",
@@ -3338,7 +3446,8 @@
     "privacy_email": "dataprotection@owler.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "peopledatalabs",
@@ -3369,7 +3478,8 @@
     "privacy_email": "dataprotection@peopledatalabs.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adapt",
@@ -3400,7 +3510,8 @@
     "privacy_email": "dataprotection@adapt.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "reply",
@@ -3431,7 +3542,8 @@
     "privacy_email": "dataprotection@reply.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "smartlead",
@@ -3462,7 +3574,8 @@
     "privacy_email": "privacy@smartlead.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "saleshandy",
@@ -3493,7 +3606,8 @@
     "privacy_email": "dataprotection@saleshandy.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "instantly",
@@ -3524,7 +3638,8 @@
     "privacy_email": "dataprotection@instantly.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "netwisedata",
@@ -3555,7 +3670,8 @@
     "privacy_email": "privacy@netwisedata.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "bombora",
@@ -3586,7 +3702,8 @@
     "privacy_email": "dataprotection@bombora.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fullcontact",
@@ -3617,7 +3734,8 @@
     "privacy_email": "dataprotection@fullcontact.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "clearout",
@@ -3648,7 +3766,8 @@
     "privacy_email": "dataprotection@clearout.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "dropcontact",
@@ -3679,7 +3798,8 @@
     "privacy_email": "privacy@dropcontact.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "overloop",
@@ -3710,7 +3830,8 @@
     "privacy_email": "dataprotection@overloop.com",
     "priority": "high",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "woodpecker",
@@ -3741,7 +3862,8 @@
     "privacy_email": "privacy@woodpecker.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lemlist",
@@ -3772,7 +3894,8 @@
     "privacy_email": "dataprotection@lemlist.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "waalaxy",
@@ -3803,7 +3926,8 @@
     "privacy_email": "privacy@waalaxy.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "phantombuster",
@@ -3834,7 +3958,8 @@
     "privacy_email": "dataprotection@phantombuster.com",
     "priority": "high",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "discoveryorg",
@@ -3865,7 +3990,8 @@
     "privacy_email": "dataprotection@discoveryorg.com",
     "priority": "high",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "acxiom",
@@ -3896,7 +4022,8 @@
     "process_type": "email-only",
     "fronts": [
       "liveramp"
-    ]
+    ],
+    "auto_removable": true
   },
   {
     "id": "epsilon",
@@ -3925,7 +4052,8 @@
     "privacy_email": "unsubscribe@epsilon.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "liveramp",
@@ -3956,7 +4084,8 @@
     "process_type": "form-required",
     "fronts": [
       "acxiom"
-    ]
+    ],
+    "auto_removable": false
   },
   {
     "id": "nielsen",
@@ -3985,7 +4114,8 @@
     "privacy_email": "unsubscribe@nielsen.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "oracle_data",
@@ -4014,7 +4144,8 @@
     "privacy_email": "privacy@oracle_data.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "merkle",
@@ -4043,7 +4174,8 @@
     "privacy_email": "unsubscribe@merkle.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "kochava",
@@ -4072,7 +4204,8 @@
     "privacy_email": "privacy@kochava.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "criteo",
@@ -4101,7 +4234,8 @@
     "privacy_email": "privacy@criteo.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "quantcast",
@@ -4130,7 +4264,8 @@
     "privacy_email": "unsubscribe@quantcast.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tradedesk",
@@ -4159,7 +4294,8 @@
     "privacy_email": "unsubscribe@tradedesk.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "magnite",
@@ -4188,7 +4324,8 @@
     "privacy_email": "unsubscribe@magnite.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "doubleverify",
@@ -4217,7 +4354,8 @@
     "privacy_email": "unsubscribe@doubleverify.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "thirtythreeacross",
@@ -4246,7 +4384,8 @@
     "privacy_email": "privacy@thirtythreeacross.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "eyeota",
@@ -4275,7 +4414,8 @@
     "privacy_email": "privacy@eyeota.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "triplelift",
@@ -4304,7 +4444,8 @@
     "privacy_email": "unsubscribe@triplelift.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "lotame",
@@ -4333,7 +4474,8 @@
     "privacy_email": "privacy@lotame.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tapad",
@@ -4362,7 +4504,8 @@
     "privacy_email": "privacy@tapad.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dstillery",
@@ -4391,7 +4534,8 @@
     "privacy_email": "unsubscribe@dstillery.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "narrative",
@@ -4420,7 +4564,8 @@
     "privacy_email": "privacy@narrative.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "placeiq",
@@ -4449,7 +4594,8 @@
     "privacy_email": "privacy@placeiq.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ninthdecimal",
@@ -4478,7 +4624,8 @@
     "privacy_email": "privacy@ninthdecimal.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "iri",
@@ -4507,7 +4654,8 @@
     "privacy_email": "unsubscribe@iri.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "catalina",
@@ -4536,7 +4684,8 @@
     "privacy_email": "privacy@catalina.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "cardlytics",
@@ -4565,7 +4714,8 @@
     "privacy_email": "unsubscribe@cardlytics.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "comscore",
@@ -4594,7 +4744,8 @@
     "privacy_email": "unsubscribe@comscore.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "inmarket",
@@ -4623,7 +4774,8 @@
     "privacy_email": "privacy@inmarket.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fourthwall",
@@ -4652,7 +4804,8 @@
     "privacy_email": "unsubscribe@fourthwall.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "freewheel",
@@ -4681,7 +4834,8 @@
     "privacy_email": "unsubscribe@freewheel.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "hivestack",
@@ -4710,7 +4864,8 @@
     "privacy_email": "privacy@hivestack.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "medianet",
@@ -4739,7 +4894,8 @@
     "privacy_email": "unsubscribe@medianet.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sovrn",
@@ -4768,7 +4924,8 @@
     "privacy_email": "unsubscribe@sovrn.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "venatus",
@@ -4797,7 +4954,8 @@
     "privacy_email": "privacy@venatus.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "blis",
@@ -4826,7 +4984,8 @@
     "privacy_email": "unsubscribe@blis.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "miq",
@@ -4855,7 +5014,8 @@
     "privacy_email": "privacy@miq.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "loopme",
@@ -4884,7 +5044,8 @@
     "privacy_email": "privacy@loopme.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dentsu",
@@ -4913,7 +5074,8 @@
     "privacy_email": "privacy@dentsu.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "crimtan",
@@ -4942,7 +5104,8 @@
     "privacy_email": "unsubscribe@crimtan.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adform",
@@ -4971,7 +5134,8 @@
     "privacy_email": "privacy@adform.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "rtbhouse",
@@ -5000,7 +5164,8 @@
     "privacy_email": "privacy@rtbhouse.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "showheroes",
@@ -5029,7 +5194,8 @@
     "privacy_email": "privacy@showheroes.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "smartclip",
@@ -5058,7 +5224,8 @@
     "privacy_email": "unsubscribe@smartclip.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "bidtheatre",
@@ -5087,7 +5254,8 @@
     "privacy_email": "unsubscribe@bidtheatre.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emerse",
@@ -5116,7 +5284,8 @@
     "privacy_email": "privacy@emerse.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "captify",
@@ -5145,7 +5314,8 @@
     "privacy_email": "privacy@captify.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ogury",
@@ -5174,7 +5344,8 @@
     "privacy_email": "privacy@ogury.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sirdata",
@@ -5203,7 +5374,8 @@
     "privacy_email": "unsubscribe@sirdata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adikteev",
@@ -5232,7 +5404,8 @@
     "privacy_email": "privacy@adikteev.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adventori",
@@ -5261,7 +5434,8 @@
     "privacy_email": "unsubscribe@adventori.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "semasio",
@@ -5290,7 +5464,8 @@
     "privacy_email": "privacy@semasio.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "virtualminds",
@@ -5319,7 +5494,8 @@
     "privacy_email": "unsubscribe@virtualminds.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "roqad",
@@ -5348,7 +5524,8 @@
     "privacy_email": "unsubscribe@roqad.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adspirit",
@@ -5377,7 +5554,8 @@
     "privacy_email": "unsubscribe@adspirit.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "admetrics",
@@ -5406,7 +5584,8 @@
     "privacy_email": "unsubscribe@admetrics.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dataaxle",
@@ -5435,7 +5614,8 @@
     "privacy_email": "unsubscribe@dataaxle.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "alliant",
@@ -5464,7 +5644,8 @@
     "privacy_email": "privacy@alliant.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "consumercanvas",
@@ -5493,7 +5674,8 @@
     "privacy_email": "privacy@consumercanvas.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "consumerbase",
@@ -5522,7 +5704,8 @@
     "privacy_email": "unsubscribe@consumerbase.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "speedeondata",
@@ -5551,7 +5734,8 @@
     "privacy_email": "privacy@speedeondata.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fideo",
@@ -5580,7 +5764,8 @@
     "privacy_email": "unsubscribe@fideo.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "globalsource",
@@ -5609,7 +5794,8 @@
     "privacy_email": "unsubscribe@globalsource.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "healthwisedata",
@@ -5638,7 +5824,8 @@
     "privacy_email": "privacy@healthwisedata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "infodataresources",
@@ -5667,7 +5854,8 @@
     "privacy_email": "privacy@infodataresources.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "interactivedata",
@@ -5696,7 +5884,8 @@
     "privacy_email": "privacy@interactivedata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "leadintelligence",
@@ -5725,7 +5914,8 @@
     "privacy_email": "privacy@leadintelligence.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "leadmemedia",
@@ -5754,7 +5944,8 @@
     "privacy_email": "privacy@leadmemedia.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "lionshare",
@@ -5783,7 +5974,8 @@
     "privacy_email": "privacy@lionshare.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "matchbookdata",
@@ -5812,7 +6004,8 @@
     "privacy_email": "unsubscribe@matchbookdata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "milestonemarketing",
@@ -5841,7 +6034,8 @@
     "privacy_email": "unsubscribe@milestonemarketing.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "mvdigital",
@@ -5870,7 +6064,8 @@
     "privacy_email": "privacy@mvdigital.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "optable",
@@ -5899,7 +6094,8 @@
     "privacy_email": "unsubscribe@optable.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "outwardmedia",
@@ -5928,7 +6124,8 @@
     "privacy_email": "privacy@outwardmedia.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "paramountlists",
@@ -5957,7 +6154,8 @@
     "privacy_email": "unsubscribe@paramountlists.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "peoplewhiz",
@@ -5986,7 +6184,8 @@
     "privacy_email": "privacy@peoplewhiz.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "plunge",
@@ -6015,7 +6214,8 @@
     "privacy_email": "privacy@plunge.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rainbarrel",
@@ -6044,7 +6244,8 @@
     "privacy_email": "unsubscribe@rainbarrel.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "redidata",
@@ -6073,7 +6274,8 @@
     "privacy_email": "privacy@redidata.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "revenueroll",
@@ -6102,7 +6304,8 @@
     "privacy_email": "privacy@revenueroll.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "subgraph",
@@ -6131,7 +6334,8 @@
     "privacy_email": "privacy@subgraph.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "alesco",
@@ -6160,7 +6364,8 @@
     "privacy_email": "privacy@alesco.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "trestle",
@@ -6189,7 +6394,8 @@
     "privacy_email": "privacy@trestle.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "trueblue",
@@ -6218,7 +6424,8 @@
     "privacy_email": "unsubscribe@trueblue.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "uspeoplesearch_mkt",
@@ -6247,7 +6454,8 @@
     "privacy_email": "unsubscribe@uspeoplesearch_mkt.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "virtualmarketing",
@@ -6276,7 +6484,8 @@
     "privacy_email": "privacy@virtualmarketing.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vistarmedia",
@@ -6305,7 +6514,8 @@
     "privacy_email": "privacy@vistarmedia.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "winrdata",
@@ -6334,7 +6544,8 @@
     "privacy_email": "unsubscribe@winrdata.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "deeproot",
@@ -6363,7 +6574,8 @@
     "privacy_email": "privacy@deeproot.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "digitalviking",
@@ -6392,7 +6604,8 @@
     "privacy_email": "unsubscribe@digitalviking.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "exactmatch",
@@ -6421,7 +6634,8 @@
     "privacy_email": "privacy@exactmatch.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fourleaf",
@@ -6450,7 +6664,8 @@
     "privacy_email": "privacy@fourleaf.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "j2martech",
@@ -6479,7 +6694,8 @@
     "privacy_email": "privacy@j2martech.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "knowledgeworks",
@@ -6508,7 +6724,8 @@
     "privacy_email": "privacy@knowledgeworks.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "labelslists",
@@ -6537,7 +6754,8 @@
     "privacy_email": "privacy@labelslists.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "m1data",
@@ -6566,7 +6784,8 @@
     "privacy_email": "unsubscribe@m1data.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "nationaldataanalytics",
@@ -6595,7 +6814,8 @@
     "privacy_email": "privacy@nationaldataanalytics.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "pacificeast",
@@ -6624,7 +6844,8 @@
     "privacy_email": "privacy@pacificeast.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "salutarydata",
@@ -6653,7 +6874,8 @@
     "privacy_email": "unsubscribe@salutarydata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "scalablecommerce",
@@ -6682,7 +6904,8 @@
     "privacy_email": "privacy@scalablecommerce.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "specialistsmarketing",
@@ -6711,7 +6934,8 @@
     "privacy_email": "privacy@specialistsmarketing.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tauxbedata",
@@ -6740,7 +6964,8 @@
     "privacy_email": "unsubscribe@tauxbedata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vitechnologies",
@@ -6769,7 +6994,8 @@
     "privacy_email": "privacy@vitechnologies.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vrtcal",
@@ -6798,7 +7024,8 @@
     "privacy_email": "unsubscribe@vrtcal.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "windfall",
@@ -6827,7 +7054,8 @@
     "privacy_email": "unsubscribe@windfall.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "accudata",
@@ -6856,7 +7084,8 @@
     "privacy_email": "privacy@accudata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "advertise4sales",
@@ -6885,7 +7114,8 @@
     "privacy_email": "privacy@advertise4sales.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "agrmarketing",
@@ -6914,7 +7144,8 @@
     "privacy_email": "privacy@agrmarketing.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "analyticsiq",
@@ -6943,7 +7174,8 @@
     "privacy_email": "privacy@analyticsiq.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "aslmarketing",
@@ -6972,7 +7204,8 @@
     "privacy_email": "unsubscribe@aslmarketing.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "audiencemix",
@@ -7001,7 +7234,8 @@
     "privacy_email": "unsubscribe@audiencemix.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "bhmarketing",
@@ -7030,7 +7264,8 @@
     "privacy_email": "privacy@bhmarketing.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "coasttech",
@@ -7059,7 +7294,8 @@
     "privacy_email": "privacy@coasttech.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "compactinfo",
@@ -7088,7 +7324,8 @@
     "privacy_email": "unsubscribe@compactinfo.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "datadelivers",
@@ -7117,7 +7354,8 @@
     "privacy_email": "privacy@datadelivers.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "datafy",
@@ -7146,7 +7384,8 @@
     "privacy_email": "privacy@datafy.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "datamentors",
@@ -7175,7 +7414,8 @@
     "privacy_email": "unsubscribe@datamentors.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "dataxltd",
@@ -7204,7 +7444,8 @@
     "privacy_email": "unsubscribe@dataxltd.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "decidetech",
@@ -7233,7 +7474,8 @@
     "privacy_email": "privacy@decidetech.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fiftytechnology",
@@ -7262,7 +7504,8 @@
     "privacy_email": "unsubscribe@fiftytechnology.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "geniussports",
@@ -7291,7 +7534,8 @@
     "privacy_email": "privacy@geniussports.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "equifax",
@@ -7321,7 +7565,8 @@
     "privacy_email": "compliance@equifax.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "experian",
@@ -7351,7 +7596,8 @@
     "privacy_email": "privacy@experian.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "transunion",
@@ -7381,7 +7627,8 @@
     "privacy_email": "privacy@transunion.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "innovis",
@@ -7411,7 +7658,8 @@
     "privacy_email": "privacy@innovis.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "chexsystems",
@@ -7441,7 +7689,8 @@
     "privacy_email": "compliance@chexsystems.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "nctue",
@@ -7471,7 +7720,8 @@
     "privacy_email": "privacy@nctue.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "corelogic",
@@ -7501,7 +7751,8 @@
     "privacy_email": "privacy@corelogic.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "blackknight",
@@ -7531,7 +7782,8 @@
     "privacy_email": "privacy@blackknight.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "lexisnexis_risk",
@@ -7561,7 +7813,8 @@
     "privacy_email": "compliance@lexisnexis_risk.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fico",
@@ -7591,7 +7844,8 @@
     "privacy_email": "privacy@fico.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sagestream",
@@ -7621,7 +7875,8 @@
     "privacy_email": "privacy@sagestream.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adp_financial",
@@ -7651,7 +7906,8 @@
     "privacy_email": "compliance@adp_financial.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "firstadvantage",
@@ -7681,7 +7937,8 @@
     "privacy_email": "privacy@firstadvantage.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "optoutprescreen",
@@ -7711,7 +7968,8 @@
     "privacy_email": "compliance@optoutprescreen.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dnb",
@@ -7741,7 +7999,8 @@
     "privacy_email": "compliance@dnb.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "verisk",
@@ -7771,7 +8030,8 @@
     "privacy_email": "compliance@verisk.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "certegy",
@@ -7801,7 +8061,8 @@
     "privacy_email": "privacy@certegy.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ews",
@@ -7831,7 +8092,8 @@
     "privacy_email": "privacy@ews.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "telecheck",
@@ -7861,7 +8123,8 @@
     "privacy_email": "privacy@telecheck.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fairisaac",
@@ -7891,7 +8154,8 @@
     "privacy_email": "privacy@fairisaac.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "zillow",
@@ -7921,7 +8185,8 @@
     "privacy_email": "info@zillow.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "realtor",
@@ -7951,7 +8216,8 @@
     "privacy_email": "privacy@realtor.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "redfin",
@@ -7981,7 +8247,8 @@
     "privacy_email": "info@redfin.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "costar",
@@ -8011,7 +8278,8 @@
     "privacy_email": "info@costar.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "attom",
@@ -8041,7 +8309,8 @@
     "privacy_email": "privacy@attom.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ownerly",
@@ -8076,7 +8345,8 @@
       "neighborwho",
       "numberguru",
       "peoplesmart"
-    ]
+    ],
+    "auto_removable": true
   },
   {
     "id": "propertyshark",
@@ -8106,7 +8376,8 @@
     "privacy_email": "info@propertyshark.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "homesnap",
@@ -8136,7 +8407,8 @@
     "privacy_email": "info@homesnap.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "homes",
@@ -8166,7 +8438,8 @@
     "privacy_email": "privacy@homes.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "trulia",
@@ -8196,7 +8469,8 @@
     "privacy_email": "info@trulia.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "neighborhoodscout",
@@ -8226,7 +8500,8 @@
     "privacy_email": "info@neighborhoodscout.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "mashvisor",
@@ -8256,7 +8531,8 @@
     "privacy_email": "privacy@mashvisor.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "realtytrac",
@@ -8286,7 +8562,8 @@
     "privacy_email": "privacy@realtytrac.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "datatree",
@@ -8316,7 +8593,8 @@
     "privacy_email": "privacy@datatree.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "reonomy",
@@ -8346,7 +8624,8 @@
     "privacy_email": "privacy@reonomy.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "yardi",
@@ -8376,7 +8655,8 @@
     "privacy_email": "privacy@yardi.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "realpage",
@@ -8406,7 +8686,8 @@
     "privacy_email": "info@realpage.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "commercialcafe",
@@ -8436,7 +8717,8 @@
     "privacy_email": "privacy@commercialcafe.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "loopnet",
@@ -8466,7 +8748,8 @@
     "privacy_email": "privacy@loopnet.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "homefacts",
@@ -8496,7 +8779,8 @@
     "privacy_email": "privacy@homefacts.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "linkedin",
@@ -8526,7 +8810,8 @@
     "privacy_email": "hr@linkedin.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "indeed",
@@ -8556,7 +8841,8 @@
     "privacy_email": "privacy@indeed.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "glassdoor",
@@ -8586,7 +8872,8 @@
     "privacy_email": "hr@glassdoor.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ziprecruiter",
@@ -8616,7 +8903,8 @@
     "privacy_email": "privacy@ziprecruiter.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "monster",
@@ -8646,7 +8934,8 @@
     "privacy_email": "privacy@monster.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dice",
@@ -8676,7 +8965,8 @@
     "privacy_email": "hr@dice.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "careerbuilder",
@@ -8706,7 +8996,8 @@
     "privacy_email": "hr@careerbuilder.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "checkr_hr",
@@ -8736,7 +9027,8 @@
     "privacy_email": "privacy@checkr.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "goodhire_hr",
@@ -8766,7 +9058,8 @@
     "privacy_email": "privacy@goodhire.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sterling_hr",
@@ -8796,7 +9089,8 @@
     "privacy_email": "privacy@sterling.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "hireright_hr",
@@ -8826,7 +9120,8 @@
     "privacy_email": "privacy@hireright.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "accurate_hr",
@@ -8856,7 +9151,8 @@
     "privacy_email": "hr@accurate.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "infomart_hr",
@@ -8886,7 +9182,8 @@
     "privacy_email": "privacy@infomart.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sambasafety",
@@ -8916,7 +9213,8 @@
     "privacy_email": "hr@sambasafety.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "assurehire",
@@ -8946,7 +9244,8 @@
     "privacy_email": "hr@assurehire.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "empinfo",
@@ -8976,7 +9275,8 @@
     "privacy_email": "hr@empinfo.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "equifax_workforce",
@@ -9006,7 +9306,8 @@
     "privacy_email": "privacy@equifax.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "experian_employer",
@@ -9036,7 +9337,8 @@
     "privacy_email": "hr@experian.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "adp_screening",
@@ -9066,7 +9368,8 @@
     "privacy_email": "hr@adp.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "theworknumber",
@@ -9096,7 +9399,8 @@
     "privacy_email": "privacy@theworknumber.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "iqvia",
@@ -9126,7 +9430,8 @@
     "privacy_email": "hipaa@iqvia.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "healthwise_health",
@@ -9156,7 +9461,8 @@
     "privacy_email": "hipaa@healthwise.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lexisnexis_health",
@@ -9186,7 +9492,8 @@
     "privacy_email": "privacy@lexisnexis.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "milliman",
@@ -9216,7 +9523,8 @@
     "privacy_email": "hipaa@milliman.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "healthmarket",
@@ -9246,7 +9554,8 @@
     "privacy_email": "hipaa@healthmarket.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emdeon",
@@ -9276,7 +9585,8 @@
     "privacy_email": "hipaa@emdeon.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "optuminsight",
@@ -9306,7 +9616,8 @@
     "privacy_email": "privacy@optuminsight.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "truven",
@@ -9336,7 +9647,8 @@
     "privacy_email": "privacy@truven.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "merative",
@@ -9366,7 +9678,8 @@
     "privacy_email": "hipaa@merative.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "verisk_health",
@@ -9396,7 +9709,8 @@
     "privacy_email": "privacy@verisk.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "cotiviti",
@@ -9426,7 +9740,8 @@
     "privacy_email": "hipaa@cotiviti.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "inovalon",
@@ -9456,7 +9771,8 @@
     "privacy_email": "hipaa@inovalon.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "careallies",
@@ -9486,7 +9802,8 @@
     "privacy_email": "privacy@careallies.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "healthdatainsights",
@@ -9516,7 +9833,8 @@
     "privacy_email": "privacy@healthdatainsights.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "elsevier_health",
@@ -9546,7 +9864,8 @@
     "privacy_email": "hipaa@elsevier.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "google",
@@ -9577,7 +9896,8 @@
     "privacy_email": "privacy@google.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "facebook",
@@ -9608,7 +9928,8 @@
     "privacy_email": "support@facebook.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "instagram",
@@ -9639,7 +9960,8 @@
     "privacy_email": "privacy@instagram.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "twitter",
@@ -9670,7 +9992,8 @@
     "privacy_email": "privacy@twitter.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tiktok",
@@ -9701,7 +10024,8 @@
     "privacy_email": "support@tiktok.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "reddit",
@@ -9732,7 +10056,8 @@
     "privacy_email": "privacy@reddit.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "pinterest",
@@ -9763,7 +10088,8 @@
     "privacy_email": "privacy@pinterest.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "discord",
@@ -9794,7 +10120,8 @@
     "privacy_email": "support@discord.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "whatsapp",
@@ -9825,7 +10152,8 @@
     "privacy_email": "privacy@whatsapp.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "snapchat",
@@ -9856,7 +10184,8 @@
     "privacy_email": "support@snapchat.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "linkedin_social",
@@ -9887,7 +10216,8 @@
     "privacy_email": "privacy@linkedin.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "youtube",
@@ -9918,7 +10248,8 @@
     "privacy_email": "support@youtube.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "twitch",
@@ -9949,7 +10280,8 @@
     "privacy_email": "privacy@twitch.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "signal_social",
@@ -9980,7 +10312,8 @@
     "privacy_email": "support@signal.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "telegram",
@@ -10011,7 +10344,8 @@
     "privacy_email": "privacy@telegram.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "bereal",
@@ -10042,7 +10376,8 @@
     "privacy_email": "privacy@bereal.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "threads",
@@ -10073,7 +10408,8 @@
     "privacy_email": "privacy@threads.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "mastodon",
@@ -10104,7 +10440,8 @@
     "privacy_email": "support@mastodon.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "bluesky",
@@ -10135,7 +10472,8 @@
     "privacy_email": "support@bluesky.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tumblr",
@@ -10166,7 +10504,8 @@
     "privacy_email": "privacy@tumblr.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "callersmart",
@@ -10195,7 +10534,8 @@
     "privacy_email": "privacy@callersmart.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "truecaller",
@@ -10224,7 +10564,8 @@
     "privacy_email": "optout@truecaller.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "hiya",
@@ -10253,7 +10594,8 @@
     "privacy_email": "privacy@hiya.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "robokiller",
@@ -10282,7 +10624,8 @@
     "privacy_email": "privacy@robokiller.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "nomorobo",
@@ -10311,7 +10654,8 @@
     "privacy_email": "optout@nomorobo.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "callapp",
@@ -10340,7 +10684,8 @@
     "privacy_email": "optout@callapp.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "callername",
@@ -10369,7 +10714,8 @@
     "privacy_email": "optout@callername.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "phonevalidator",
@@ -10398,7 +10744,8 @@
     "privacy_email": "privacy@phonevalidator.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "superpages",
@@ -10427,7 +10774,8 @@
     "privacy_email": "optout@superpages.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "dexknows",
@@ -10456,7 +10804,8 @@
     "privacy_email": "optout@dexknows.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "yellowpages_phone",
@@ -10485,7 +10834,8 @@
     "privacy_email": "optout@yellowpages_phone.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "whocalledme",
@@ -10514,7 +10864,8 @@
     "privacy_email": "optout@whocalledme.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "callblocker",
@@ -10543,7 +10894,8 @@
     "privacy_email": "optout@callblocker.com",
     "priority": "medium",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "textfree",
@@ -10572,7 +10924,8 @@
     "privacy_email": "privacy@textfree.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "textnow",
@@ -10601,7 +10954,8 @@
     "privacy_email": "optout@textnow.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "magicjack",
@@ -10630,7 +10984,8 @@
     "privacy_email": "optout@magicjack.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "calleridtest",
@@ -10659,7 +11014,8 @@
     "privacy_email": "optout@calleridtest.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "reversephone",
@@ -10688,7 +11044,8 @@
     "privacy_email": "privacy@reversephone.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "fonefinder",
@@ -10717,7 +11074,8 @@
     "privacy_email": "privacy@fonefinder.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "numberville",
@@ -10746,7 +11104,8 @@
     "privacy_email": "optout@numberville.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "thomson_reuters",
@@ -10776,7 +11135,8 @@
     "privacy_email": "dpo@thomson.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "infousa",
@@ -10806,7 +11166,8 @@
     "privacy_email": "privacy@infousa.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dataaxle_agg",
@@ -10836,7 +11197,8 @@
     "privacy_email": "dpo@dataaxle.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rlpolk",
@@ -10866,7 +11228,8 @@
     "privacy_email": "privacy@rlpolk.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "hartehanks",
@@ -10896,7 +11259,8 @@
     "privacy_email": "dpo@hartehanks.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "donnelley",
@@ -10926,7 +11290,8 @@
     "privacy_email": "dpo@donnelley.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "valassis",
@@ -10956,7 +11321,8 @@
     "privacy_email": "dpo@valassis.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "returnpath",
@@ -10986,7 +11352,8 @@
     "privacy_email": "dpo@returnpath.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "towerdata",
@@ -11016,7 +11383,8 @@
     "privacy_email": "privacy@towerdata.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "webbula",
@@ -11046,7 +11414,8 @@
     "privacy_email": "privacy@webbula.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "atdata",
@@ -11076,7 +11445,8 @@
     "privacy_email": "dpo@atdata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "briteverify",
@@ -11106,7 +11476,8 @@
     "privacy_email": "dpo@briteverify.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "neverbounce",
@@ -11136,7 +11507,8 @@
     "privacy_email": "dpo@neverbounce.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "zerobounce",
@@ -11166,7 +11538,8 @@
     "privacy_email": "privacy@zerobounce.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "kickbox",
@@ -11196,7 +11569,8 @@
     "privacy_email": "privacy@kickbox.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emaillistverify",
@@ -11226,7 +11600,8 @@
     "privacy_email": "dpo@emaillistverify.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "thechecker",
@@ -11256,7 +11631,8 @@
     "privacy_email": "dpo@thechecker.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "debounce",
@@ -11286,7 +11662,8 @@
     "privacy_email": "dpo@debounce.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "mailboxvalidator",
@@ -11316,7 +11693,8 @@
     "privacy_email": "dpo@mailboxvalidator.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "emailhippo",
@@ -11346,7 +11724,8 @@
     "privacy_email": "dpo@emailhippo.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "captainverify",
@@ -11376,7 +11755,8 @@
     "privacy_email": "privacy@captainverify.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "pabbly",
@@ -11406,7 +11786,8 @@
     "privacy_email": "privacy@pabbly.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emailable",
@@ -11436,7 +11817,8 @@
     "privacy_email": "dpo@emailable.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "proofy",
@@ -11466,7 +11848,8 @@
     "privacy_email": "dpo@proofy.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "bounceless",
@@ -11496,7 +11879,8 @@
     "privacy_email": "privacy@bounceless.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "quickemailverification",
@@ -11526,7 +11910,8 @@
     "privacy_email": "dpo@quickemailverification.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "snov_verify",
@@ -11556,7 +11941,8 @@
     "privacy_email": "privacy@snov.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "bulkemailchecker",
@@ -11586,7 +11972,8 @@
     "privacy_email": "privacy@bulkemailchecker.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emailchecker",
@@ -11616,7 +12003,8 @@
     "privacy_email": "dpo@emailchecker.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "verifyemailaddress",
@@ -11646,7 +12034,8 @@
     "privacy_email": "dpo@verifyemailaddress.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "clearout_verify",
@@ -11676,7 +12065,8 @@
     "privacy_email": "dpo@clearout.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "hunter_verify",
@@ -11706,7 +12096,8 @@
     "privacy_email": "dpo@hunter.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "abstract_api",
@@ -11736,7 +12127,8 @@
     "privacy_email": "privacy@abstract.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ipqualityscore",
@@ -11766,7 +12158,8 @@
     "privacy_email": "dpo@ipqualityscore.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "maxmind",
@@ -11796,7 +12189,8 @@
     "privacy_email": "privacy@maxmind.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ip2location",
@@ -11826,7 +12220,8 @@
     "privacy_email": "privacy@ip2location.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "sift",
@@ -11856,7 +12251,8 @@
     "privacy_email": "dpo@sift.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "riskified",
@@ -11886,7 +12282,8 @@
     "privacy_email": "privacy@riskified.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "signifyd",
@@ -11916,7 +12313,8 @@
     "privacy_email": "privacy@signifyd.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "kount",
@@ -11946,7 +12344,8 @@
     "privacy_email": "dpo@kount.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "socure",
@@ -11976,7 +12375,8 @@
     "privacy_email": "dpo@socure.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "prove",
@@ -12006,7 +12406,8 @@
     "privacy_email": "privacy@prove.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "telesign",
@@ -12036,7 +12437,8 @@
     "privacy_email": "privacy@telesign.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "twilio_lookup",
@@ -12066,7 +12468,8 @@
     "privacy_email": "privacy@twilio.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "plaid",
@@ -12096,7 +12499,8 @@
     "privacy_email": "privacy@plaid.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "mx",
@@ -12126,7 +12530,8 @@
     "privacy_email": "dpo@mx.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "yodlee",
@@ -12156,7 +12561,8 @@
     "privacy_email": "dpo@yodlee.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "finicity",
@@ -12186,7 +12592,8 @@
     "privacy_email": "privacy@finicity.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "checkbook",
@@ -12216,7 +12623,8 @@
     "privacy_email": "privacy@checkbook.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "marqeta",
@@ -12246,7 +12654,8 @@
     "privacy_email": "privacy@marqeta.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "criteo_eu",
@@ -12276,7 +12685,8 @@
     "privacy_email": "dpo@criteo.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ogury_eu",
@@ -12306,7 +12716,8 @@
     "privacy_email": "gdpr@ogury.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "sirdata_eu",
@@ -12336,7 +12747,8 @@
     "privacy_email": "gdpr@sirdata.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adikteev_eu",
@@ -12366,7 +12778,8 @@
     "privacy_email": "gdpr@adikteev.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "adventori_eu",
@@ -12396,7 +12809,8 @@
     "privacy_email": "gdpr@adventori.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adloox_eu",
@@ -12426,7 +12840,8 @@
     "privacy_email": "gdpr@adloox.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sublime_eu",
@@ -12456,7 +12871,8 @@
     "privacy_email": "gdpr@sublime.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "roqad_eu",
@@ -12486,7 +12902,8 @@
     "privacy_email": "dpo@roqad.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adspirit_eu",
@@ -12516,7 +12933,8 @@
     "privacy_email": "gdpr@adspirit.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "admetrics_eu",
@@ -12546,7 +12964,8 @@
     "privacy_email": "dpo@admetrics.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "semasio_eu",
@@ -12576,7 +12995,8 @@
     "privacy_email": "gdpr@semasio.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "virtualminds_eu",
@@ -12606,7 +13026,8 @@
     "privacy_email": "dpo@virtualminds.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "showheroes_eu",
@@ -12636,7 +13057,8 @@
     "privacy_email": "gdpr@showheroes.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "smartclip_eu",
@@ -12666,7 +13088,8 @@
     "privacy_email": "gdpr@smartclip.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "captify_eu",
@@ -12696,7 +13119,8 @@
     "privacy_email": "gdpr@captify.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "sovrn_eu",
@@ -12726,7 +13150,8 @@
     "privacy_email": "gdpr@sovrn.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "venatus_eu",
@@ -12756,7 +13181,8 @@
     "privacy_email": "dpo@venatus.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "blis_eu",
@@ -12786,7 +13212,8 @@
     "privacy_email": "gdpr@blis.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "miq_eu",
@@ -12816,7 +13243,8 @@
     "privacy_email": "dpo@miq.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "loopme_eu",
@@ -12846,7 +13274,8 @@
     "privacy_email": "dpo@loopme.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dentsu_eu",
@@ -12876,7 +13305,8 @@
     "privacy_email": "gdpr@dentsu.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "crimtan_eu",
@@ -12906,7 +13336,8 @@
     "privacy_email": "gdpr@crimtan.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "geniussports_eu",
@@ -12936,7 +13367,8 @@
     "privacy_email": "gdpr@geniussports.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "yahoo_emea",
@@ -12966,7 +13398,8 @@
     "privacy_email": "gdpr@yahoo.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "adform_eu",
@@ -12996,7 +13429,8 @@
     "privacy_email": "gdpr@adform.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rtbhouse_eu",
@@ -13026,7 +13460,8 @@
     "privacy_email": "dpo@rtbhouse.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "etarget_eu",
@@ -13056,7 +13491,8 @@
     "privacy_email": "dpo@etarget.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "bidtheatre_eu",
@@ -13086,7 +13522,8 @@
     "privacy_email": "dpo@bidtheatre.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "emerse_eu",
@@ -13116,7 +13553,8 @@
     "privacy_email": "gdpr@emerse.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "dealfront_eu",
@@ -13146,7 +13584,8 @@
     "privacy_email": "gdpr@dealfront.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "cognism_eu",
@@ -13176,7 +13615,8 @@
     "privacy_email": "dpo@cognism.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "dnb_eu",
@@ -13206,7 +13646,8 @@
     "privacy_email": "dpo@dnb.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "zoominfo_eu",
@@ -13236,7 +13677,8 @@
     "privacy_email": "gdpr@zoominfo.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lusha_eu",
@@ -13266,7 +13708,8 @@
     "privacy_email": "gdpr@lusha.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "apollo_eu",
@@ -13296,7 +13739,8 @@
     "privacy_email": "dpo@apollo.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rocketreach_eu",
@@ -13326,7 +13770,8 @@
     "privacy_email": "gdpr@rocketreach.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "experian_eu",
@@ -13356,7 +13801,8 @@
     "privacy_email": "dpo@experian.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "equifax_eu",
@@ -13386,7 +13832,8 @@
     "privacy_email": "dpo@equifax.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "transunion_eu",
@@ -13416,7 +13863,8 @@
     "privacy_email": "gdpr@transunion.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "acxiom_eu",
@@ -13446,7 +13894,8 @@
     "privacy_email": "gdpr@acxiom.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lexisnexis_eu",
@@ -13476,7 +13925,8 @@
     "privacy_email": "gdpr@lexisnexis.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "epsilon_eu",
@@ -13506,7 +13956,8 @@
     "privacy_email": "gdpr@epsilon.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "liveramp_eu",
@@ -13536,7 +13987,8 @@
     "privacy_email": "dpo@liveramp.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "oracle_eu",
@@ -13566,7 +14018,8 @@
     "privacy_email": "dpo@oracle.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tradedesk_eu",
@@ -13596,7 +14049,8 @@
     "privacy_email": "dpo@tradedesk.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "magnite_eu",
@@ -13626,7 +14080,8 @@
     "privacy_email": "dpo@magnite.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "quantcast_eu",
@@ -13656,7 +14111,8 @@
     "privacy_email": "gdpr@quantcast.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "triplelift_eu",
@@ -13686,7 +14142,8 @@
     "privacy_email": "gdpr@triplelift.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "madlogic_eu",
@@ -13716,7 +14173,8 @@
     "privacy_email": "gdpr@madlogic.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "eyeota_eu",
@@ -13746,7 +14204,8 @@
     "privacy_email": "dpo@eyeota.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "doubleverify_eu",
@@ -13776,7 +14235,8 @@
     "privacy_email": "gdpr@doubleverify.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "selectabase_uk",
@@ -13806,7 +14266,8 @@
     "privacy_email": "dpo@selectabase.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "databubble_uk",
@@ -13836,7 +14297,8 @@
     "privacy_email": "dpo@databubble.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "datahq_uk",
@@ -13866,7 +14328,8 @@
     "privacy_email": "dpo@datahq.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "seawavemedia_uk",
@@ -13896,7 +14359,8 @@
     "privacy_email": "dpo@seawavemedia.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "datajoy_be",
@@ -13926,7 +14390,8 @@
     "privacy_email": "gdpr@datajoy.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "lotame_eu",
@@ -13956,7 +14421,8 @@
     "privacy_email": "gdpr@lotame.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tapad_eu",
@@ -13986,7 +14452,8 @@
     "privacy_email": "gdpr@tapad.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "medianet_eu",
@@ -14016,7 +14483,8 @@
     "privacy_email": "dpo@medianet.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fiftytechnology_eu",
@@ -14046,7 +14514,8 @@
     "privacy_email": "dpo@fiftytechnology.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "jellyfish_eu",
@@ -14076,7 +14545,8 @@
     "privacy_email": "gdpr@jellyfish.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "inmobi_eu",
@@ -14106,7 +14576,8 @@
     "privacy_email": "gdpr@inmobi.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "applovin_eu",
@@ -14136,7 +14607,8 @@
     "privacy_email": "dpo@applovin.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "liftoff_eu",
@@ -14166,7 +14638,8 @@
     "privacy_email": "dpo@liftoff.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "moloco_eu",
@@ -14196,7 +14669,8 @@
     "privacy_email": "dpo@moloco.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "digitalturbine_eu",
@@ -14226,7 +14700,8 @@
     "privacy_email": "gdpr@digitalturbine.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ironsrc_eu",
@@ -14256,7 +14731,8 @@
     "privacy_email": "dpo@ironsrc.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "unity_ads_eu",
@@ -14286,7 +14762,8 @@
     "privacy_email": "dpo@unity.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vungle_eu",
@@ -14316,7 +14793,8 @@
     "privacy_email": "dpo@vungle.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "chartboost_eu",
@@ -14346,7 +14824,8 @@
     "privacy_email": "gdpr@chartboost.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tapjoy_eu",
@@ -14376,7 +14855,8 @@
     "privacy_email": "dpo@tapjoy.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fyber_eu",
@@ -14406,7 +14886,8 @@
     "privacy_email": "dpo@fyber.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "pubmatic_eu",
@@ -14436,7 +14917,8 @@
     "privacy_email": "gdpr@pubmatic.com",
     "priority": "medium",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "sharethrough_eu",
@@ -14466,7 +14948,8 @@
     "privacy_email": "dpo@sharethrough.com",
     "priority": "medium",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "gumgum_eu",
@@ -14496,7 +14979,8 @@
     "privacy_email": "dpo@gumgum.com",
     "priority": "medium",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "alabama_courts",
@@ -14526,7 +15010,8 @@
     "privacy_email": "records@courts.alabama.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "alaska_courts",
@@ -14556,7 +15041,8 @@
     "privacy_email": "records@courts.alaska.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "arizona_courts",
@@ -14586,7 +15072,8 @@
     "privacy_email": "records@courts.arizona.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "arkansas_courts",
@@ -14616,7 +15103,8 @@
     "privacy_email": "records@courts.arkansas.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "california_courts",
@@ -14646,7 +15134,8 @@
     "privacy_email": "privacy@courts.california.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "colorado_courts",
@@ -14676,7 +15165,8 @@
     "privacy_email": "records@courts.colorado.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "connecticut_courts",
@@ -14706,7 +15196,8 @@
     "privacy_email": "records@courts.connecticut.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "delaware_courts",
@@ -14736,7 +15227,8 @@
     "privacy_email": "privacy@courts.delaware.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "florida_courts",
@@ -14766,7 +15258,8 @@
     "privacy_email": "privacy@courts.florida.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "georgia_courts",
@@ -14796,7 +15289,8 @@
     "privacy_email": "records@courts.georgia.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "hawaii_courts",
@@ -14826,7 +15320,8 @@
     "privacy_email": "records@courts.hawaii.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "idaho_courts",
@@ -14856,7 +15351,8 @@
     "privacy_email": "privacy@courts.idaho.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "illinois_courts",
@@ -14886,7 +15382,8 @@
     "privacy_email": "privacy@courts.illinois.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "indiana_courts",
@@ -14916,7 +15413,8 @@
     "privacy_email": "privacy@courts.indiana.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "iowa_courts",
@@ -14946,7 +15444,8 @@
     "privacy_email": "privacy@courts.iowa.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "kansas_courts",
@@ -14976,7 +15475,8 @@
     "privacy_email": "privacy@courts.kansas.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "kentucky_courts",
@@ -15006,7 +15506,8 @@
     "privacy_email": "privacy@courts.kentucky.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "louisiana_courts",
@@ -15036,7 +15537,8 @@
     "privacy_email": "records@courts.louisiana.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "maine_courts",
@@ -15066,7 +15568,8 @@
     "privacy_email": "privacy@courts.maine.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "maryland_courts",
@@ -15096,7 +15599,8 @@
     "privacy_email": "records@courts.maryland.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "massachusetts_courts",
@@ -15126,7 +15630,8 @@
     "privacy_email": "records@courts.massachusetts.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "michigan_courts",
@@ -15156,7 +15661,8 @@
     "privacy_email": "privacy@courts.michigan.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "minnesota_courts",
@@ -15186,7 +15692,8 @@
     "privacy_email": "records@courts.minnesota.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "mississippi_courts",
@@ -15216,7 +15723,8 @@
     "privacy_email": "records@courts.mississippi.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "missouri_courts",
@@ -15246,7 +15754,8 @@
     "privacy_email": "privacy@courts.missouri.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "montana_courts",
@@ -15276,7 +15785,8 @@
     "privacy_email": "privacy@courts.montana.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "nebraska_courts",
@@ -15306,7 +15816,8 @@
     "privacy_email": "records@courts.nebraska.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "nevada_courts",
@@ -15336,7 +15847,8 @@
     "privacy_email": "records@courts.nevada.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "new_hampshire_courts",
@@ -15366,7 +15878,8 @@
     "privacy_email": "privacy@courts.new.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "new_jersey_courts",
@@ -15396,7 +15909,8 @@
     "privacy_email": "records@courts.new.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "new_mexico_courts",
@@ -15426,7 +15940,8 @@
     "privacy_email": "privacy@courts.new.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "new_york_courts",
@@ -15456,7 +15971,8 @@
     "privacy_email": "records@courts.new.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "north_carolina_courts",
@@ -15486,7 +16002,8 @@
     "privacy_email": "privacy@courts.north.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "north_dakota_courts",
@@ -15516,7 +16033,8 @@
     "privacy_email": "records@courts.north.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ohio_courts",
@@ -15546,7 +16064,8 @@
     "privacy_email": "records@courts.ohio.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "oklahoma_courts",
@@ -15576,7 +16095,8 @@
     "privacy_email": "records@courts.oklahoma.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "oregon_courts",
@@ -15606,7 +16126,8 @@
     "privacy_email": "privacy@courts.oregon.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "pennsylvania_courts",
@@ -15636,7 +16157,8 @@
     "privacy_email": "records@courts.pennsylvania.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "rhode_island_courts",
@@ -15666,7 +16188,8 @@
     "privacy_email": "records@courts.rhode.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "south_carolina_courts",
@@ -15696,7 +16219,8 @@
     "privacy_email": "privacy@courts.south.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "south_dakota_courts",
@@ -15726,7 +16250,8 @@
     "privacy_email": "records@courts.south.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tennessee_courts",
@@ -15756,7 +16281,8 @@
     "privacy_email": "privacy@courts.tennessee.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "texas_courts",
@@ -15786,7 +16312,8 @@
     "privacy_email": "privacy@courts.texas.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "utah_courts",
@@ -15816,7 +16343,8 @@
     "privacy_email": "privacy@courts.utah.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vermont_courts",
@@ -15846,7 +16374,8 @@
     "privacy_email": "records@courts.vermont.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "virginia_courts",
@@ -15876,7 +16405,8 @@
     "privacy_email": "privacy@courts.virginia.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "washington_courts",
@@ -15906,7 +16436,8 @@
     "privacy_email": "records@courts.washington.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "west_virginia_courts",
@@ -15936,7 +16467,8 @@
     "privacy_email": "privacy@courts.west.gov",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "wisconsin_courts",
@@ -15966,7 +16498,8 @@
     "privacy_email": "records@courts.wisconsin.gov",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "wyoming_courts",
@@ -15996,7 +16529,8 @@
     "privacy_email": "records@courts.wyoming.gov",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "lexisnexis_clue",
@@ -16026,7 +16560,8 @@
     "privacy_email": "privacy@lexisnexis.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "verisk_iso",
@@ -16056,7 +16591,8 @@
     "privacy_email": "compliance@verisk.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "transunion_insurance",
@@ -16086,7 +16622,8 @@
     "privacy_email": "privacy@transunion.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "fico_insurance",
@@ -16116,7 +16653,8 @@
     "privacy_email": "compliance@fico.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "corelogic_insurance",
@@ -16146,7 +16684,8 @@
     "privacy_email": "compliance@corelogic.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "mib_group",
@@ -16176,7 +16715,8 @@
     "privacy_email": "compliance@mib.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "milliman_insurance",
@@ -16206,7 +16746,8 @@
     "privacy_email": "compliance@milliman.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "guidewire",
@@ -16236,7 +16777,8 @@
     "privacy_email": "compliance@guidewire.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "duckcreek",
@@ -16266,7 +16808,8 @@
     "privacy_email": "privacy@duckcreek.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "majesco",
@@ -16296,7 +16839,8 @@
     "privacy_email": "compliance@majesco.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ebix",
@@ -16326,7 +16870,8 @@
     "privacy_email": "compliance@ebix.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "applied_systems",
@@ -16356,7 +16901,8 @@
     "privacy_email": "compliance@applied.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vertafore",
@@ -16386,7 +16932,8 @@
     "privacy_email": "compliance@vertafore.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "policygenius",
@@ -16416,7 +16963,8 @@
     "privacy_email": "compliance@policygenius.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "coverwallet",
@@ -16446,7 +16994,8 @@
     "privacy_email": "compliance@coverwallet.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_01advertising",
@@ -16475,7 +17024,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_alliant_cooperative",
@@ -16504,7 +17054,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_altair_data",
@@ -16533,7 +17084,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_asset_international",
@@ -16562,7 +17114,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_bv_insights",
@@ -16591,7 +17144,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_civil_data_research",
@@ -16620,7 +17174,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_civis_analytics",
@@ -16649,7 +17204,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_consumer_canvas",
@@ -16678,7 +17234,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_consumerbase",
@@ -16707,7 +17264,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_data_axle_nonprofit",
@@ -16736,7 +17294,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_equifax_workforce_solutions",
@@ -16765,7 +17324,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_fideo_intelligence",
@@ -16794,7 +17354,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_first_direct",
@@ -16823,7 +17384,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_global_source_data_solutions",
@@ -16852,7 +17414,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_healthwise_data_solutions",
@@ -16881,7 +17444,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_information_data_resources",
@@ -16910,7 +17474,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_interactive_data_llc",
@@ -16939,7 +17504,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_iqvia_digital",
@@ -16968,7 +17534,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_lead_intelligence",
@@ -16997,7 +17564,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_lead_me_media",
@@ -17026,7 +17594,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_lexisnexis_risk_solutions_fl",
@@ -17055,7 +17624,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_lionshare_marketing",
@@ -17084,7 +17654,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_national_data_analytics",
@@ -17113,7 +17684,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_pacific_east_research",
@@ -17142,7 +17714,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_salutary_data",
@@ -17171,7 +17744,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_scalable_commerce",
@@ -17200,7 +17774,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_specialists_marketing_services",
@@ -17229,7 +17804,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_speedeon_data",
@@ -17258,7 +17834,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_tauxbe_data",
@@ -17287,7 +17864,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_vi_technologies",
@@ -17316,7 +17894,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_vrtcal_markets",
@@ -17345,7 +17924,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_windfall_data",
@@ -17374,7 +17954,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_winr_data",
@@ -17403,7 +17984,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_accudata_integrated_marketing",
@@ -17432,7 +18014,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_advertise4sales",
@@ -17461,7 +18044,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_agr_marketing_solutions",
@@ -17490,7 +18074,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_analyticsiq",
@@ -17519,7 +18104,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_asl_marketing",
@@ -17548,7 +18134,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_audience_mix",
@@ -17577,7 +18164,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_bh_marketing_group",
@@ -17606,7 +18194,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_black_knight_data",
@@ -17635,7 +18224,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_careerbuilder_screening",
@@ -17664,7 +18254,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_carry_technologies",
@@ -17693,7 +18284,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_catalina_marketing_corp",
@@ -17722,7 +18314,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_coast_technology",
@@ -17751,7 +18344,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_compact_information_systems",
@@ -17780,7 +18374,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_costar_realty_information",
@@ -17809,7 +18404,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_datadelivers",
@@ -17838,7 +18434,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_datafy_llc",
@@ -17867,7 +18464,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_datamentors",
@@ -17896,7 +18494,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_datamentors_v12",
@@ -17925,7 +18524,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_datax_ltd",
@@ -17954,7 +18554,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_decide_technologies",
@@ -17983,7 +18584,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_deep_root_analytics",
@@ -18012,7 +18614,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_digital_viking_media",
@@ -18041,7 +18644,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_exact_match_marketing",
@@ -18070,7 +18674,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_fifty_technology_ltd",
@@ -18099,7 +18704,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_fourleaf_llc",
@@ -18128,7 +18734,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_fourthwall_media",
@@ -18157,7 +18764,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_freepeoplesearch_llc",
@@ -18186,7 +18794,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_freewheel_media",
@@ -18215,7 +18824,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_hivestack_technologies",
@@ -18244,7 +18854,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_incheck",
@@ -18273,7 +18884,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_inmarket_media",
@@ -18302,7 +18914,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_integrated_direct_marketing",
@@ -18331,7 +18944,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_iq_data_systems_backgrounds",
@@ -18360,7 +18974,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_j2_martech_corp",
@@ -18389,7 +19004,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_knowledge_works",
@@ -18418,7 +19034,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_labels_lists",
@@ -18447,7 +19064,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_leadpost",
@@ -18476,7 +19094,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_lexisnexis_risk_solutions",
@@ -18505,7 +19124,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_m1_data_analytics",
@@ -18534,7 +19154,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_matchbook_data",
@@ -18563,7 +19184,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_medianet_advertising",
@@ -18592,7 +19214,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_milestone_marketing_solutions",
@@ -18621,7 +19244,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_mobile_technology_corp",
@@ -18650,7 +19274,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_mv_digital_group",
@@ -18679,7 +19304,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_netwise_data_llc",
@@ -18708,7 +19334,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_optable_technologies",
@@ -18737,7 +19364,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_outward_media",
@@ -18766,7 +19394,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_paramount_lists",
@@ -18795,7 +19424,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_people_data_labs",
@@ -18824,7 +19454,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_peoplewhiz_inc",
@@ -18853,7 +19484,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_plunge_llc",
@@ -18882,7 +19514,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_publicrecordcom_llc",
@@ -18911,7 +19544,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_rainbarrel_usa",
@@ -18940,7 +19574,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_reallygreatrate",
@@ -18969,7 +19604,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_redi-data",
@@ -18998,7 +19634,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_revenue_roll",
@@ -19027,7 +19664,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_riv_data_carpe_data",
@@ -19056,7 +19694,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_share_local_media",
@@ -19085,7 +19724,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_subgraph_inc",
@@ -19114,7 +19754,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_the_alesco_group",
@@ -19143,7 +19784,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_trestle_solutions",
@@ -19172,7 +19814,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_true_blue_analytics",
@@ -19201,7 +19844,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_uspeoplesearch_llc",
@@ -19230,7 +19874,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "ca_virtual_marketing",
@@ -19259,7 +19904,8 @@
     "privacy_email": "unsubscribe@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "ca_vistar_media",
@@ -19288,7 +19934,8 @@
     "privacy_email": "privacy@ca.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_accurint",
@@ -19317,7 +19964,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_acriss",
@@ -19346,7 +19994,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_adstra",
@@ -19375,7 +20024,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_agility_recovery",
@@ -19404,7 +20054,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_american_student_list",
@@ -19433,7 +20084,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_apogee",
@@ -19462,7 +20114,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_audience_partners",
@@ -19491,7 +20144,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_axiom_data",
@@ -19520,7 +20174,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_bd_analytics",
@@ -19549,7 +20204,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_bidtellect",
@@ -19578,7 +20234,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_bizo",
@@ -19607,7 +20264,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_blue_kai",
@@ -19636,7 +20294,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_brandbacker",
@@ -19665,7 +20324,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_brightlocal",
@@ -19694,7 +20354,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_buxton",
@@ -19723,7 +20384,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_cass_information_systems",
@@ -19752,7 +20414,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_clarabridge",
@@ -19781,7 +20444,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_clevertap",
@@ -19810,7 +20474,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_conversant",
@@ -19839,7 +20504,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_corepoint",
@@ -19868,7 +20534,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_cross_pixel",
@@ -19897,7 +20564,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_cuebiq",
@@ -19926,7 +20594,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_d2_media",
@@ -19955,7 +20624,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_data_mentors",
@@ -19984,7 +20654,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_dataflurry",
@@ -20013,7 +20684,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_dataoceans",
@@ -20042,7 +20714,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_datasource",
@@ -20071,7 +20744,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_digital_edge",
@@ -20100,7 +20774,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_digital_river",
@@ -20129,7 +20804,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_digitrust",
@@ -20158,7 +20834,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_direct_logic_solutions",
@@ -20187,7 +20864,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_dma_choice",
@@ -20216,7 +20894,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_donnelley_data_solutions",
@@ -20245,7 +20924,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_dotmailer",
@@ -20274,7 +20954,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_draftkings_data",
@@ -20303,7 +20984,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_dynamiclogic",
@@ -20332,7 +21014,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_effective_student_marketing",
@@ -20361,7 +21044,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_elicit",
@@ -20390,7 +21074,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_etargetmedia",
@@ -20419,7 +21104,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_euclid_analytics",
@@ -20448,7 +21134,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_experian_marketing_services",
@@ -20477,7 +21164,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_factor_trust",
@@ -20506,7 +21194,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_flexpoint_media",
@@ -20535,7 +21224,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_fluent",
@@ -20564,7 +21254,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_freshaddress",
@@ -20593,7 +21284,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_gather_solutions",
@@ -20622,7 +21314,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_graftech",
@@ -20651,7 +21344,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_greenpoint_global",
@@ -20680,7 +21374,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_grip_media",
@@ -20709,7 +21404,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_growthpoint_tech",
@@ -20738,7 +21434,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_idg_data_solutions",
@@ -20767,7 +21464,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_ignite_direct",
@@ -20796,7 +21494,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_impact_radius",
@@ -20825,7 +21524,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_infogroup",
@@ -20854,7 +21554,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_infoscout",
@@ -20883,7 +21584,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_integrate",
@@ -20912,7 +21614,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_journera",
@@ -20941,7 +21644,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_leadcrunch",
@@ -20970,7 +21674,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_leverege",
@@ -20999,7 +21704,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_localytics",
@@ -21028,7 +21734,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_marchex",
@@ -21057,7 +21764,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_marketing_systems_group",
@@ -21086,7 +21794,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_mastermind",
@@ -21115,7 +21824,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_mediaalpha",
@@ -21144,7 +21854,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_medisked",
@@ -21173,7 +21884,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_moat_analytics",
@@ -21202,7 +21914,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_mobilebridge",
@@ -21231,7 +21944,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_movable_ink",
@@ -21260,7 +21974,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_mpulse_mobile",
@@ -21289,7 +22004,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_navigant_data",
@@ -21318,7 +22034,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_netwise",
@@ -21347,7 +22064,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "vt_next_roll",
@@ -21376,7 +22094,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_ninth_wave",
@@ -21405,7 +22124,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_north_american_data",
@@ -21434,7 +22154,8 @@
     "privacy_email": "privacy@vt.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "vt_olive_ai_data",
@@ -21463,7 +22184,8 @@
     "privacy_email": "dpo@vt.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_abilitech_medical",
@@ -21492,7 +22214,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_activeprospect",
@@ -21521,7 +22244,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_addison_group_data",
@@ -21550,7 +22274,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_agileone",
@@ -21579,7 +22304,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_algorithmia_data",
@@ -21608,7 +22334,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_altus_group",
@@ -21637,7 +22364,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_amerihealth_data",
@@ -21666,7 +22394,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_amobee",
@@ -21695,7 +22424,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_apttus",
@@ -21724,7 +22454,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_arrowstream_data",
@@ -21753,7 +22484,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_audienceware",
@@ -21782,7 +22514,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_avention",
@@ -21811,7 +22544,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_beable",
@@ -21840,7 +22574,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_beeswax",
@@ -21869,7 +22604,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_bidswitch",
@@ -21898,7 +22634,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_blackhawk_network",
@@ -21927,7 +22664,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_bloom_intelligence",
@@ -21956,7 +22694,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_blue_orange_digital",
@@ -21985,7 +22724,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_brightsign",
@@ -22014,7 +22754,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_brightview_data",
@@ -22043,7 +22784,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_callsource",
@@ -22072,7 +22814,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_captora",
@@ -22101,7 +22844,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_cirium",
@@ -22130,7 +22874,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_citizennet",
@@ -22159,7 +22904,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_claritas",
@@ -22188,7 +22934,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_cognitivescale",
@@ -22217,7 +22964,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_collective_bias",
@@ -22246,7 +22994,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_commandpost",
@@ -22275,7 +23024,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_complianceease",
@@ -22304,7 +23054,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_confiant",
@@ -22333,7 +23084,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_connectwise_data",
@@ -22362,7 +23114,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_dapresy",
@@ -22391,7 +23144,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_datacore",
@@ -22420,7 +23174,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_datarobot",
@@ -22449,7 +23204,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_datastream",
@@ -22478,7 +23234,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_demdex",
@@ -22507,7 +23264,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_dialamerica",
@@ -22536,7 +23294,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_digiday_data",
@@ -22565,7 +23324,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_digitalreach",
@@ -22594,7 +23354,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_directpath",
@@ -22623,7 +23384,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_dv_intelligence",
@@ -22652,7 +23414,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_elicit_insights",
@@ -22681,7 +23444,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_evercommerce",
@@ -22710,7 +23474,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_evocalize",
@@ -22739,7 +23504,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_exacttarget",
@@ -22768,7 +23534,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_fatpipe_data",
@@ -22797,7 +23564,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_fieldlevel",
@@ -22826,7 +23594,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_fintel_connect",
@@ -22855,7 +23624,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_flashpoint_intel",
@@ -22884,7 +23654,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_fraudlogix",
@@ -22913,7 +23684,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_freedompay_data",
@@ -22942,7 +23714,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_fullthrottle",
@@ -22971,7 +23744,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_funnelio",
@@ -23000,7 +23774,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_gainsight",
@@ -23029,7 +23804,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_geocomply",
@@ -23058,7 +23834,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_getsmart",
@@ -23087,7 +23864,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_glassbox",
@@ -23116,7 +23894,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_grapeshot",
@@ -23145,7 +23924,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_growflow",
@@ -23174,7 +23954,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_hexagroup",
@@ -23203,7 +23984,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_humanapi",
@@ -23232,7 +24014,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_hyros",
@@ -23261,7 +24044,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_idealspot",
@@ -23290,7 +24074,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_impact_analytics",
@@ -23319,7 +24104,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_indexexchange",
@@ -23348,7 +24134,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_infernored",
@@ -23377,7 +24164,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_insight_direct",
@@ -23406,7 +24194,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_ironnet_data",
@@ -23435,7 +24224,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_jebbit",
@@ -23464,7 +24254,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_karmadata",
@@ -23493,7 +24284,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_kustomer_data",
@@ -23522,7 +24314,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "email-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_leadsbridge",
@@ -23551,7 +24344,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_liquidm",
@@ -23580,7 +24374,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "tx_liveaction_data",
@@ -23609,7 +24404,8 @@
     "privacy_email": "privacy@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "tx_lob_data",
@@ -23638,7 +24434,8 @@
     "privacy_email": "dpo@tx.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "or_lifelock",
@@ -23667,7 +24464,8 @@
     "privacy_email": "compliance@lifelock.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "or_identityguard",
@@ -23696,7 +24494,8 @@
     "privacy_email": "compliance@identityguard.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "or_identityforce",
@@ -23725,7 +24524,8 @@
     "privacy_email": "compliance@identityforce.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "or_aura",
@@ -23754,7 +24554,8 @@
     "privacy_email": "privacy@aura.com",
     "priority": "low",
     "process_type": "phone-only",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "or_privacyguard",
@@ -23783,7 +24584,8 @@
     "privacy_email": "privacy@privacyguard.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "or_creditkarma",
@@ -23812,7 +24614,8 @@
     "privacy_email": "compliance@creditkarma.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "or_nerdwallet",
@@ -23841,7 +24644,8 @@
     "privacy_email": "privacy@nerdwallet.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "or_wallethub",
@@ -23870,7 +24674,8 @@
     "privacy_email": "compliance@wallethub.com",
     "priority": "low",
     "process_type": "mixed",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": true
   },
   {
     "id": "or_annualcreditreport",
@@ -23899,7 +24704,8 @@
     "privacy_email": "compliance@annualcreditreport.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   },
   {
     "id": "or_freecreditreport",
@@ -23928,6 +24734,7 @@
     "privacy_email": "compliance@freecreditreport.com",
     "priority": "low",
     "process_type": "form-required",
-    "fronts": []
+    "fronts": [],
+    "auto_removable": false
   }
 ]

@@ -9,6 +9,14 @@
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
     <h1><i class="fa-solid fa-paper-plane text-accent"></i> Opt-Out Center</h1>
     <div class="btn-group">
+      {% if profile and auto_removable_pending|default(0) > 0 %}
+      <form method="POST" action="/optouts/auto-submit/{{ profile.id }}" style="display:inline;">
+        <button class="btn btn-primary" type="submit" title="Auto-submit removal emails for all eligible pending brokers">
+          <i class="fa-solid fa-rocket"></i> 🚀 Auto-Remove All Eligible
+          <span class="badge" style="background:rgba(255,255,255,0.25); margin-left:6px; padding:2px 8px; border-radius:10px; font-size:0.75rem;">{{ auto_removable_pending }}</span>
+        </button>
+      </form>
+      {% endif %}
       <button class="btn btn-ghost" onclick="selectAllOptOuts()">
         <i class="fa-solid fa-check-double"></i> Select All
       </button>
@@ -18,6 +26,42 @@
     </div>
   </div>
 </div>
+
+<!-- Progress Tracking -->
+{% if summary and summary.total|default(0) > 0 %}
+<div class="card mb-2" style="padding:20px;">
+  <h3 style="margin-bottom:12px;"><i class="fa-solid fa-chart-bar text-accent"></i> Removal Progress</h3>
+  <div style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
+    <div style="flex:1; min-width:120px; text-align:center;">
+      <div style="font-size:1.4rem; font-weight:700;">{{ summary.total }}</div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">Total Brokers Found</div>
+    </div>
+    <div style="flex:1; min-width:120px; text-align:center;">
+      <div style="font-size:1.4rem; font-weight:700; color:#00d4aa;">{{ auto_removable_pending|default(0) }}</div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">Auto-Removable</div>
+    </div>
+    <div style="flex:1; min-width:120px; text-align:center;">
+      <div style="font-size:1.4rem; font-weight:700; color:#007bff;">{{ summary.submitted|default(0) }}</div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">Submitted</div>
+    </div>
+    <div style="flex:1; min-width:120px; text-align:center;">
+      <div style="font-size:1.4rem; font-weight:700; color:#28a745;">{{ summary.confirmed|default(0) }}</div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">Confirmed Removed</div>
+    </div>
+    <div style="flex:1; min-width:120px; text-align:center;">
+      <div style="font-size:1.4rem; font-weight:700; color:#ffc107;">{{ summary.total - auto_removable_pending|default(0) - summary.submitted|default(0) - summary.confirmed|default(0) }}</div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">Manual Action Needed</div>
+    </div>
+  </div>
+  {% set completion_pct = ((summary.confirmed|default(0) / summary.total) * 100)|round|int if summary.total > 0 else 0 %}
+  <div style="background:rgba(255,255,255,0.05); border-radius:8px; height:24px; overflow:hidden; position:relative;">
+    <div style="background:linear-gradient(90deg, #00d4aa, #28a745); height:100%; width:{{ completion_pct }}%; border-radius:8px; transition:width 0.5s;"></div>
+    <div style="position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:600;">
+      {{ completion_pct }}% Complete
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <!-- Batch Actions Bar -->
 <div class="card mb-2" id="batch-actions" style="display:none; padding:14px 20px;">
@@ -220,7 +264,15 @@
             <td>{{ item.expected_date|default('—') }}</td>
             <td>
               {% if item.status == 'pending' %}
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-paper-plane"></i></button>
+              <div style="display:flex; gap:4px;">
+                <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-paper-plane"></i></button>
+                {% if item.auto_removable|default(false) %}
+                <form method="POST" action="/optouts/auto-submit-single/{{ item.id }}" style="display:inline;">
+                  <input type="hidden" name="profile_id" value="{{ profile.id }}">
+                  <button class="btn btn-sm" style="background:#00d4aa; color:#000;" type="submit" title="Auto-submit removal email"><i class="fa-solid fa-rocket"></i> Auto</button>
+                </form>
+                {% endif %}
+              </div>
               {% elif item.status == 'reappeared' %}
               <button class="btn btn-danger btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-redo"></i></button>
               {% else %}

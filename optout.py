@@ -32,6 +32,7 @@ from models import (
     get_profile, log_activity, db_session, get_setting,
 )
 from scanner import load_brokers, _get_user_agent, _get_proxies
+from legal import generate_state_request
 
 logger = logging.getLogger("privacyscrub.optout")
 
@@ -568,6 +569,136 @@ class AutoSubmitter:
 
 
 # ---------------------------------------------------------------------------
+# Email-Based Auto-Submission
+# ---------------------------------------------------------------------------
+
+class EmailAutoSubmitter:
+    """
+    Sends privacy removal emails to brokers using the legal template system.
+
+    For brokers where auto_removable is True and process_type is 'email-only'
+    or 'mixed', this generates a state-specific removal letter and sends it
+    to the broker's privacy_email address.
+
+    If SMTP is not configured, emails are saved as drafts in the Email Center.
+    """
+
+    def attempt_email_submission(
+        self,
+        broker: dict,
+        profile: dict,
+        profile_id: int,
+    ) -> dict:
+        """
+        Attempt to send a removal email to a broker.
+
+        Returns:
+            {"success": bool, "method": "email", "message": str, "draft": bool}
+        """
+        from email_sender import (
+            get_email_config, send_single_email, _record_email_request,
+            can_send_more,
+        )
+
+        result = {
+            "success": False,
+            "method": "email",
+            "message": "",
+            "draft": False,
+        }
+
+        privacy_email = broker.get("privacy_email", "")
+        if not privacy_email:
+            result["message"] = "Broker has no privacy_email address"
+            return result
+
+        # Determine user's state for legal template
+        state_code = profile.get("state", "") or get_setting("state_of_residence", "")
+        if not state_code:
+            state_code = "AZ"  # Default fallback
+
+        # Generate state-specific removal letter
+        letter = generate_state_request(
+            profile_id,
+            state_code,
+            broker_name=broker.get("name", ""),
+            broker_email=privacy_email,
+        )
+
+        if "error" in letter:
+            # Fall back to generic template
+            from email_sender import render_template as render_email_tmpl
+            letter = render_email_tmpl("generic_us", profile, broker)
+            if "error" in letter:
+                result["message"] = f"Template error: {letter['error']}"
+                return result
+
+        subject = letter.get("subject", f"Data Removal Request — {profile.get('first_name', '')} {profile.get('last_name', '')}")
+        body = letter.get("body", "")
+
+        # Check if SMTP is configured
+        config = get_email_config()
+
+        if not config:
+            # Save as draft in Email Center
+            _record_email_request(
+                profile_id=profile_id,
+                broker_id=broker.get("id", ""),
+                to_email=privacy_email,
+                subject=subject,
+                template_key="state_specific",
+                status="preview",
+                batch_id=f"auto-optout-{int(time.time())}",
+            )
+            result["success"] = True
+            result["draft"] = True
+            result["message"] = f"Draft saved (SMTP not configured) — {privacy_email}"
+            return result
+
+        # Check rate limit
+        can_send, remaining = can_send_more()
+        if not can_send:
+            result["message"] = "Daily email limit reached"
+            return result
+
+        # Send the email
+        from_email = config.get("from_email", config.get("smtp_user", ""))
+        from_name = config.get("from_name", "PrivacyScrub")
+
+        send_result = send_single_email(
+            config, privacy_email, subject, body, from_email, from_name,
+        )
+
+        if send_result["success"]:
+            _record_email_request(
+                profile_id=profile_id,
+                broker_id=broker.get("id", ""),
+                to_email=privacy_email,
+                subject=subject,
+                template_key="state_specific",
+                status="sent",
+                message_id=send_result.get("message_id", ""),
+                batch_id=f"auto-optout-{int(time.time())}",
+            )
+            result["success"] = True
+            result["message"] = f"Email sent to {privacy_email}"
+        else:
+            _record_email_request(
+                profile_id=profile_id,
+                broker_id=broker.get("id", ""),
+                to_email=privacy_email,
+                subject=subject,
+                template_key="state_specific",
+                status="failed",
+                response_text=send_result["message"],
+                batch_id=f"auto-optout-{int(time.time())}",
+            )
+            result["message"] = f"Send failed: {send_result['message']}"
+
+        return result
+
+
+# ---------------------------------------------------------------------------
 # Batch Operations
 # ---------------------------------------------------------------------------
 
@@ -614,6 +745,9 @@ def auto_submit_optouts(
     """
     Attempt automated opt-out submissions for all eligible brokers.
 
+    Uses EmailAutoSubmitter for email-only/mixed brokers, and the original
+    AutoSubmitter for form-based brokers with auto_removable=True.
+
     Args:
         profile_id: Profile to submit opt-outs for.
         broker_ids: Limit to specific brokers (default: all eligible).
@@ -623,15 +757,16 @@ def auto_submit_optouts(
     """
     profile = get_profile(profile_id)
     if not profile:
-        return {"error": "Profile not found", "submitted": 0, "failed": 0}
+        return {"error": "Profile not found", "submitted": 0, "failed": 0, "skipped": 0, "drafts": 0}
 
     optouts = get_optouts(profile_id, status="pending")
     if broker_ids:
         optouts = [o for o in optouts if o.get("broker_id") in broker_ids]
 
-    submitter = AutoSubmitter()
+    form_submitter = AutoSubmitter()
+    email_submitter = EmailAutoSubmitter()
     manager = OptOutManager()
-    summary = {"submitted": 0, "failed": 0, "skipped": 0, "results": []}
+    summary = {"submitted": 0, "failed": 0, "skipped": 0, "drafts": 0, "results": []}
 
     for optout in optouts:
         broker = manager._get_broker(optout["broker_id"])
@@ -639,17 +774,36 @@ def auto_submit_optouts(
             summary["skipped"] += 1
             continue
 
-        result = submitter.attempt_submission(
-            broker=broker,
-            profile=profile,
-            listing_url=optout.get("notes", "").replace("Listing URL: ", ""),
-        )
+        process_type = broker.get("process_type", "")
+
+        if process_type in ("email-only", "mixed"):
+            # Use email-based submission
+            result = email_submitter.attempt_email_submission(
+                broker=broker,
+                profile=profile,
+                profile_id=profile_id,
+            )
+        else:
+            # Use form-based submission
+            result = form_submitter.attempt_submission(
+                broker=broker,
+                profile=profile,
+                listing_url=optout.get("notes", "").replace("Listing URL: ", ""),
+            )
 
         if result["success"]:
-            manager.update_status(
-                optout["id"], "submitted",
-                f"Auto-submitted: {result['message']}",
-            )
+            now = datetime.now(timezone.utc).isoformat()
+            if result.get("draft"):
+                summary["drafts"] += 1
+                manager.update_status(
+                    optout["id"], "submitted",
+                    f"Draft saved (SMTP not configured): {result['message']}",
+                )
+            else:
+                manager.update_status(
+                    optout["id"], "submitted",
+                    f"Auto-submitted: {result['message']}",
+                )
             summary["submitted"] += 1
         else:
             summary["failed"] += 1
@@ -660,16 +814,86 @@ def auto_submit_optouts(
             **result,
         })
 
-        # Rate limit between submissions
+        # Rate limit: 3 second delay between emails
         time.sleep(3)
 
     log_activity(
         None, profile_id, "auto_submit_batch", "optout",
         f"Auto-submit: {summary['submitted']} submitted, "
-        f"{summary['failed']} failed, {summary['skipped']} skipped",
+        f"{summary['failed']} failed, {summary['skipped']} skipped, "
+        f"{summary['drafts']} saved as drafts",
     )
 
     return summary
+
+
+def auto_submit_single_optout(optout_id: int) -> dict:
+    """
+    Auto-submit a single opt-out request.
+
+    Args:
+        optout_id: The opt-out record ID.
+
+    Returns:
+        Result dict with success/failure info.
+    """
+    from models import db_session
+
+    # Look up the optout record
+    with db_session() as conn:
+        row = conn.execute(
+            "SELECT * FROM optout_status WHERE id = ?", (optout_id,)
+        ).fetchone()
+        if not row:
+            return {"error": "Opt-out record not found", "success": False}
+        optout = dict(row)
+
+    profile = get_profile(optout["profile_id"])
+    if not profile:
+        return {"error": "Profile not found", "success": False}
+
+    manager = OptOutManager()
+    broker = manager._get_broker(optout["broker_id"])
+    if not broker:
+        return {"error": "Broker not found", "success": False}
+
+    if not broker.get("auto_removable", False):
+        return {"error": "Broker does not support auto-removal", "success": False}
+
+    process_type = broker.get("process_type", "")
+
+    if process_type in ("email-only", "mixed"):
+        email_submitter = EmailAutoSubmitter()
+        result = email_submitter.attempt_email_submission(
+            broker=broker,
+            profile=profile,
+            profile_id=optout["profile_id"],
+        )
+    else:
+        form_submitter = AutoSubmitter()
+        result = form_submitter.attempt_submission(
+            broker=broker,
+            profile=profile,
+            listing_url=optout.get("notes", "").replace("Listing URL: ", ""),
+        )
+
+    if result["success"]:
+        manager.update_status(
+            optout_id, "submitted",
+            f"Auto-submitted: {result['message']}",
+        )
+        log_activity(
+            None, optout["profile_id"], "auto_submit_single", "optout",
+            f"Auto-submitted opt-out for {broker.get('name', optout['broker_id'])}",
+            {"optout_id": optout_id, "broker_id": optout["broker_id"]},
+        )
+
+    return {
+        "success": result["success"],
+        "broker_name": broker.get("name", optout["broker_id"]),
+        "message": result["message"],
+        "draft": result.get("draft", False),
+    }
 
 
 # ---------------------------------------------------------------------------

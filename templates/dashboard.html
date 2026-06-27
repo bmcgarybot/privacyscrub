@@ -80,6 +80,20 @@
         </div>
         <div class="action-arrow"><i class="fa-solid fa-chevron-right"></i></div>
       </a>
+      {% if profile %}
+      <form method="POST" action="/scan-and-remove/{{ profile.id }}" class="action-card" style="border:none; padding:0; margin:0; background:none;">
+        <button type="submit" class="action-card" style="width:100%; border:none; cursor:pointer; text-align:left; background:var(--card-bg); padding:16px;">
+          <div class="action-icon" style="background:rgba(155,89,255,0.15); color:#9b59ff;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div class="action-info">
+            <h4>Scan & Auto-Remove</h4>
+            <p>Full automation: scan brokers, then auto-submit removals</p>
+          </div>
+          <div class="action-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </button>
+      </form>
+      {% endif %}
       <a href="/breaches" class="action-card">
         <div class="action-icon" style="background:rgba(255,107,107,0.15); color:#ff6b6b;">
           <i class="fa-solid fa-user-secret"></i>
