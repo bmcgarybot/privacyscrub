@@ -225,16 +225,52 @@ def _register_routes(app: Flask) -> None:
     # ===================================================================
 
     @app.route("/profiles")
-    def profiles_page():
+    @app.route("/profiles/<int:profile_id>")
+    def profiles_page(profile_id=None):
         """Profile management — list, add, edit profiles and family members."""
         profiles = get_all_profiles()
         family_data = {}
         for p in profiles:
             family_data[p["id"]] = get_family_members(p["id"])
-            # Ensure score exists for template rendering
-            if "score" not in p:
-                p["score"] = 50  # Default until scan calculates it
-        return render_template("profiles.html", profiles=profiles, family_data=family_data)
+            # Build display-friendly properties
+            p["display_name"] = f"{p.get('first_name', '')} {p.get('last_name', '')}".strip() or "Unnamed"
+
+            # Count emails (primary + extras stored in DB)
+            email_count = 1 if p.get("email") else 0
+            p["email_count"] = email_count
+
+            # Count phones
+            p["phone_count"] = 1 if p.get("phone") else 0
+
+            # Count addresses — stored as JSON array string
+            addr_raw = p.get("addresses", "[]")
+            try:
+                import json as _json
+                addr_list = _json.loads(addr_raw) if isinstance(addr_raw, str) else addr_raw
+                p["address_count"] = len(addr_list) if isinstance(addr_list, list) else (1 if addr_raw else 0)
+            except (ValueError, TypeError):
+                p["address_count"] = 1 if addr_raw and addr_raw != "[]" else 0
+
+            # Real scan stats
+            scan_results = get_latest_scan_results(p["id"])
+            if scan_results:
+                found = sum(1 for r in scan_results if r.get("found"))
+                breaches = get_breaches(p["id"])
+                score = calculate_privacy_score(scan_results, breaches, get_broker_count())
+                p["score"] = score.get("score", 0)
+                p["exposures"] = found
+                p["has_been_scanned"] = True
+            else:
+                p["score"] = None  # Not scanned yet
+                p["exposures"] = 0
+                p["has_been_scanned"] = False
+
+        # If a specific profile ID was requested, find it
+        selected_profile = None
+        if profile_id:
+            selected_profile = next((p for p in profiles if p["id"] == profile_id), None)
+
+        return render_template("profiles.html", profiles=profiles, family_data=family_data, selected_profile=selected_profile)
 
     @app.route("/profiles/add", methods=["POST"])
     def profiles_add():

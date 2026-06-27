@@ -17,24 +17,34 @@
 <!-- Profile Cards -->
 <div class="grid-3 mb-3">
   {% for profile in profiles|default([]) %}
-  <div class="card" style="cursor:pointer;" onclick="location.href='/profiles/{{ profile.id }}'">
+  <div class="card" style="cursor:pointer;" onclick="location.href='/?profile_id={{ profile.id }}'">
     <div class="card-header">
-      <h3>{{ profile.name }}</h3>
-      {% set pscore = profile.score|default(50) %}
+      <h3>{{ profile.display_name }}</h3>
+      {% if profile.has_been_scanned %}
+      {% set pscore = profile.score|default(0) %}
       <div class="score-mini-circle" style="border-color:{% if pscore >= 70 %}var(--accent){% elif pscore >= 40 %}var(--warning){% else %}var(--danger){% endif %}; color:{% if pscore >= 70 %}var(--accent){% elif pscore >= 40 %}var(--warning){% else %}var(--danger){% endif %};">
         {{ pscore }}
       </div>
+      {% else %}
+      <div class="score-mini-circle" style="border-color:var(--text-muted); color:var(--text-muted); font-size:0.7rem;">
+        —
+      </div>
+      {% endif %}
     </div>
     <div style="font-size:0.8rem; color:var(--text-secondary);">
-      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> {{ profile.emails|default([])|length }} emails</p>
-      <p><i class="fa-solid fa-phone" style="width:16px;"></i> {{ profile.phones|default([])|length }} phone numbers</p>
-      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> {{ profile.addresses|default([])|length }} addresses</p>
+      <p><i class="fa-solid fa-envelope" style="width:16px;"></i> {{ profile.email_count }} email{{ 's' if profile.email_count != 1 }}</p>
+      <p><i class="fa-solid fa-phone" style="width:16px;"></i> {{ profile.phone_count }} phone number{{ 's' if profile.phone_count != 1 }}</p>
+      <p><i class="fa-solid fa-location-dot" style="width:16px;"></i> {{ profile.address_count }} address{{ 'es' if profile.address_count != 1 }}</p>
     </div>
     <div class="mt-2">
+      {% if profile.has_been_scanned %}
       {% set pexposures = profile.exposures|default(0) %}
       <span class="badge {% if pexposures > 20 %}danger{% elif pexposures > 5 %}warning{% else %}success{% endif %}">
-        {{ pexposures }} exposures
+        {{ pexposures }} exposure{{ 's' if pexposures != 1 }}
       </span>
+      {% else %}
+      <span class="badge" style="background:rgba(139,149,165,0.15); color:var(--text-muted);">Not scanned yet</span>
+      {% endif %}
     </div>
   </div>
   {% else %}
@@ -70,19 +80,23 @@
       <tbody>
         {% for profile in profiles|default([]) %}
         <tr>
-          <td><strong>{{ profile.name }}</strong></td>
+          <td><strong>{{ profile.display_name }}</strong></td>
           <td>
-            {% set pscore2 = profile.score|default(50) %}
+            {% if profile.has_been_scanned %}
+            {% set pscore2 = profile.score|default(0) %}
             <span class="badge {% if pscore2 >= 70 %}success{% elif pscore2 >= 40 %}warning{% else %}danger{% endif %}">
               {{ pscore2 }}/100
             </span>
+            {% else %}
+            <span class="badge" style="background:rgba(139,149,165,0.15); color:var(--text-muted);">—</span>
+            {% endif %}
           </td>
           <td>{{ profile.exposures|default(0) }}</td>
           <td>{{ profile.last_scanned|default('Never') }}</td>
           <td><span class="badge success">Active</span></td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-ghost btn-sm" onclick="editProfile('{{ profile.id }}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-ghost btn-sm" onclick="editProfile({{ profile.id }})"><i class="fa-solid fa-pen"></i></button>
               <button class="btn btn-ghost btn-sm" onclick="location.href='/scanner?profile={{ profile.id }}'"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
           </td>
@@ -221,8 +235,131 @@
   </div>
 </div>
 
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="edit-profile-modal">
+  <div class="modal" style="max-width:680px;">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-pen text-accent"></i> Edit Profile</h3>
+      <button class="modal-close" onclick="Modal.close('edit-profile-modal')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <form id="edit-profile-form" method="POST" action="">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" class="form-control" name="first_name" id="edit-first-name" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" class="form-control" name="last_name" id="edit-last-name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" id="edit-email">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" class="form-control" name="phone" id="edit-phone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" name="date_of_birth" id="edit-dob">
+          </div>
+          <div class="form-group">
+            <label>Aliases</label>
+            <input type="text" class="form-control" name="aliases" id="edit-aliases" placeholder="Comma separated">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" class="form-control" name="addresses" id="edit-addresses">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" class="form-control" name="city" id="edit-city">
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" class="form-control" name="state" id="edit-state" maxlength="2" style="text-transform:uppercase;">
+          </div>
+          <div class="form-group">
+            <label>ZIP</label>
+            <input type="text" class="form-control" name="zip_code" id="edit-zip" maxlength="10">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <form method="POST" id="delete-profile-form" style="margin-right:auto;">
+        <button type="submit" class="btn" style="color:#ff6b6b;" onclick="return confirm('Delete this profile? This cannot be undone.')">
+          <i class="fa-solid fa-trash"></i> Delete
+        </button>
+      </form>
+      <button class="btn btn-ghost" onclick="Modal.close('edit-profile-modal')">Cancel</button>
+      <button class="btn btn-primary" type="submit" form="edit-profile-form">
+        <i class="fa-solid fa-check"></i> Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
 {% block scripts %}
 <script>
+// Profile data for edit modal
+var profileData = {};
+{% for profile in profiles|default([]) %}
+profileData[{{ profile.id }}] = {
+  first_name: {{ profile.first_name|default('')|tojson }},
+  last_name: {{ profile.last_name|default('')|tojson }},
+  email: {{ profile.email|default('')|tojson }},
+  phone: {{ profile.phone|default('')|tojson }},
+  date_of_birth: {{ profile.date_of_birth|default('')|tojson }},
+  aliases: {{ profile.aliases|default('[]')|tojson }},
+  addresses: {{ profile.addresses|default('[]')|tojson }},
+  city: {{ profile.city|default('')|tojson }},
+  state: {{ profile.state|default('')|tojson }},
+  zip_code: {{ profile.zip_code|default('')|tojson }}
+};
+{% endfor %}
+
+function editProfile(id) {
+  var p = profileData[id];
+  if (!p) return;
+  document.getElementById('edit-first-name').value = p.first_name;
+  document.getElementById('edit-last-name').value = p.last_name;
+  document.getElementById('edit-email').value = p.email;
+  document.getElementById('edit-phone').value = p.phone;
+  document.getElementById('edit-dob').value = p.date_of_birth;
+  document.getElementById('edit-state').value = p.state;
+  document.getElementById('edit-city').value = p.city;
+  document.getElementById('edit-zip').value = p.zip_code;
+
+  // Parse aliases
+  try {
+    var aliases = JSON.parse(p.aliases);
+    document.getElementById('edit-aliases').value = Array.isArray(aliases) ? aliases.join(', ') : p.aliases;
+  } catch(e) {
+    document.getElementById('edit-aliases').value = p.aliases;
+  }
+
+  // Parse addresses
+  try {
+    var addrs = JSON.parse(p.addresses);
+    document.getElementById('edit-addresses').value = Array.isArray(addrs) ? addrs.join('\n') : p.addresses;
+  } catch(e) {
+    document.getElementById('edit-addresses').value = p.addresses;
+  }
+
+  document.getElementById('edit-profile-form').action = '/profiles/edit/' + id;
+  document.getElementById('delete-profile-form').action = '/profiles/delete/' + id;
+  Modal.open('edit-profile-modal');
+}
+
 initWalkthrough('profiles', [
   {
     target: '.btn-primary[onclick*="add-profile-modal"]',
