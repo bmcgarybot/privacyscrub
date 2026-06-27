@@ -1276,8 +1276,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize score gauge if present
   const gauge = document.getElementById('score-gauge');
   if (gauge) {
-    const score = parseInt(gauge.dataset.score || '72');
-    ScoreGauge.animate('score-gauge', score);
+    const score = parseInt(gauge.dataset.score || '0');
+    if (score < 0) {
+      // No scan run yet — show dash instead of misleading number
+      const valueEl = gauge.querySelector('.gauge-value');
+      if (valueEl) valueEl.textContent = '—';
+    } else {
+      ScoreGauge.animate('score-gauge', score);
+    }
   }
 
   // Initialize charts if on dashboard

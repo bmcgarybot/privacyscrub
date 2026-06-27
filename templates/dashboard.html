@@ -37,7 +37,7 @@
 <div class="grid-2 mb-3">
   <div class="card">
     <div class="score-gauge-container">
-      <div class="score-gauge" id="score-gauge" data-score="{{ privacy_score|default(0) }}">
+      <div class="score-gauge" id="score-gauge" data-score="{{ privacy_score|default(0) if has_scans else -1 }}">
         <svg viewBox="0 0 220 220">
           <circle class="gauge-bg" cx="110" cy="110" r="100" />
           <circle class="gauge-fill" cx="110" cy="110" r="100" />

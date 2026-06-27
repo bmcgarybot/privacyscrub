@@ -200,12 +200,14 @@ def _register_routes(app: Flask) -> None:
                 removed_count = optout_summary.get("confirmed", 0) if optout_summary else 0
                 pending_count = optout_summary.get("pending", 0) if optout_summary else 0
 
+        has_scans = bool(scan_results)
+
         return render_template(
             "dashboard.html",
             profiles=profiles,
             profile=profile,
-            privacy_score=score_data.get("score", 0) if score_data else 0,
-            brokers_checked=broker_count if scan_results else 0,
+            privacy_score=score_data.get("score", 0) if (score_data and has_scans) else -1,
+            brokers_checked=broker_count if has_scans else 0,
             exposures_found=found_count,
             removed_count=removed_count,
             pending_count=pending_count,
