@@ -805,54 +805,13 @@ const Sidebar = {
 // Scan Actions
 // ==========================================
 async function startScan(profileId) {
-  const btn = document.getElementById('start-scan-btn');
-  if (btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Starting scan...';
+  // Navigate to scanner page to trigger a real scan
+  // The scan runs server-side via /scanner/start
+  if (profileId) {
+    window.location.href = '/scanner?profile_id=' + profileId + '&auto_start=1';
+  } else {
+    window.location.href = '/scanner?auto_start=1';
   }
-
-  try {
-    const data = await API.post('/api/scan/start', { profile_id: profileId || 'all' });
-    Toast.info('Scan Started', 'Scanning data brokers for your information...');
-    ScanProgress.start(data.scan_id);
-  } catch (err) {
-    // Simulate scan for demo
-    Toast.info('Scan Started', 'Scanning 800+ data brokers...');
-    simulateScanProgress();
-  }
-}
-
-function simulateScanProgress() {
-  const progressBar = document.getElementById('scan-progress-fill');
-  const statusText = document.getElementById('scan-status-text');
-  const container = document.getElementById('scan-progress-container');
-
-  if (container) container.style.display = 'block';
-
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.random() * 8 + 2;
-    if (progress > 100) progress = 100;
-
-    if (progressBar) {
-      progressBar.style.width = `${progress}%`;
-      progressBar.classList.add('animated');
-    }
-    if (statusText) {
-      statusText.textContent = `Scanning... ${Math.round(progress)}% (${Math.round(progress * 8)} brokers checked)`;
-    }
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      if (statusText) statusText.textContent = 'Scan complete! Found 47 exposures across 812 brokers.';
-      Toast.success('Scan Complete', 'Found 47 exposures across 812 brokers');
-      const startBtn = document.getElementById('start-scan-btn');
-      if (startBtn) {
-        startBtn.disabled = false;
-        startBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Run New Scan';
-      }
-    }
-  }, 500);
 }
 
 // ==========================================

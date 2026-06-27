@@ -70,7 +70,7 @@
       <h3><i class="fa-solid fa-bolt text-accent"></i> Quick Actions</h3>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px;">
-      <a href="/scanner" class="action-card" onclick="startScan(); return false;">
+      <a href="/scanner{% if profile %}?profile_id={{ profile.id }}{% endif %}" class="action-card" onclick="startScan({{ profile.id if profile else 'null' }}); return false;">
         <div class="action-icon" style="background:rgba(0,212,170,0.15); color:#00d4aa;">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
