@@ -1207,3 +1207,80 @@ def api_data_import():
     log_activity(None, None, "data_imported", "system",
                  f"Backup imported: {counts['profiles']} profile(s)")
     return _success({"imported": counts})
+
+
+# ---------------------------------------------------------------------------
+# Webhooks — register, list, delete, test
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/webhooks", methods=["POST"])
+@require_api_key
+def api_webhooks_register():
+    """
+    Register a webhook.
+
+    JSON body:
+        {
+            "url": "https://your-server.com/webhook",   (required, http/https)
+            "events": ["scan.complete", ...],           (required, non-empty)
+            "active": true                              (optional, default true)
+        }
+
+    Deliveries are signed with X-PrivacyScrub-Signature when a
+    webhook_secret is configured in settings.
+    """
+    from webhooks import KNOWN_EVENTS
+    from models import add_webhook, get_webhook
+
+    data = request.get_json(silent=True) or {}
+    url = (data.get("url") or "").strip()
+    events = data.get("events") or []
+
+    if not url.startswith(("http://", "https://")):
+        return _error("url is required and must start with http:// or https://")
+    if not isinstance(events, list) or not events:
+        return _error("events is required and must be a non-empty list")
+    unknown = sorted(set(events) - KNOWN_EVENTS)
+    if unknown:
+        return _error(
+            f"Unknown event(s): {', '.join(unknown)}. "
+            f"Valid events: {', '.join(sorted(KNOWN_EVENTS))}")
+
+    webhook_id = add_webhook(url, events, bool(data.get("active", True)))
+    log_activity(None, None, "webhook_registered", "system",
+                 f"Webhook #{webhook_id} registered for {', '.join(sorted(set(events)))}")
+    return _success({"webhook": get_webhook(webhook_id)}, 201)
+
+
+@api_bp.route("/webhooks", methods=["GET"])
+@require_api_key
+def api_webhooks_list():
+    """List registered webhooks with their delivery status."""
+    from models import get_webhooks
+    hooks = get_webhooks()
+    return _success({"webhooks": hooks, "count": len(hooks)})
+
+
+@api_bp.route("/webhooks/<int:webhook_id>", methods=["DELETE"])
+@require_api_key
+def api_webhooks_delete(webhook_id: int):
+    """Delete a registered webhook."""
+    from models import delete_webhook
+    if not delete_webhook(webhook_id):
+        return _error(f"Webhook {webhook_id} not found", 404)
+    log_activity(None, None, "webhook_deleted", "system",
+                 f"Webhook #{webhook_id} deleted")
+    return _success({"deleted": webhook_id})
+
+
+@api_bp.route("/webhooks/<int:webhook_id>/test", methods=["POST"])
+@require_api_key
+def api_webhooks_test(webhook_id: int):
+    """Send a synchronous test delivery to one webhook and report the result."""
+    from models import get_webhook
+    from webhooks import send_test
+
+    hook = get_webhook(webhook_id)
+    if not hook:
+        return _error(f"Webhook {webhook_id} not found", 404)
+    return _success({"test": send_test(hook)})

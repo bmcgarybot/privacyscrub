@@ -204,6 +204,13 @@ class OptOutManager:
                 f"Opt-out #{optout_id} → {status}" + (f": {notes}" if notes else ""),
                 {"optout_id": optout_id, "status": status},
             )
+            if status == "confirmed":
+                try:
+                    from webhooks import dispatch
+                    dispatch("optout.confirmed",
+                             {"optout_id": optout_id, "status": status})
+                except Exception as e:
+                    logger.error("Webhook dispatch error: %s", e)
 
         return success
 
@@ -890,6 +897,17 @@ def auto_submit_single_optout(optout_id: int) -> dict:
             f"Auto-submitted opt-out for {broker.get('name', optout['broker_id'])}",
             {"optout_id": optout_id, "broker_id": optout["broker_id"]},
         )
+        try:
+            from webhooks import dispatch
+            dispatch("optout.submitted", {
+                "optout_id": optout_id,
+                "profile_id": optout["profile_id"],
+                "broker_id": optout["broker_id"],
+                "broker_name": broker.get("name", optout["broker_id"]),
+                "draft": result.get("draft", False),
+            })
+        except Exception as e:
+            logger.error("Webhook dispatch error: %s", e)
 
     return {
         "success": result["success"],

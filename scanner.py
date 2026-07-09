@@ -630,6 +630,18 @@ class ScanEngine:
             # Fire webhook if configured
             self._fire_webhook(batch_id, profile, all_results)
 
+            # Dispatch to registered webhooks (/api/webhooks registry)
+            try:
+                from webhooks import dispatch
+                dispatch("scan.complete", {
+                    "scan_id": batch_id,
+                    "profile_id": profile_id,
+                    "total_scanned": len(all_results),
+                    "found": found_count,
+                })
+            except Exception as e:
+                logger.error("Webhook dispatch error: %s", e)
+
         except Exception as e:
             logger.exception("Scan batch %s failed: %s", batch_id, e)
             scan_state.finish(batch_id, "failed")

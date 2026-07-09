@@ -160,6 +160,16 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("created_at", "TEXT DEFAULT (datetime('now'))"),
         ("updated_at", "TEXT DEFAULT (datetime('now'))"),
     ],
+    "webhooks": [
+        ("id", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+        ("url", "TEXT NOT NULL"),
+        ("events", "TEXT DEFAULT '[]'"),                   # JSON array of subscribed events
+        ("active", "INTEGER DEFAULT 1"),
+        ("last_status", "TEXT DEFAULT ''"),                # ok | error: <detail>
+        ("last_fired_at", "TEXT DEFAULT ''"),
+        ("failure_count", "INTEGER DEFAULT 0"),
+        ("created_at", "TEXT DEFAULT (datetime('now'))"),
+    ],
 }
 
 # ---------------------------------------------------------------------------
@@ -777,3 +787,75 @@ def get_custom_removals(profile_id: int) -> list[dict]:
             (profile_id,),
         ).fetchall()
         return [dict(r) for r in rows]
+
+# ---------------------------------------------------------------------------
+# Webhooks
+# ---------------------------------------------------------------------------
+
+def add_webhook(url: str, events: list[str], active: bool = True) -> int:
+    """Register a webhook. Returns the new webhook id."""
+    with db_session() as conn:
+        cursor = conn.execute(
+            "INSERT INTO webhooks (url, events, active) VALUES (?, ?, ?)",
+            (url, json.dumps(sorted(set(events))), 1 if active else 0),
+        )
+        return cursor.lastrowid
+
+
+def get_webhooks(active_only: bool = False) -> list[dict]:
+    """List registered webhooks, events decoded to lists."""
+    query = "SELECT * FROM webhooks"
+    if active_only:
+        query += " WHERE active = 1"
+    with db_session() as conn:
+        rows = conn.execute(query + " ORDER BY id").fetchall()
+    hooks = []
+    for row in rows:
+        hook = dict(row)
+        try:
+            hook["events"] = json.loads(hook.get("events") or "[]")
+        except (TypeError, json.JSONDecodeError):
+            hook["events"] = []
+        hooks.append(hook)
+    return hooks
+
+
+def get_webhook(webhook_id: int) -> Optional[dict]:
+    """Fetch one webhook by id, or None."""
+    with db_session() as conn:
+        row = conn.execute(
+            "SELECT * FROM webhooks WHERE id = ?", (webhook_id,)
+        ).fetchone()
+    if not row:
+        return None
+    hook = dict(row)
+    try:
+        hook["events"] = json.loads(hook.get("events") or "[]")
+    except (TypeError, json.JSONDecodeError):
+        hook["events"] = []
+    return hook
+
+
+def delete_webhook(webhook_id: int) -> bool:
+    """Delete a webhook. Returns True if a row was removed."""
+    with db_session() as conn:
+        cursor = conn.execute("DELETE FROM webhooks WHERE id = ?", (webhook_id,))
+        return cursor.rowcount > 0
+
+
+def record_webhook_result(webhook_id: int, ok: bool, detail: str = "") -> None:
+    """Record the outcome of a delivery attempt on the webhook row."""
+    status = "ok" if ok else f"error: {detail}"[:200]
+    with db_session() as conn:
+        if ok:
+            conn.execute(
+                "UPDATE webhooks SET last_status = ?, last_fired_at = datetime('now'), "
+                "failure_count = 0 WHERE id = ?",
+                (status, webhook_id),
+            )
+        else:
+            conn.execute(
+                "UPDATE webhooks SET last_status = ?, last_fired_at = datetime('now'), "
+                "failure_count = failure_count + 1 WHERE id = ?",
+                (status, webhook_id),
+            )

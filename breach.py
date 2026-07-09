@@ -444,6 +444,21 @@ def scan_profile_breaches(profile_id: int) -> dict:
         f"({results['new_breaches']} new) across {len(emails_to_check)} email(s)",
     )
 
+    if results["new_breaches"] > 0:
+        try:
+            from webhooks import dispatch
+            dispatch("breach.found", {
+                "profile_id": profile_id,
+                "total_breaches": results["total_breaches"],
+                "new_breaches": results["new_breaches"],
+                "breach_names": [
+                    b.get("name", "") for b in results["breaches"]
+                    if b.get("is_new")
+                ][:20],
+            })
+        except Exception as e:
+            logger.error("Webhook dispatch error: %s", e)
+
     return results
 
 

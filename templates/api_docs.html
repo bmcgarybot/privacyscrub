@@ -306,7 +306,7 @@ console.log(`Privacy Score: ${data.score}/100`);</code></pre>
 </div>
 
 <h2 class="mb-2 mt-3" style="font-size:1.1rem; font-weight:600;">Webhooks</h2>
-<p class="text-muted mb-2" style="font-size:0.85rem;"><i class="fa-solid fa-flask"></i> <strong>Planned — not yet implemented.</strong> The endpoint below documents the intended design and is not currently available.</p>
+<p class="text-muted mb-2" style="font-size:0.85rem;">Also available: <code>GET /api/webhooks</code> (list with delivery status), <code>DELETE /api/webhooks/{id}</code>, and <code>POST /api/webhooks/{id}/test</code> (synchronous test delivery). Events: <code>scan.complete</code>, <code>optout.submitted</code>, <code>optout.confirmed</code>, <code>breach.found</code>. If a <code>webhook_secret</code> is set in Settings, deliveries include an <code>X-PrivacyScrub-Signature</code> header (SHA-256 of the sorted-key JSON body + secret).</p>
 
 <div class="endpoint-card">
   <div class="endpoint-header" onclick="toggleEndpoint('endpoint-webhook')">
