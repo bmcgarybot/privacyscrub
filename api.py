@@ -27,7 +27,7 @@ from models import (
     get_scan_results, get_latest_scan_results,
     get_breaches, get_optouts, get_all_settings,
     get_family_members, get_custom_removals, get_activity_log,
-    log_activity, init_db, DB_PATH,
+    log_activity,
 )
 from email_sender import (
     send_batch, get_email_summary, get_email_requests,
@@ -1061,9 +1061,11 @@ def api_data_delete_all():
     if data.get("confirm") != "DELETE":
         return _error('Confirmation required: send {"confirm": "DELETE"}', 400)
 
-    if os.path.exists(DB_PATH):
-        os.remove(DB_PATH)
-    init_db()
+    # Late-bind the path so a reconfigured/patched DB location is honored.
+    import models
+    if os.path.exists(models.DB_PATH):
+        os.remove(models.DB_PATH)
+    models.init_db()
 
     logger.warning("All application data deleted via API")
     return _success({"deleted": True, "message": "All data deleted. Database reset."})
