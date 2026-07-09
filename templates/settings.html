@@ -76,8 +76,8 @@
     <div class="card">
         <h3><i class="fas fa-database"></i> Data Management</h3>
         <div class="btn-group-vertical">
-            <a href="/settings/export" class="btn"><i class="fas fa-download"></i> Export All Data (JSON)</a>
-            <a href="/settings/export?format=csv" class="btn"><i class="fas fa-file-csv"></i> Export as CSV</a>
+            <a href="/api/data/export" class="btn"><i class="fas fa-download"></i> Export All Data (JSON)</a>
+            <a href="/reports" class="btn"><i class="fas fa-file-csv"></i> CSV Exports (per profile, on Reports page)</a>
             <button class="btn btn-warning" onclick="if(confirm('Import will merge with existing data. Continue?'))document.getElementById('import-file').click()">
                 <i class="fas fa-upload"></i> Import Data
             </button>
@@ -85,7 +85,7 @@
             <button class="btn" onclick="Walkthrough.resetAll(); alert('Tour reset! Refresh any page to see the walkthrough again.');">
                 <i class="fas fa-route"></i> Reset Guided Tour
             </button>
-            <button class="btn btn-danger" onclick="if(confirm('⚠️ This will DELETE all scan results, opt-out tracking, and profiles. This cannot be undone. Are you sure?'))window.location='/settings/reset'">
+            <button class="btn btn-danger" onclick="deleteAllData()">
                 <i class="fas fa-trash"></i> Reset Database
             </button>
         </div>

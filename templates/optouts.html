@@ -265,7 +265,7 @@
             <td>
               {% if item.status == 'pending' %}
               <div style="display:flex; gap:4px;">
-                <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-paper-plane"></i></button>
+                <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ item.broker_id }}', {{ profile.id if profile else 'null' }})"><i class="fa-solid fa-paper-plane"></i></button>
                 {% if item.auto_removable|default(false) %}
                 <form method="POST" action="/optouts/auto-submit-single/{{ item.id }}" style="display:inline;">
                   <input type="hidden" name="profile_id" value="{{ profile.id }}">
@@ -274,7 +274,7 @@
                 {% endif %}
               </div>
               {% elif item.status == 'reappeared' %}
-              <button class="btn btn-danger btn-sm" onclick="submitOptOut('{{ item.broker_id }}')"><i class="fa-solid fa-redo"></i></button>
+              <button class="btn btn-danger btn-sm" onclick="submitOptOut('{{ item.broker_id }}', {{ profile.id if profile else 'null' }})"><i class="fa-solid fa-redo"></i></button>
               {% else %}
               <button class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></button>
               {% endif %}

@@ -573,12 +573,12 @@ const ScanProgress = {
           startBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Run New Scan';
         }
 
-        if (data.results_url) {
-          setTimeout(() => location.reload(), 2000);
-        }
+        // Reload so the freshly saved results render in the table
+        setTimeout(() => location.reload(), 2000);
       }
     } catch (err) {
       this.stop();
+      Toast.error('Scan Status Lost', 'Could not reach the scan status endpoint. Reload the page to see results.');
     }
   },
 
@@ -710,10 +710,9 @@ const DisplacementMode = {
       this.updateUI(true);
       Toast.warning('Lockdown Activated', 'Emergency privacy lockdown is now active');
     } catch (err) {
-      // Simulate for demo
-      this.isActive = true;
-      this.updateUI(true);
-      Toast.warning('Lockdown Activated', 'Emergency privacy lockdown is now active');
+      // NEVER simulate success here. Someone in danger must not be told
+      // lockdown is active when it is not.
+      Toast.error('Lockdown Failed', err.message || 'Could not activate lockdown — please retry');
     }
   },
 
@@ -724,9 +723,7 @@ const DisplacementMode = {
       this.updateUI(false);
       Toast.success('Lockdown Deactivated', 'Emergency mode has been deactivated');
     } catch (err) {
-      this.isActive = false;
-      this.updateUI(false);
-      Toast.success('Lockdown Deactivated', 'Emergency mode has been deactivated');
+      Toast.error('Deactivation Failed', err.message || 'Could not deactivate lockdown — please retry');
     }
   },
 
@@ -805,35 +802,110 @@ const Sidebar = {
 // Scan Actions
 // ==========================================
 async function startScan(profileId) {
-  // Navigate to scanner page to trigger a real scan
-  // The scan runs server-side via /scanner/start
-  if (profileId) {
-    window.location.href = '/scanner?profile_id=' + profileId + '&auto_start=1';
-  } else {
-    window.location.href = '/scanner?auto_start=1';
+  // On the scanner page (progress UI present): start the scan via the API
+  // and poll live progress. Elsewhere: navigate to the scanner page, which
+  // auto-starts the scan on arrival.
+  const onScannerPage = !!document.getElementById('scan-progress-container');
+
+  if (!onScannerPage) {
+    window.location.href = profileId
+      ? '/scanner?profile_id=' + profileId + '&auto_start=1'
+      : '/scanner?auto_start=1';
+    return;
+  }
+
+  if (!profileId) {
+    Toast.warning('Profile Required', 'Select a profile to scan');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ profile_id: parseInt(profileId, 10) })
+    });
+    const data = await res.json();
+
+    if (res.status === 409 && data.batch_id) {
+      // A scan is already running — resume watching it.
+      Toast.info('Scan In Progress', 'Resuming live progress for the running scan');
+      ScanProgress.start(data.batch_id);
+      return;
+    }
+    if (!res.ok) {
+      throw new Error(data.error || data.message || `Request failed (${res.status})`);
+    }
+
+    Toast.success('Scan Started', 'Checking brokers — results appear live below');
+    ScanProgress.start(data.batch_id);
+  } catch (err) {
+    Toast.error('Scan Failed', err.message);
   }
 }
+
+// Auto-start / resume scans on the scanner page
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('scan-progress-container');
+  if (!container) return;
+
+  // Resume a scan that's already running server-side (e.g. after reload)
+  if (container.dataset.activeBatch && container.dataset.activeStatus === 'running') {
+    ScanProgress.start(container.dataset.activeBatch);
+    return;
+  }
+
+  // Honor ?auto_start=1 from dashboard "Run Scan" buttons
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('auto_start') === '1') {
+    const select = document.getElementById('scan-profile-select');
+    const profileId = params.get('profile_id') || (select ? select.value : '');
+    if (profileId) startScan(profileId);
+  }
+});
 
 // ==========================================
 // Opt-Out Actions
 // ==========================================
-async function submitOptOut(brokerId) {
+async function submitOptOut(brokerId, profileId) {
+  if (!profileId) {
+    Toast.warning('Profile Required', 'Select a profile before submitting an opt-out');
+    return;
+  }
   try {
-    const data = await API.post(`/api/optout/${brokerId}/submit`);
-    Toast.success('Opt-Out Submitted', `Removal request sent to ${data.broker_name || 'broker'}`);
-    setTimeout(() => location.reload(), 1500);
+    const data = await API.post(`/api/optout/${brokerId}/submit`, { profile_id: profileId });
+    if (data.submitted) {
+      const suffix = data.draft ? ' (saved as draft — SMTP not configured)' : '';
+      Toast.success('Opt-Out Submitted', `Removal request sent to ${data.broker_name || 'broker'}${suffix}`);
+      setTimeout(() => location.reload(), 1500);
+    } else if (data.manual_required) {
+      Toast.warning('Manual Opt-Out Required',
+        `${data.broker_name || 'This broker'} has no automated path. Opening their opt-out page…`);
+      if (data.opt_out_url) {
+        setTimeout(() => window.open(data.opt_out_url, '_blank'), 800);
+      }
+      setTimeout(() => location.reload(), 2500);
+    } else {
+      Toast.error('Opt-Out Failed', data.message || 'Submission did not complete');
+    }
   } catch (err) {
-    Toast.success('Opt-Out Submitted', 'Removal request has been submitted');
+    // Error toast already shown by API helper — do not fake success.
   }
 }
 
-async function batchOptOut(brokerIds) {
+async function batchOptOut(optoutIds) {
   try {
-    const data = await API.post('/api/optout/batch', { broker_ids: brokerIds });
-    Toast.success('Batch Opt-Out', `${data.count || brokerIds.length} removal requests submitted`);
-    setTimeout(() => location.reload(), 1500);
+    const data = await API.post('/api/optout/batch', { optout_ids: optoutIds });
+    const parts = [`${data.submitted || 0} submitted`];
+    if (data.drafts) parts.push(`${data.drafts} as drafts`);
+    if (data.manual_required) parts.push(`${data.manual_required} need manual action`);
+    if (data.failed) parts.push(`${data.failed} failed`);
+    const toast = (data.failed && !data.submitted) ? Toast.error : Toast.success;
+    toast.call(Toast, 'Batch Opt-Out', parts.join(', '));
+    setTimeout(() => location.reload(), 2000);
   } catch (err) {
-    Toast.success('Batch Opt-Out', `${brokerIds.length} removal requests submitted`);
+    // Error toast already shown by API helper — do not fake success.
   }
 }
 
@@ -966,13 +1038,15 @@ async function checkBreaches(email) {
       renderBreachResults(results, data.breaches || []);
     }
   } catch (err) {
-    // Demo data
+    // Never show fabricated breach data. Surface the real reason instead
+    // (most commonly: no HIBP API key configured in Settings).
     if (results) {
-      renderBreachResults(results, [
-        { name: 'LinkedIn', date: '2021-06-22', records: '700M', severity: 'high', data_types: ['Email', 'Name', 'Phone', 'Employment'] },
-        { name: 'Adobe', date: '2013-10-04', records: '153M', severity: 'critical', data_types: ['Email', 'Password', 'Username'] },
-        { name: 'Dropbox', date: '2016-08-31', records: '68M', severity: 'medium', data_types: ['Email', 'Password'] }
-      ]);
+      results.innerHTML = `
+        <div class="empty-state">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h3>Breach Check Unavailable</h3>
+          <p>${err.message || 'The breach check could not be completed.'}</p>
+        </div>`;
     }
   } finally {
     if (btn) {
@@ -1059,21 +1133,30 @@ async function generateReport(type) {
   try {
     const formatSelect = document.getElementById('report-format');
     const format = formatSelect ? formatSelect.value : 'pdf';
+    const profileSelect = document.getElementById('report-profile');
+    const profileId = profileSelect ? parseInt(profileSelect.value, 10) : null;
+
+    if (!profileId) {
+      Toast.warning('Profile Required', 'Select a profile to generate a report for');
+      return;
+    }
 
     const data = await API.post('/api/reports/generate', {
       type: type,
       format: format,
+      profile_id: profileId,
       date_from: document.getElementById('report-date-from')?.value,
       date_to: document.getElementById('report-date-to')?.value
     });
 
-    Toast.success('Report Generated', 'Your report is ready for download');
-
     if (data.download_url) {
+      Toast.success('Report Ready', 'Your download is starting');
       window.location.href = data.download_url;
+    } else {
+      Toast.error('Report Failed', 'No download was produced');
     }
   } catch (err) {
-    Toast.success('Report Generated', 'Your report is ready for download');
+    // Error toast already shown by API helper — do not fake success.
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -1096,7 +1179,7 @@ async function saveSettings(section) {
     await API.post(`/api/settings/${section}`, data);
     Toast.success('Settings Saved', `${section.charAt(0).toUpperCase() + section.slice(1)} settings updated`);
   } catch (err) {
-    Toast.success('Settings Saved', 'Settings have been updated');
+    // Error toast already shown by API helper — do not fake success.
   }
 }
 
@@ -1104,31 +1187,61 @@ async function exportAllData() {
   Modal.confirm(
     'Export All Data',
     'This will export all your data including profiles, scan results, and opt-out history as a JSON file.',
-    async () => {
-      try {
-        window.location.href = '/api/data/export';
-        Toast.info('Export Started', 'Your data export will download shortly');
-      } catch (err) {
-        Toast.error('Export Failed', err.message);
-      }
+    () => {
+      window.location.href = '/api/data/export';
+      Toast.info('Export Started', 'Your data export will download shortly');
     }
   );
 }
 
+async function importData(input) {
+  const file = input.files && input.files[0];
+  input.value = ''; // allow re-selecting the same file later
+  if (!file) return;
+
+  let backup;
+  try {
+    backup = JSON.parse(await file.text());
+  } catch (err) {
+    Toast.error('Import Failed', 'That file is not valid JSON');
+    return;
+  }
+  if (!backup || !Array.isArray(backup.profiles)) {
+    Toast.error('Import Failed', 'Not a PrivacyScrub backup (missing profiles list)');
+    return;
+  }
+
+  try {
+    const data = await API.post('/api/data/import', backup);
+    const c = data.imported || {};
+    Toast.success('Import Complete',
+      `${c.profiles || 0} profile(s), ${c.scan_results || 0} scan results, ` +
+      `${c.optouts || 0} opt-outs, ${c.breaches || 0} breaches imported` +
+      (c.skipped ? ` (${c.skipped} skipped)` : ''));
+    setTimeout(() => location.reload(), 2000);
+  } catch (err) {
+    // Error toast already shown by API helper.
+  }
+}
+
 async function deleteAllData() {
-  Modal.confirm(
-    '⚠️ Delete All Data',
-    'This will permanently delete ALL your data including profiles, scan history, and opt-out records. This action cannot be undone.',
-    async () => {
-      try {
-        await API.delete('/api/data/all');
-        Toast.success('Data Deleted', 'All data has been permanently removed');
-        setTimeout(() => location.href = '/', 2000);
-      } catch (err) {
-        Toast.error('Deletion Failed', err.message);
-      }
-    }
+  // Typed confirmation — matches the safety bar of the settings form flow.
+  const typed = prompt(
+    '⚠️ This permanently deletes ALL profiles, scan history, and opt-out records.\n\n' +
+    'Type DELETE (in capitals) to confirm:'
   );
+  if (typed === null) return; // cancelled
+  if (typed !== 'DELETE') {
+    Toast.warning('Not Deleted', 'Confirmation text did not match — nothing was removed');
+    return;
+  }
+  try {
+    await API.request('/api/data/all', { method: 'DELETE', body: { confirm: 'DELETE' } });
+    Toast.success('Data Deleted', 'All data has been permanently removed');
+    setTimeout(() => location.href = '/', 2000);
+  } catch (err) {
+    // Error toast already shown by API helper.
+  }
 }
 
 // ==========================================

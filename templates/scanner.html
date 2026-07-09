@@ -23,7 +23,9 @@
 </div>
 
 <!-- Scan Progress -->
-<div class="card mb-3" id="scan-progress-container" style="display:none;">
+<div class="card mb-3" id="scan-progress-container" style="display:none;"
+     data-active-batch="{{ active_scan.batch_id if active_scan else '' }}"
+     data-active-status="{{ active_scan.status if active_scan else '' }}">
   <div class="card-header">
     <h3><span class="spinner"></span> Scan in Progress</h3>
     <span id="scan-status-text" class="text-muted">Initializing...</span>
@@ -128,7 +130,7 @@
           <td>
             <div class="btn-group">
               {% if result.status == 'found' %}
-              <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ result.broker_id }}')">
+              <button class="btn btn-primary btn-sm" onclick="submitOptOut('{{ result.broker_id }}', {{ profile.id if profile else 'null' }})">
                 <i class="fa-solid fa-paper-plane"></i> Opt-Out
               </button>
               {% endif %}
