@@ -121,7 +121,7 @@ class OptOutManager:
             "broker_id": broker_id,
             "broker_name": broker.get("name", broker_id),
             "status": "pending",
-            "opt_out_method": broker.get("opt_out_method", "email"),
+            "opt_out_method": broker.get("opt_out_method", broker.get("method", "email")),
             "expected_completion": expected,
             "notes": f"Listing URL: {listing_url}" if listing_url else "",
         }
@@ -272,17 +272,20 @@ class OptOutManager:
                 "notes": "Broker not in database — submit a manual removal request.",
             }
 
-        method = broker.get("opt_out_method", "email")
+        method = broker.get("opt_out_method", broker.get("method", "email"))
+        time_min = broker.get("estimated_time_minutes", broker.get("time_min", "?"))
+        steps = broker.get("step_by_step") or broker.get("steps") or ""
         return {
             "broker_name": broker.get("name", broker_id),
             "method": method,
             "method_description": METHODS.get(method, method),
             "opt_out_url": broker.get("opt_out_url", ""),
             "difficulty": broker.get("difficulty", "unknown"),
-            "estimated_time": f"{broker.get('estimated_time_minutes', '?')} minutes",
+            "estimated_time": f"{time_min} minutes",
             "processing_days": broker.get("processing_days", 30),
-            "verification_type": broker.get("verification_type", "none"),
-            "step_by_step": broker.get("step_by_step", "No step-by-step instructions available."),
+            "verification_type": broker.get("verification_type",
+                                            broker.get("verification", "none")),
+            "step_by_step": steps or "No step-by-step instructions available.",
             "notes": broker.get("notes", ""),
         }
 
