@@ -105,6 +105,20 @@
     </div>
 
     <div class="card">
+        <h3><i class="fas fa-bell"></i> Webhooks</h3>
+        <p>Get notified on your own server when scans finish, opt-outs are submitted or confirmed, listings reappear, or new breaches are found. Deliveries are signed with <code>X-PrivacyScrub-Signature</code> when a webhook secret is configured.</p>
+        <div id="webhook-list"><p class="text-muted" style="font-size:0.85rem;">Loading…</p></div>
+        <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border-color);">
+            <input type="url" id="webhook-new-url" placeholder="https://your-server.com/hooks/privacyscrub"
+                   style="width:100%; margin-bottom:8px;" class="form-control">
+            <div id="webhook-event-choices" style="margin-bottom:10px;"></div>
+            <button class="btn btn-primary" onclick="addWebhook()">
+                <i class="fas fa-plus"></i> Add Webhook
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
         <h3><i class="fas fa-info-circle"></i> About PrivacyScrub</h3>
         <table class="info-table">
             <tr><td>Version</td><td><strong>1.0.0</strong></td></tr>

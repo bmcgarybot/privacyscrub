@@ -27,6 +27,28 @@
   </div>
 </div>
 
+<!-- Reappearance Monitor -->
+{% if reappearance_due %}
+<div class="card mb-2" style="padding:20px; border-left: 4px solid var(--warning, #f0ad4e);">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div>
+      <h3 style="margin-bottom:6px;"><i class="fa-solid fa-rotate-left text-warning"></i> Reappearance Check Due</h3>
+      <p class="text-muted" style="margin:0; font-size:0.9rem;">
+        {{ reappearance_due|length }} confirmed removal{{ 's' if reappearance_due|length != 1 }}
+        {{ 'have' if reappearance_due|length != 1 else 'has' }} passed the broker's typical re-listing window
+        ({{ reappearance_due[:3]|map(attribute='broker_name')|join(', ') }}{% if reappearance_due|length > 3 %} +{{ reappearance_due|length - 3 }} more{% endif %}).
+        Recheck to verify your data hasn't been re-listed.
+      </p>
+    </div>
+    <button class="btn btn-warning" id="recheck-due-btn"
+            onclick="recheckReappearances({{ profile.id }})">
+      <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
+      Recheck {{ reappearance_due|length }} Broker{{ 's' if reappearance_due|length != 1 }}
+    </button>
+  </div>
+</div>
+{% endif %}
+
 <!-- Progress Tracking -->
 {% if summary and summary.total|default(0) > 0 %}
 <div class="card mb-2" style="padding:20px;">

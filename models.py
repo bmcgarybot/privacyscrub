@@ -177,6 +177,8 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
 # ---------------------------------------------------------------------------
 
 DEFAULT_SETTINGS: list[dict[str, str]] = [
+    {"key": "reappearance_auto_check", "value": "1", "category": "scan",
+     "description": "Automatically recheck confirmed opt-outs when their reappearance window elapses"},
     {"key": "scan_frequency", "value": "quarterly", "category": "scan",
      "description": "How often to auto-scan brokers (daily/weekly/monthly/quarterly)"},
     {"key": "scan_concurrency", "value": "3", "category": "scan",

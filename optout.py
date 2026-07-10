@@ -204,11 +204,12 @@ class OptOutManager:
                 f"Opt-out #{optout_id} → {status}" + (f": {notes}" if notes else ""),
                 {"optout_id": optout_id, "status": status},
             )
-            if status == "confirmed":
+            if status in ("confirmed", "reappeared"):
                 try:
                     from webhooks import dispatch
-                    dispatch("optout.confirmed",
-                             {"optout_id": optout_id, "status": status})
+                    dispatch(f"optout.{status}",
+                             {"optout_id": optout_id, "status": status,
+                              "notes": notes})
                 except Exception as e:
                     logger.error("Webhook dispatch error: %s", e)
 

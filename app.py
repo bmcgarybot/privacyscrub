@@ -108,6 +108,10 @@ def create_app() -> Flask:
     # Start the recurring breach check scheduler (weekly, background thread)
     schedule_breach_checks()
 
+    # Start the reappearance monitor (daily, background thread)
+    from reappearance import schedule_reappearance_checks
+    schedule_reappearance_checks()
+
     # Register API blueprint
     app.register_blueprint(api_bp)
 
@@ -524,6 +528,15 @@ def _register_routes(app: Flask) -> None:
                 broker = broker_map.get(o.get("broker_id", ""))
                 o["auto_removable"] = broker.get("auto_removable", False) if broker else False
 
+        # Confirmed opt-outs whose reappearance window has elapsed
+        reappearance_due = []
+        if profile:
+            try:
+                from reappearance import get_due_optouts
+                reappearance_due = get_due_optouts(profile["id"])
+            except Exception:
+                app.logger.exception("Reappearance due lookup failed")
+
         return render_template(
             "optouts.html",
             profile=profile,
@@ -532,6 +545,7 @@ def _register_routes(app: Flask) -> None:
             status_filter=status_filter,
             auto_removable_count=auto_removable_count,
             auto_removable_pending=auto_removable_pending,
+            reappearance_due=reappearance_due,
         )
 
     @app.route("/optouts/create", methods=["POST"])

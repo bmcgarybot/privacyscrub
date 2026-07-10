@@ -1372,3 +1372,131 @@ document.addEventListener('DOMContentLoaded', () => {
     Charts.breachTimeline('breach-timeline-chart');
   }
 });
+
+// ============================================================================
+// Reappearance monitoring
+// ============================================================================
+
+async function recheckReappearances(profileId) {
+  const btn = document.getElementById('recheck-due-btn');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Rechecking…'; }
+  try {
+    const data = await API.post('/api/reappearance/recheck', { profile_id: profileId });
+    if (data.batch_id) {
+      Toast.success('Recheck Started',
+        `Scanning ${data.due} broker${data.due !== 1 ? 's' : ''} — reappeared listings will be flagged automatically`);
+      setTimeout(() => location.reload(), 4000);
+    } else {
+      Toast.info('Nothing Due', 'No confirmed removals have passed their reappearance window');
+      if (btn) { btn.disabled = false; btn.innerHTML = 'Recheck'; }
+    }
+  } catch (err) {
+    if (btn) { btn.disabled = false; btn.innerHTML = 'Recheck'; }
+  }
+}
+
+// ============================================================================
+// Webhook management (Settings page)
+// ============================================================================
+
+const WEBHOOK_EVENTS = [
+  ['scan.complete', 'Scan finished'],
+  ['optout.submitted', 'Opt-out submitted'],
+  ['optout.confirmed', 'Opt-out confirmed'],
+  ['optout.reappeared', 'Listing reappeared'],
+  ['breach.found', 'New breach found'],
+];
+
+async function loadWebhooks() {
+  const list = document.getElementById('webhook-list');
+  if (!list) return;
+  try {
+    const data = await API.get('/api/webhooks');
+    if (!data.webhooks.length) {
+      list.innerHTML = '<p class="text-muted" style="font-size:0.85rem; margin:8px 0;">No webhooks registered yet.</p>';
+      return;
+    }
+    list.innerHTML = data.webhooks.map(h => `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px solid var(--border-color); flex-wrap:wrap;">
+        <div style="min-width:0;">
+          <div style="font-family:monospace; font-size:0.85rem; overflow-wrap:anywhere;">${escapeHtml(h.url)}</div>
+          <div class="text-muted" style="font-size:0.75rem;">
+            ${h.events.map(e => `<span class="badge">${escapeHtml(e)}</span>`).join(' ')}
+            ${h.active ? '' : ' · <strong>inactive</strong>'}
+            ${h.last_status ? ` · last: ${escapeHtml(h.last_status)}` : ' · never fired'}
+            ${h.failure_count ? ` · ${h.failure_count} consecutive failure${h.failure_count !== 1 ? 's' : ''}` : ''}
+          </div>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-sm" onclick="testWebhook(${h.id})" title="Send test delivery"><i class="fa-solid fa-vial"></i></button>
+          <button class="btn btn-sm btn-danger" onclick="deleteWebhook(${h.id})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>`).join('');
+  } catch (err) {
+    list.innerHTML = '<p class="text-muted" style="font-size:0.85rem;">Could not load webhooks.</p>';
+  }
+}
+
+function escapeHtml(value) {
+  const div = document.createElement('div');
+  div.textContent = String(value ?? '');
+  return div.innerHTML;
+}
+
+async function addWebhook() {
+  const urlInput = document.getElementById('webhook-new-url');
+  const url = (urlInput?.value || '').trim();
+  const events = Array.from(
+    document.querySelectorAll('.webhook-event-cb:checked')).map(cb => cb.value);
+
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    Toast.warning('Invalid URL', 'Webhook URL must start with http:// or https://');
+    return;
+  }
+  if (!events.length) {
+    Toast.warning('No Events', 'Select at least one event to subscribe to');
+    return;
+  }
+  try {
+    await API.post('/api/webhooks', { url, events });
+    Toast.success('Webhook Added', 'Use the flask button to send a test delivery');
+    if (urlInput) urlInput.value = '';
+    document.querySelectorAll('.webhook-event-cb:checked').forEach(cb => cb.checked = false);
+    loadWebhooks();
+  } catch (err) { /* error toast shown by API helper */ }
+}
+
+async function testWebhook(id) {
+  try {
+    const data = await API.post(`/api/webhooks/${id}/test`);
+    if (data.test.delivered) {
+      Toast.success('Test Delivered', `Endpoint responded HTTP ${data.test.http_status}`);
+    } else {
+      Toast.error('Test Failed', data.test.error || `Endpoint responded HTTP ${data.test.http_status}`);
+    }
+    loadWebhooks();
+  } catch (err) { /* error toast shown by API helper */ }
+}
+
+async function deleteWebhook(id) {
+  if (!confirm('Delete this webhook? Deliveries to it will stop immediately.')) return;
+  try {
+    await API.request(`/api/webhooks/${id}`, { method: 'DELETE' });
+    Toast.success('Webhook Deleted', 'It will no longer receive events');
+    loadWebhooks();
+  } catch (err) { /* error toast shown by API helper */ }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('webhook-list')) {
+    // Render the event checkboxes from the canonical list, then load
+    const box = document.getElementById('webhook-event-choices');
+    if (box) {
+      box.innerHTML = WEBHOOK_EVENTS.map(([value, label]) => `
+        <label style="display:inline-flex; align-items:center; gap:5px; margin-right:14px; font-size:0.85rem;">
+          <input type="checkbox" class="webhook-event-cb" value="${value}"> ${label}
+        </label>`).join('');
+    }
+    loadWebhooks();
+  }
+});

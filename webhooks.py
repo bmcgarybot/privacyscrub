@@ -23,6 +23,7 @@ Events:
     scan.complete     — a broker scan finished
     optout.submitted  — an opt-out was auto-submitted (or drafted)
     optout.confirmed  — an opt-out was marked confirmed
+    optout.reappeared — a confirmed removal was found re-listed
     breach.found      — a breach scan found new breaches
 """
 
@@ -42,6 +43,7 @@ KNOWN_EVENTS = {
     "scan.complete",
     "optout.submitted",
     "optout.confirmed",
+    "optout.reappeared",
     "breach.found",
 }
 

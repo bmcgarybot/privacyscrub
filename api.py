@@ -1286,3 +1286,47 @@ def api_webhooks_test(webhook_id: int):
     if not hook:
         return _error(f"Webhook {webhook_id} not found", 404)
     return _success({"test": send_test(hook)})
+
+
+# ---------------------------------------------------------------------------
+# Reappearance monitoring
+# ---------------------------------------------------------------------------
+
+@api_bp.route("/reappearance/due", methods=["GET"])
+@require_api_key
+def api_reappearance_due():
+    """
+    List confirmed opt-outs whose reappearance window has elapsed.
+
+    Query params: profile_id (optional — omit for all profiles)
+    """
+    from reappearance import get_due_optouts
+    profile_id = request.args.get("profile_id", type=int)
+    due = get_due_optouts(profile_id)
+    return _success({"due": due, "count": len(due)})
+
+
+@api_bp.route("/reappearance/recheck", methods=["POST"])
+@require_api_key
+def api_reappearance_recheck():
+    """
+    Start a recheck scan covering a profile's due brokers.
+
+    JSON body: { "profile_id": int }
+
+    Brokers that list the person again are marked 'reappeared' (firing
+    the optout.reappeared webhook); clean brokers restart their window.
+    Returns the scan batch_id, or batch_id null when nothing is due.
+    """
+    from reappearance import recheck_profile
+
+    data = request.get_json(silent=True) or {}
+    profile_id = data.get("profile_id")
+    if not profile_id:
+        return _error("profile_id is required")
+    if not get_profile(profile_id):
+        return _error(f"Profile {profile_id} not found", 404)
+
+    result = recheck_profile(profile_id)
+    status = 202 if result["batch_id"] else 200
+    return _success(result, status)
