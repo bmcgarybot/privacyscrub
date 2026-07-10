@@ -35,7 +35,23 @@ def test_scan_unknown_profile_404(client):
     assert resp.status_code == 404
 
 
-def test_scan_start_returns_batch(client, profile_id):
+def test_scan_start_returns_batch(client, profile_id, monkeypatch):
+    import time
+    import scanner
+
+    def fake_scan(broker, first_name, last_name, city="", state="",
+                  phone="", profile_id=0, batch_id=""):
+        return {
+            "profile_id": profile_id, "broker_id": broker["id"],
+            "broker_name": broker.get("name", broker["id"]),
+            "broker_category": broker.get("category", ""), "found": 0,
+            "listing_url": "", "data_types_found": [],
+            "data_depth_score": 0.0, "scan_batch_id": batch_id,
+        }
+
+    # Never let tests probe real broker sites
+    monkeypatch.setattr(scanner, "_scan_single_broker", fake_scan)
+
     resp = client.post("/api/scan", json={
         "profile_id": profile_id, "broker_ids": ["whitepages"]})
     assert resp.status_code == 202
@@ -45,6 +61,16 @@ def test_scan_start_returns_batch(client, profile_id):
     status = client.get(f"/api/scan/{batch_id}/status").get_json()
     for field in ("progress", "brokers_checked", "found", "status", "status_text"):
         assert field in status, field
+
+    # Wait for the background scan to finish so its thread never
+    # outlives this test's database.
+    deadline = time.time() + 15
+    while time.time() < deadline:
+        status = client.get(f"/api/scan/{batch_id}/status").get_json()
+        if status["status"] in ("complete", "failed"):
+            break
+        time.sleep(0.1)
+    assert status["status"] == "complete"
 
 
 def test_scan_latest_requires_profile_param(client):
