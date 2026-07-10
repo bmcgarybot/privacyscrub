@@ -5,8 +5,11 @@ PrivacyScrub — Broker Database Validator
 Validates brokers.json against the schema the application code actually
 depends on. Run after any edit to the broker database:
 
-    python3 scripts/validate_brokers.py            # validate, exit 1 on errors
-    python3 scripts/validate_brokers.py --stats    # also print a data summary
+    python3 scripts/validate_brokers.py                  # validate, exit 1 on errors
+    python3 scripts/validate_brokers.py --stats          # also print a data summary
+    python3 scripts/validate_brokers.py --check-links    # probe all opt-out URLs
+    python3 scripts/validate_brokers.py --check-links --ids mylife,spokeo
+    python3 scripts/validate_brokers.py --check-links --limit 50 --workers 8
 
 Errors are problems that will break or mislead the app (missing required
 fields, duplicate ids, bad references, auto_removable brokers that can't
@@ -143,6 +146,16 @@ def main() -> int:
     parser.add_argument("--stats", action="store_true", help="print data summary")
     parser.add_argument("--path", default=str(BROKERS_PATH),
                         help="path to brokers.json")
+    parser.add_argument("--check-links", action="store_true",
+                        help="probe every opt_out_url over HTTP (network required)")
+    parser.add_argument("--workers", type=int, default=16,
+                        help="concurrent probes for --check-links (default 16)")
+    parser.add_argument("--timeout", type=float, default=15.0,
+                        help="per-request timeout seconds (default 15)")
+    parser.add_argument("--limit", type=int, default=None,
+                        help="only probe the first N brokers (for quick passes)")
+    parser.add_argument("--ids", default="",
+                        help="comma-separated broker ids to probe (e.g. mylife,spokeo)")
     args = parser.parse_args()
 
     try:
@@ -170,7 +183,134 @@ def main() -> int:
 
     print(f"\n{'❌' if errors else '✅'} {len(brokers)} brokers — "
           f"{len(errors)} error(s), {len(warnings)} warning(s)")
+
+    if args.check_links:
+        link_exit = run_link_check(brokers, args)
+        return 1 if errors else link_exit
+
     return 1 if errors else 0
+
+
+
+
+# ---------------------------------------------------------------------------
+# Link checking (--check-links)
+# ---------------------------------------------------------------------------
+#
+# Probes every broker's opt_out_url over HTTP and classifies the outcome.
+# Data-broker sites are hostile to automation, so classification is
+# deliberately conservative:
+#
+#   OK      2xx/3xx — the opt-out page answers
+#   DEAD    404/410 — the page is gone (this is what breaks users)
+#   BLOCKED 401/403/405/429/999 — bot wall; page is probably fine in a browser
+#   ERROR   5xx, timeouts, DNS/SSL failures — can't tell; retry later
+#
+# Only DEAD links fail the run (exit 1). BLOCKED/ERROR are reported for
+# human follow-up. Run from a residential connection for best signal —
+# data-center IPs get blocked far more often.
+
+CHECK_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/126.0.0.0 Safari/537.36")
+
+BLOCKED_CODES = {401, 403, 405, 406, 418, 429, 999}
+
+
+def _classify(status: int | None, error: str | None) -> str:
+    if error is not None:
+        return "ERROR"
+    if status in (404, 410):
+        return "DEAD"
+    if status in BLOCKED_CODES:
+        return "BLOCKED"
+    if status is not None and 200 <= status < 400:
+        return "OK"
+    return "ERROR"
+
+
+def _probe(session, url: str, timeout: float) -> tuple[int | None, str | None]:
+    """HEAD first (cheap), falling back to GET — many sites reject HEAD."""
+    try:
+        resp = session.head(url, timeout=timeout, allow_redirects=True)
+        if resp.status_code in (405, 501) or resp.status_code >= 400:
+            resp = session.get(url, timeout=timeout, allow_redirects=True,
+                               stream=True)
+            resp.close()
+        return resp.status_code, None
+    except Exception as e:
+        return None, f"{type(e).__name__}: {e}"
+
+
+def check_links(brokers: list[dict], workers: int = 16,
+                timeout: float = 15.0,
+                only_ids: set[str] | None = None,
+                limit: int | None = None) -> dict:
+    """Probe opt_out_urls concurrently. Returns classification buckets."""
+    import requests
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    targets = [b for b in brokers if b.get("opt_out_url")]
+    if only_ids:
+        targets = [b for b in targets if b["id"] in only_ids]
+    if limit:
+        targets = targets[:limit]
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": CHECK_UA,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    })
+
+    buckets: dict[str, list[dict]] = {
+        "OK": [], "DEAD": [], "BLOCKED": [], "ERROR": []}
+
+    def _work(broker):
+        status, error = _probe(session, broker["opt_out_url"], timeout)
+        return broker, status, error
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [pool.submit(_work, b) for b in targets]
+        done = 0
+        for future in as_completed(futures):
+            broker, status, error = future.result()
+            verdict = _classify(status, error)
+            buckets[verdict].append({
+                "id": broker["id"], "name": broker["name"],
+                "url": broker["opt_out_url"],
+                "status": status, "error": error,
+            })
+            done += 1
+            if done % 25 == 0 or done == len(targets):
+                print(f"   … {done}/{len(targets)} checked", flush=True)
+
+    return buckets
+
+
+def run_link_check(brokers: list[dict], args) -> int:
+    only_ids = set(args.ids.split(",")) if args.ids else None
+    print(f"🔗 Probing opt-out URLs "
+          f"({args.workers} workers, {args.timeout:.0f}s timeout)…")
+    buckets = check_links(brokers, workers=args.workers,
+                          timeout=args.timeout, only_ids=only_ids,
+                          limit=args.limit)
+
+    for verdict, icon in (("DEAD", "❌"), ("BLOCKED", "🧱"), ("ERROR", "⚠️ ")):
+        for item in sorted(buckets[verdict], key=lambda i: i["id"]):
+            detail = (f"HTTP {item['status']}" if item["status"] is not None
+                      else item["error"])
+            print(f"{icon} {verdict:<8} [{item['id']}] {item['url']} — {detail}")
+
+    total = sum(len(v) for v in buckets.values())
+    print(f"\n{'❌' if buckets['DEAD'] else '✅'} {total} links checked — "
+          f"{len(buckets['OK'])} ok, {len(buckets['DEAD'])} dead, "
+          f"{len(buckets['BLOCKED'])} blocked (probably fine in a browser), "
+          f"{len(buckets['ERROR'])} errors")
+    if buckets["BLOCKED"] or buckets["ERROR"]:
+        print("   Blocked/error links need a human check — "
+              "data-broker sites aggressively wall off automated clients.")
+    return 1 if buckets["DEAD"] else 0
 
 
 if __name__ == "__main__":
